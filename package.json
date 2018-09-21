@@ -68,6 +68,8 @@
     "webpack-merge": "^4.1.4"
   },
   "dependencies": {
+    "aws-sdk": "^2.320.0",
+    "lodash": "^4.17.11",
     "semantic-ui-css": "^2.4.0",
     "semantic-ui-react": "^0.82.5"
   }

@@ -1,18 +1,16 @@
 import React from 'react';
 import 'assets/scss/App.scss';
-import { BrowserRouter } from 'react-router-dom';
-import LoginLayout from './LoginLayout';
+import {HashRouter, Route} from 'react-router-dom';
+import RegisterLayout from './RegisterLayout';
 
 class App extends React.PureComponent {
-  render() {
-    return (
-      <BrowserRouter>
-        <div className="app">
-          <LoginLayout/>
-        </div>
-      </BrowserRouter>
-    );
-  }
+    render() {
+        return (
+            <HashRouter >
+                <Route exact path="/register" component={RegisterLayout} />
+            </HashRouter >
+        );
+    }
 }
 
 export default App;
