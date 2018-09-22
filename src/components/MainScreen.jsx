@@ -23,6 +23,26 @@ const Paragraph = () => (
 class MainScreen extends React.Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            windowWidth: 0,
+            windowHeight: 0
+        };
+
+        this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+    }
+
+    updateWindowDimensions() {
+        this.setState({ windowWidth: window.innerWidth, windowHeight: window.innerHeight });
+    }
+
+    componentDidMount() {
+        this.updateWindowDimensions();
+        window.addEventListener('resize', this.updateWindowDimensions);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.updateWindowDimensions);
     }
 
     render() {
@@ -54,11 +74,11 @@ class MainScreen extends React.Component {
                     </Container>
                 </Menu>
 
-                <Container className='feed-container' text>
+                <Container className='feed-container' fluid>
                     <Item.Group divided>
                         <Item>
                             <Audio
-                                width={650}
+                                width={this.state.windowWidth-50}
                                 height={200}
                                 autoPlay={false}
                                 playlist={[song1]}
