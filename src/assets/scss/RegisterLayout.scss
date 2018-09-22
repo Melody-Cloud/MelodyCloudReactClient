@@ -7,3 +7,20 @@ body > div > div > div.login-form {
 .ui.modal.transition.visible.active {
   height: auto;
 }
+
+.ui.button.confirm-validation-code-button {
+  //margin-left: 5rem;
+}
+
+.verification-error-list {
+  .ui.steps .step.active {
+    .title {
+      color: rgb(145, 45, 43);
+    }
+  }
+}
+
+.ui.modal.transition.visible.active.redirect-in-progress-modal-content {
+  height: 50%;
+  font-size: 25px;
+}

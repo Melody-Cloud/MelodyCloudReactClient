@@ -1,5 +1,19 @@
 import React from 'react'
-import {Button, Form, Grid, Header, Image, Message, Modal, Segment, Icon, Step} from 'semantic-ui-react'
+import {
+    Button,
+    Form,
+    Grid,
+    Header,
+    Image,
+    Message,
+    Modal,
+    Segment,
+    Icon,
+    Step,
+    Input,
+    Dimmer,
+    Loader, Divider
+} from 'semantic-ui-react'
 import {cognitoConfig} from "../config/cognito-config";
 
 import 'assets/scss/RegisterLayout.scss';
@@ -10,6 +24,8 @@ import split from 'lodash/split';
 import map from 'lodash/map';
 import concat from 'lodash/concat';
 import drop from 'lodash/drop';
+import {Redirect} from "react-router-dom";
+import Transition from "semantic-ui-react/dist/es/modules/Transition/Transition";
 
 class RegisterLayout extends React.Component {
     constructor(props) {
@@ -20,7 +36,16 @@ class RegisterLayout extends React.Component {
             formPassword: '',
             formPasswordConfirmation: '',
             errorModalOpen: false,
-            registrationErrorObject: ''
+            // registrationCompleteModalOpen: false,
+            registrationCompleteModalOpen: true,
+            registrationErrorObject: '',
+            verificationCode: '',
+            redirectInProgress: false,
+            // redirectInProgress: true,
+            redirectToApplication: false,
+            verificationErrorOccurred: false,
+            verificationErrorObject: null,
+            // verificationErrorObject: 'Error: 2 validation errors detected: Value at \'username\' failed to satisfy constraint: Member must have length greater than or equal to 1; Value at \'username\' failed to satisfy constraint: Member must satisfy regular expression pattern: [\\p{L}\\p{M}\\p{S}\\p{N}\\p{P}]+',
         };
 
         const poolData = {
@@ -71,20 +96,115 @@ class RegisterLayout extends React.Component {
         );
     }
 
+    verifyUser(email, code, onSuccess, onFailure) {
+        this.provideCognitoUser(email).confirmRegistration(code, true, function confirmCallback(err, result) {
+            if (!err) {
+                onSuccess(result);
+            } else {
+                onFailure(err);
+            }
+        });
+    }
+
+    provideCognitoUser(email) {
+        return new AmazonCognitoIdentity.CognitoUser({
+            Username: email,
+            Pool: this.userPool
+        });
+    }
+
     render() {
+        if (this.state.redirectToApplication) {
+            return <Redirect to="/"/>;
+        }
+
         return <div className='login-form'>
             <Modal
                 open={this.state.errorModalOpen}
             >
                 <Modal.Header>Something went wrong <Icon name='frown'/></Modal.Header>
                 <Modal.Content>
-                    {this._renderErrorMessage(this.state.registrationErrorObject)}
+                    {this._renderErrorMessageFromAmazonService(this.state.registrationErrorObject)}
                 </Modal.Content>
                 <Modal.Actions>
-                    <Button color='green' onClick={() => this.setState({ errorModalOpen: false })} inverted>
-                        <Icon name='checkmark' /> Go back
+                    <Button color='green' onClick={() => this.setState({errorModalOpen: false})} inverted>
+                        <Icon name='checkmark'/> Go back
                     </Button>
                 </Modal.Actions>
+            </Modal>
+
+            <Modal
+                open={this.state.registrationCompleteModalOpen}
+                className={this.state.redirectInProgress? 'redirect-in-progress-modal-content': ''}
+            >
+                {!this.state.redirectInProgress &&
+                <Modal.Header>Your account has been created <Icon name='smile'/></Modal.Header>}
+                {
+                    this.state.redirectInProgress ?
+                        <Modal.Content>
+                            <Dimmer active>
+                                <Loader>Your account has been activated<br/> Redirecting...</Loader>
+                            </Dimmer>
+                        </Modal.Content> :
+                        <Modal.Content>
+                            <Message negative={this.state.verificationErrorOccurred}>
+                                <Message.Header>
+                                    {this.state.verificationErrorOccurred ?
+                                        'Some error occurred when you tried verifying your account. You can try again.' :
+                                        `Now please verify your account by providing code,
+                                    which you received on your e-mail account`}
+                                </Message.Header>
+                                <Divider/>
+                                <Header size='medium'>Validation code:</Header>
+                                <Input
+                                    className='verification-code-input'
+                                    value={this.state.verificationCode}
+                                    onChange={
+                                        (e) => this.setState({
+                                            verificationCode: e.target.value,
+                                        })
+                                    }
+                                    focus
+                                />
+                                <Divider/>
+                                <Button className='confirm-validation-code-button' color='green' onClick={
+                                    () => {
+                                        this.verifyUser(
+                                            this.state.formEmail,
+                                            this.state.verificationCode,
+                                            (result) => {
+                                                console.dir(result);
+                                                this.setState({
+                                                    redirectInProgress: true,
+                                                });
+
+                                                setTimeout(() => {
+                                                    this.setState({redirectToApplication: true});
+                                                }, 4000); // SET TIMEOUT FOR AESTHETICS :D
+                                            },
+                                            (err) => {
+                                                console.dir(err);
+
+                                                setTimeout(() => {
+                                                    this.setState({
+                                                        verificationErrorOccurred: true,
+                                                        verificationErrorObject: err,
+                                                    });
+                                                });
+                                            }
+                                        )
+                                    }
+                                } inverted>
+                                    <Icon name='checkmark'/> Confirm
+                                </Button>
+                            </Message>
+                            <Transition duration={500} visible={this.state.verificationErrorOccurred}>
+                                <div className='verification-error-list'>
+                                    {this._renderErrorMessageFromAmazonService(this.state.verificationErrorObject)}
+                                </div>
+                            </Transition>
+                        </Modal.Content>
+                }
             </Modal>
 
             <Grid textAlign='center' style={{height: '100%'}} verticalAlign='middle'>
@@ -176,37 +296,37 @@ class RegisterLayout extends React.Component {
             <Message positive>
                 <Message.Header>Password are matching</Message.Header>
                 <p>You can now go ahead and register.</p>
-            </Message>:
+            </Message> :
             <Message negative>
                 <Message.Header>Password are not matching</Message.Header>
                 <p>Please check if you typed in your password correctly in both inputs</p>
             </Message>;
     }
 
-    _renderErrorMessage(errorObject) {
-        console.dir(errorObject);
+    _renderErrorMessageFromAmazonService(errorObject) {
+        const entries = this.createEntriesFromAmazonRegisterServiceResponse(errorObject);
 
+        return <Step.Group vertical>
+            {
+                map(entries, (entry) => {
+                    return !isStringEmpty(entry) ? <Step active>
+                        <Step.Content>
+                            <Step.Title>{entry}</Step.Title>
+                        </Step.Content>
+                    </Step> : '';
+                })
+            }
+        </Step.Group>
+    }
+
+    createEntriesFromAmazonRegisterServiceResponse(errorObject) {
         const message = get(errorObject, "message");
         const messageSplitted = split(message, ':');
 
         const firstEntry = get(messageSplitted, 0);
 
         const errorEntries = drop(messageSplitted, 1);
-        const entries = concat(firstEntry, split(errorEntries, ';'));
-
-        console.dir(entries);
-
-        return <Step.Group vertical>
-                {
-                    map(entries, (entry) => {
-                        return !isStringEmpty(entry) ? <Step active>
-                            <Step.Content>
-                                <Step.Title>{entry}</Step.Title>
-                            </Step.Content>
-                        </Step>: '';
-                    })
-                }
-        </Step.Group>
+        return concat(firstEntry, split(errorEntries, ';'));
     }
 }
 
