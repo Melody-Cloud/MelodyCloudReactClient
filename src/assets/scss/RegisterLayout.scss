@@ -3,3 +3,7 @@ body > div > div,
 body > div > div > div.login-form {
   height: 100%;
 }
+
+.ui.modal.transition.visible.active {
+  height: 9rem;
+}

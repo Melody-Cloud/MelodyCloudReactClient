@@ -5,6 +5,7 @@ import {cognitoConfig} from "../config/cognito-config";
 import 'assets/scss/RegisterLayout.scss';
 import {isStringEmpty} from "../utils/common-utils";
 import isEqual from 'lodash/isEqual';
+import get from 'lodash/get';
 
 class RegisterLayout extends React.Component {
     constructor(props) {
@@ -14,7 +15,8 @@ class RegisterLayout extends React.Component {
             formEmail: '',
             formPassword: '',
             formPasswordConfirmation: '',
-            modalOpen: false
+            errorModalOpen: false,
+            registrationErrorObject: ''
         };
 
         const poolData = {
@@ -68,23 +70,15 @@ class RegisterLayout extends React.Component {
     render() {
         return <div className='login-form'>
             <Modal
-                trigger={<Button onClick={this.handleOpen}>Show Modal</Button>}
-                open={this.state.modalOpen}
-                onClose={this.handleClose}
-                basic
-                size='small'
+                open={this.state.errorModalOpen}
             >
-                <Header icon='browser' content='Cookies policy' />
+                <Modal.Header>Something went wrong <Icon name='frown'/></Modal.Header>
                 <Modal.Content>
-                    <Message negative>
-                        <Message.Header>Something went wrong <Icon name='frown'/></Message.Header>
-                        <p>Check if you entered correct password</p>
-                    </Message>
-                    <h3>This website uses cookies to ensure the best user experience.</h3>
+                    {this._renderErrorMessage(this.state.registrationErrorObject)}
                 </Modal.Content>
                 <Modal.Actions>
-                    <Button color='green' onClick={this.handleClose} inverted>
-                        <Icon name='checkmark' /> Got it
+                    <Button color='green' onClick={() => this.setState({ errorModalOpen: false })} inverted>
+                        <Icon name='checkmark' /> Go back
                     </Button>
                 </Modal.Actions>
             </Modal>
@@ -149,8 +143,12 @@ class RegisterLayout extends React.Component {
                                                 alert(e)
                                             },
                                             (e) => {
-                                                alert('failure');
-                                                alert(e)
+                                                // alert('failure');
+                                                // alert(e);
+                                                this.setState({
+                                                    registrationErrorObject: e,
+                                                    errorModalOpen: true
+                                                });
                                             }
                                         );
                                     }
@@ -181,6 +179,12 @@ class RegisterLayout extends React.Component {
                 <Message.Header>Password are not matching</Message.Header>
                 <p>Please check if you typed in your password correctly</p>
             </Message>;
+    }
+
+    _renderErrorMessage(errorObject) {
+        console.dir(errorObject);
+
+        return get(errorObject, "message");
     }
 }
 
