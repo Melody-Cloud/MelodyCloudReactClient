@@ -40,6 +40,7 @@
     "babel-jest": "^23.6.0",
     "babel-loader": "^8.0.2",
     "babel-plugin-module-resolver": "^3.1.1",
+    "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
     "css-loader": "^1.0.0",
     "enzyme": "^3.6.0",
@@ -70,6 +71,7 @@
   "dependencies": {
     "aws-sdk": "^2.320.0",
     "lodash": "^4.17.11",
+    "react-audioplayer": "^0.3.1",
     "semantic-ui-css": "^2.4.0",
     "semantic-ui-react": "^0.82.5"
   }

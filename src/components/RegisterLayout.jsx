@@ -36,8 +36,8 @@ class RegisterLayout extends React.Component {
             formPassword: '',
             formPasswordConfirmation: '',
             errorModalOpen: false,
-            // registrationCompleteModalOpen: false,
-            registrationCompleteModalOpen: true,
+            registrationCompleteModalOpen: false,
+            // registrationCompleteModalOpen: true,
             registrationErrorObject: '',
             verificationCode: '',
             redirectInProgress: false,
@@ -263,8 +263,10 @@ class RegisterLayout extends React.Component {
                                             this.state.formEmail,
                                             this.state.formPassword,
                                             (e) => {
-                                                alert('success!');
-                                                alert(e)
+                                                console.dir(e);
+                                                this.setState({
+                                                    registrationCompleteModalOpen: true
+                                                });
                                             },
                                             (e) => {
                                                 this.setState({
