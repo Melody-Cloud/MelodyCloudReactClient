@@ -1,11 +1,15 @@
 import React from 'react'
-import {Button, Form, Grid, Header, Image, Message, Modal, Segment, Icon} from 'semantic-ui-react'
+import {Button, Form, Grid, Header, Image, Message, Modal, Segment, Icon, Step} from 'semantic-ui-react'
 import {cognitoConfig} from "../config/cognito-config";
 
 import 'assets/scss/RegisterLayout.scss';
 import {isStringEmpty} from "../utils/common-utils";
 import isEqual from 'lodash/isEqual';
 import get from 'lodash/get';
+import split from 'lodash/split';
+import map from 'lodash/map';
+import concat from 'lodash/concat';
+import drop from 'lodash/drop';
 
 class RegisterLayout extends React.Component {
     constructor(props) {
@@ -143,8 +147,6 @@ class RegisterLayout extends React.Component {
                                                 alert(e)
                                             },
                                             (e) => {
-                                                // alert('failure');
-                                                // alert(e);
                                                 this.setState({
                                                     registrationErrorObject: e,
                                                     errorModalOpen: true
@@ -177,14 +179,34 @@ class RegisterLayout extends React.Component {
             </Message>:
             <Message negative>
                 <Message.Header>Password are not matching</Message.Header>
-                <p>Please check if you typed in your password correctly</p>
+                <p>Please check if you typed in your password correctly in both inputs</p>
             </Message>;
     }
 
     _renderErrorMessage(errorObject) {
         console.dir(errorObject);
 
-        return get(errorObject, "message");
+        const message = get(errorObject, "message");
+        const messageSplitted = split(message, ':');
+
+        const firstEntry = get(messageSplitted, 0);
+
+        const errorEntries = drop(messageSplitted, 1);
+        const entries = concat(firstEntry, split(errorEntries, ';'));
+
+        console.dir(entries);
+
+        return <Step.Group vertical>
+                {
+                    map(entries, (entry) => {
+                        return !isStringEmpty(entry) ? <Step active>
+                            <Step.Content>
+                                <Step.Title>{entry}</Step.Title>
+                            </Step.Content>
+                        </Step>: '';
+                    })
+                }
+        </Step.Group>
     }
 }
 
