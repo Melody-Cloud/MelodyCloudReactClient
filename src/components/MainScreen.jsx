@@ -1,5 +1,5 @@
 import React from "react";
-import {Menu, Container, Input, Icon, Item, List, Card, Grid, Popup} from "semantic-ui-react";
+import {Menu, Container, Input, Icon, Item, List, Card, Grid, Popup, Visibility, Sticky} from "semantic-ui-react";
 import 'assets/scss/MainScreen.scss';
 import Audio from 'react-audioplayer';
 
@@ -62,15 +62,38 @@ class MainScreen extends React.Component {
                                                 {this._renderSongDetails(singleSong)}
                                             </Grid.Column>
                                             <Grid.Column width={12}>
-                                                <Audio
-                                                    // color='#32CD32'
-                                                    width={600}
-                                                    height={200}
-                                                    autoPlay={false}
-                                                    playlist={[singleSong]}
-                                                    fullPlayer={true}
-                                                    comment={true}
-                                                />
+                                                {
+
+                                                    (_.get(singleSong, 'name') == 'Song1') ?
+                                                        <Sticky
+                                                            onStick={(event, data) => {
+                                                                console.log('stick');
+                                                            }}
+                                                            onUnstick={(event, data) => {
+                                                                console.log('unstick');
+                                                            }}
+                                                            offset={55}
+                                                            pushing
+                                                        >
+                                                            <Audio
+                                                                width={600}
+                                                                height={200}
+                                                                autoPlay={false}
+                                                                playlist={[singleSong]}
+                                                                fullPlayer={true}
+                                                                comment={true}
+                                                            />
+                                                        </Sticky>:
+                                                        <Audio
+                                                            width={600}
+                                                            height={200}
+                                                            autoPlay={false}
+                                                            playlist={[singleSong]}
+                                                            fullPlayer={true}
+                                                            comment={true}
+                                                        />
+                                                }
+
                                             </Grid.Column>
                                         </Grid>
                                     </List.Content>
@@ -79,6 +102,19 @@ class MainScreen extends React.Component {
                         }
                     </List>
 
+                    <p>Lorem ipsum</p>
+                    <p>Lorem ipsum</p>
+                    <p>Lorem ipsum</p>
+                    <p>Lorem ipsum</p>
+                    <p>Lorem ipsum</p>
+                    <p>Lorem ipsum</p>
+                    <p>Lorem ipsum</p>
+                    <p>Lorem ipsum</p>
+                    <p>Lorem ipsum</p>
+                    <p>Lorem ipsum</p>
+                    <p>Lorem ipsum</p>
+                    <p>Lorem ipsum</p>
+                    <p>Lorem ipsum</p>
                     <p>Lorem ipsum</p>
                 </Container>
             </div>
