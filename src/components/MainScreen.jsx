@@ -63,6 +63,7 @@ class MainScreen extends React.Component {
                                             </Grid.Column>
                                             <Grid.Column width={12}>
                                                 <Audio
+                                                    // color='#32CD32'
                                                     width={600}
                                                     height={200}
                                                     autoPlay={false}
@@ -77,6 +78,8 @@ class MainScreen extends React.Component {
                             })
                         }
                     </List>
+
+                    <p>Lorem ipsum</p>
                 </Container>
             </div>
         );
@@ -85,12 +88,12 @@ class MainScreen extends React.Component {
     _renderSongDetails(singleSong) {
         return <Card>
             <Card.Content>
-                <Card.Header>{_.get(singleSong, 'name')}</Card.Header>
-                <Card.Meta>
-                    <span className='date'>(click here to show more info)</span>
-                </Card.Meta>
+                <Card.Header>
+                    <span className="name">{_.get(singleSong, 'name')}</span>
+                    <a className='song-show-more-info'>(<Icon name='chain'/>details)</a>
+                </Card.Header>
                 <Card.Description>
-                    <Popup trigger={<a>Click to view song description</a>} content='Add users to your feed' position='bottom left' on='click'/>
+                    <Popup trigger={<a>Click to display song description</a>} content='Add users to your feed' position='bottom left' on='click'/>
                 </Card.Description>
             </Card.Content>
             <Card.Content extra>

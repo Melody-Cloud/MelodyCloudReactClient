@@ -32,9 +32,23 @@ export const song2 = {
 
 export const song3 = {
     name: 'Song3', // song name
-    src: 'https://s0.vocaroo.com/media/download_temp/Vocaroo_s01uFiNgRFGP.mp3', // song source address
+    src: 'https://s1.vocaroo.com/media/download_temp/Vocaroo_s10KBi2dqEmz.mp3', // song source address
     img: getGenericImageUrl(),
     comments: comments
 };
 
-export const mockedPlaylist = [song1, song2, song3];
+export const song4 = {
+    name: 'Song4', // song name
+    src: 'https://s0.vocaroo.com/media/download_temp/Vocaroo_s0crYi8mrRBP.mp3', // song source address
+    img: getGenericImageUrl(),
+    comments: comments
+};
+
+export const song5 = {
+    name: 'Song5', // song name
+    src: 'https://wenliangdai.github.io/src/songs/shape_of_you.mp3', // song source address
+    img: getGenericImageUrl(),
+    comments: comments
+};
+
+export const mockedPlaylist = [song1, song2, song3, song4, song5];
