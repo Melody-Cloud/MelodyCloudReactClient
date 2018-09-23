@@ -16,3 +16,22 @@
   padding-left: 2rem;
   padding-right: 2rem;
 }
+
+#songs-feed {
+  .single-song-item {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+
+  div[class^="audioElements__commentsWrapperBackground"], div[class*=" audioElements__commentsWrapperBackground"] {
+    //background-image: none !important;
+  }
+
+  //div[class^="audioComponents"], div[class*=" audioComponents"] {
+  //  display: inline-flex;
+  //}
+  //
+  //.ui.card {
+  //  display: inline-flex;
+  //}
+}
