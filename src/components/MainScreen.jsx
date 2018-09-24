@@ -67,7 +67,10 @@ class MainScreen extends React.Component {
 
                                                     (_.get(singleSong, 'name') == 'Song1') ?
                                                         <Visibility
-                                                            offset={[100,-100]}
+                                                            offset={[
+                                                                100,
+                                                                this.state.playerSticked? -120: 40
+                                                            ]}
                                                             onBottomPassed={
                                                                 () => {
                                                                     !this.state.playerSticked && this.setState({
