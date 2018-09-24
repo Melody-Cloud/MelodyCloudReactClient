@@ -1,5 +1,5 @@
 import React from "react";
-import {Menu, Container, Input, Icon, Item, List, Card, Grid, Popup, Visibility, Sticky} from "semantic-ui-react";
+import {Menu, Container, Input, Icon, Item, List, Card, Grid, Popup} from "semantic-ui-react";
 import 'assets/scss/MainScreen.scss';
 import Audio from 'react-audioplayer';
 
@@ -12,8 +12,7 @@ class MainScreen extends React.Component {
 
         this.state = {
             windowWidth: 0,
-            windowHeight: 0,
-            playerSticked: false
+            windowHeight: 0
         };
 
         this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
@@ -63,52 +62,15 @@ class MainScreen extends React.Component {
                                                 {this._renderSongDetails(singleSong)}
                                             </Grid.Column>
                                             <Grid.Column width={12}>
-                                                {
-
-                                                    (_.get(singleSong, 'name') == 'Song1') ?
-                                                        <Visibility
-                                                            offset={[
-                                                                100,
-                                                                this.state.playerSticked? -120: 40
-                                                            ]}
-                                                            onBottomPassed={
-                                                                () => {
-                                                                    !this.state.playerSticked && this.setState({
-                                                                        playerSticked: true,
-                                                                    });
-                                                                }
-                                                            }
-                                                            onBottomPassedReverse={
-                                                                () => {
-                                                                    this.state.playerSticked && this.setState({
-                                                                        playerSticked: false,
-                                                                    });
-                                                                }
-                                                            }
-                                                            once={false}
-                                                        >
-                                                            <div className={this.state.playerSticked ? "player-wrapper-sticked": "player-wrapper-unsticked"}>
-                                                                <Audio
-                                                                    width={600}
-                                                                    height={200}
-                                                                    autoPlay={false}
-                                                                    playlist={[singleSong]}
-                                                                    fullPlayer={!this.state.playerSticked}
-                                                                    comment={true}
-                                                                    onChange={()=>{alert('hello')}}
-                                                                />
-                                                            </div>
-                                                        </Visibility>:
-                                                        <Audio
-                                                            width={600}
-                                                            height={200}
-                                                            autoPlay={false}
-                                                            playlist={[singleSong]}
-                                                            fullPlayer={true}
-                                                            comment={true}
-                                                        />
-                                                }
-
+                                                <Audio
+                                                    // color='#32CD32'
+                                                    width={600}
+                                                    height={200}
+                                                    autoPlay={false}
+                                                    playlist={[singleSong]}
+                                                    fullPlayer={true}
+                                                    comment={true}
+                                                />
                                             </Grid.Column>
                                         </Grid>
                                     </List.Content>
@@ -117,19 +79,6 @@ class MainScreen extends React.Component {
                         }
                     </List>
 
-                    <p>Lorem ipsum</p>
-                    <p>Lorem ipsum</p>
-                    <p>Lorem ipsum</p>
-                    <p>Lorem ipsum</p>
-                    <p>Lorem ipsum</p>
-                    <p>Lorem ipsum</p>
-                    <p>Lorem ipsum</p>
-                    <p>Lorem ipsum</p>
-                    <p>Lorem ipsum</p>
-                    <p>Lorem ipsum</p>
-                    <p>Lorem ipsum</p>
-                    <p>Lorem ipsum</p>
-                    <p>Lorem ipsum</p>
                     <p>Lorem ipsum</p>
                 </Container>
             </div>
