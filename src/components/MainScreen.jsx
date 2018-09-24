@@ -12,7 +12,8 @@ class MainScreen extends React.Component {
 
         this.state = {
             windowWidth: 0,
-            windowHeight: 0
+            windowHeight: 0,
+            playerSticked: false
         };
 
         this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
@@ -65,25 +66,36 @@ class MainScreen extends React.Component {
                                                 {
 
                                                     (_.get(singleSong, 'name') == 'Song1') ?
-                                                        <Sticky
-                                                            onStick={(event, data) => {
-                                                                console.log('stick');
-                                                            }}
-                                                            onUnstick={(event, data) => {
-                                                                console.log('unstick');
-                                                            }}
-                                                            offset={55}
-                                                            pushing
+                                                        <Visibility
+                                                            offset={[100,-100]}
+                                                            onBottomPassed={
+                                                                () => {
+                                                                    !this.state.playerSticked && this.setState({
+                                                                        playerSticked: true,
+                                                                    });
+                                                                }
+                                                            }
+                                                            onBottomPassedReverse={
+                                                                () => {
+                                                                    this.state.playerSticked && this.setState({
+                                                                        playerSticked: false,
+                                                                    });
+                                                                }
+                                                            }
+                                                            once={false}
                                                         >
-                                                            <Audio
-                                                                width={600}
-                                                                height={200}
-                                                                autoPlay={false}
-                                                                playlist={[singleSong]}
-                                                                fullPlayer={true}
-                                                                comment={true}
-                                                            />
-                                                        </Sticky>:
+                                                            <div className={this.state.playerSticked ? "player-wrapper-sticked": "player-wrapper-unsticked"}>
+                                                                <Audio
+                                                                    width={600}
+                                                                    height={200}
+                                                                    autoPlay={false}
+                                                                    playlist={[singleSong]}
+                                                                    fullPlayer={!this.state.playerSticked}
+                                                                    comment={true}
+                                                                    onChange={()=>{alert('hello')}}
+                                                                />
+                                                            </div>
+                                                        </Visibility>:
                                                         <Audio
                                                             width={600}
                                                             height={200}
