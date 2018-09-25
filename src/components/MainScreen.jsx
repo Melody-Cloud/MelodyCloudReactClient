@@ -1,7 +1,8 @@
 import React from "react";
 import {Menu, Container, Input, Icon, Item, List, Card, Grid, Popup} from "semantic-ui-react";
 import 'assets/scss/MainScreen.scss';
-import Audio from 'react-audioplayer';
+import ReactJkMusicPlayer from "react-jinke-music-player";
+import "react-jinke-music-player/assets/index.css";
 
 import _ from 'lodash';
 import {mockedPlaylist} from "../utils/mocks";
@@ -11,24 +12,21 @@ class MainScreen extends React.Component {
         super(props);
 
         this.state = {
-            windowWidth: 0,
-            windowHeight: 0
-        };
-
-        this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
-    }
-
-    updateWindowDimensions() {
-        this.setState({ windowWidth: window.innerWidth, windowHeight: window.innerHeight });
-    }
-
-    componentDidMount() {
-        this.updateWindowDimensions();
-        window.addEventListener('resize', this.updateWindowDimensions);
-    }
-
-    componentWillUnmount() {
-        window.removeEventListener('resize', this.updateWindowDimensions);
+            audioLists: [
+                {
+                    name: "丑",
+                    singer: "草东没有派对",
+                    cover: "https://www.lijinke.cn/music/1387583682387727.jpg",
+                    musicSrc: "https://s0.vocaroo.com/media/download_temp/Vocaroo_s01uFiNgRFGP.mp3"
+                },
+                {
+                    name: "达尔文",
+                    singer: "蔡健雅",
+                    cover: "https://www.lijinke.cn/music/5V49G-3GFLn-f6mRjHsGaUAh.jpg",
+                    musicSrc: "https://s0.vocaroo.com/media/download_temp/Vocaroo_s0crYi8mrRBP.mp3"
+                }
+            ]
+        }
     }
 
     render() {
@@ -61,17 +59,6 @@ class MainScreen extends React.Component {
                                             <Grid.Column width={4}>
                                                 {this._renderSongDetails(singleSong)}
                                             </Grid.Column>
-                                            <Grid.Column width={12}>
-                                                <Audio
-                                                    // color='#32CD32'
-                                                    width={600}
-                                                    height={200}
-                                                    autoPlay={false}
-                                                    playlist={[singleSong]}
-                                                    fullPlayer={true}
-                                                    comment={true}
-                                                />
-                                            </Grid.Column>
                                         </Grid>
                                     </List.Content>
                                 </List.Item>;
@@ -81,6 +68,8 @@ class MainScreen extends React.Component {
 
                     <p>Lorem ipsum</p>
                 </Container>
+
+                <ReactJkMusicPlayer audioLists={this.state.audioLists} mode={'full'} />
             </div>
         );
     }
