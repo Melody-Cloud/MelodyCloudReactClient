@@ -1,5 +1,8 @@
 function getGenericImageUrl() {
-    return `http://lorempixel.com/640/360/?v=${Math.random().toString(36).substring(7)}`;
+    return `http://lorempixel.com/640/360/?v=${getUiid()}`;
+}
+export function getUiid() {
+    return Math.random().toString(36).substring(7);
 }
 
 const comments = [{"time": 1, "content": "A great song!!!!!!"}, {
@@ -52,3 +55,21 @@ export const song5 = {
 };
 
 export const mockedPlaylist = [song1, song2, song3, song4, song5];
+
+
+export const jinkieMockSongs = [
+    {
+        name: "Song1",
+        singer: "Singer1",
+        cover: getGenericImageUrl(),
+        musicSrc: "https://s0.vocaroo.com/media/download_temp/Vocaroo_s01uFiNgRFGP.mp3",
+        id: 1
+    },
+    {
+        name: "Song2",
+        singer: "Song2",
+        cover: getGenericImageUrl(),
+        musicSrc: "https://s0.vocaroo.com/media/download_temp/Vocaroo_s0crYi8mrRBP.mp3",
+        id: 2
+    }
+];

@@ -72,6 +72,9 @@
     "aws-sdk": "^2.320.0",
     "lodash": "^4.17.11",
     "react-audioplayer": "^0.3.1",
+    "react-jinke-music-player": "^4.0.4",
+    "react-responsive-audio-player": "^1.4.0",
+    "react-responsive-music-player": "^0.3.0",
     "semantic-ui-css": "^2.4.0",
     "semantic-ui-react": "^0.82.5"
   }
