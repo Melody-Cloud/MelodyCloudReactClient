@@ -57,19 +57,38 @@ export const song5 = {
 export const mockedPlaylist = [song1, song2, song3, song4, song5];
 
 
-export const jinkieMockSongs = [
-    {
-        name: "Song1",
-        singer: "Singer1",
-        cover: getGenericImageUrl(),
-        musicSrc: "https://s0.vocaroo.com/media/download_temp/Vocaroo_s01uFiNgRFGP.mp3",
-        id: 1
-    },
-    {
-        name: "Song2",
-        singer: "Song2",
-        cover: getGenericImageUrl(),
-        musicSrc: "https://s0.vocaroo.com/media/download_temp/Vocaroo_s0crYi8mrRBP.mp3",
-        id: 2
-    }
+// export const jinkieMockSongs = [
+//     {
+//         name: "Song1",
+//         singer: "Singer1",
+//         cover: getGenericImageUrl(),
+//         musicSrc: "https://s0.vocaroo.com/media/download_temp/Vocaroo_s01uFiNgRFGP.mp3",
+//         id: 1
+//     },
+//     {
+//         name: "Song2",
+//         singer: "Song2",
+//         cover: getGenericImageUrl(),
+//         musicSrc: "https://s0.vocaroo.com/media/download_temp/Vocaroo_s0crYi8mrRBP.mp3",
+//         id: 2
+//     }
+// ];
+
+const audioSources = [
+    // 'https://s0.vocaroo.com/media/download_temp/Vocaroo_s0FRiotFhFzX.mp3',
+    'http://localhost:8081/music/appetite.mp3',
+    'http://localhost:8081/music/cobain.mp3',
+    'http://localhost:8081/music/last_thing.mp3',
+    // 'file:///C:/dev/cobain.mp3',
+    // 'file:///C:/dev/last_thing.mp3'
 ];
+
+export const jinkieMockSongs = _.map(audioSources, (audioSource, index) => {
+    return {
+        name: `Song${index}`,
+        singer: `Singer${index}`,
+        cover: getGenericImageUrl(),
+        musicSrc: audioSource,
+        id: index
+    }
+});
