@@ -1,6 +1,6 @@
 import React from "react";
 
-export class Waveform extends React.Component {
+export class WaveformProgress extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -12,7 +12,8 @@ export class Waveform extends React.Component {
             width: imageWidth,
             height: imageHeight,
             overflow: 'hidden',
-            backgroundImage: `url('${waveformSrc}')`,
+            background: `url('${waveformSrc}')`,
+            backgroundSize: `${imageWidth}px ${imageHeight}px`
         };
 
         const blurStyle = {
@@ -20,9 +21,10 @@ export class Waveform extends React.Component {
             backgroundPosition: 'center left',
             filter: 'invert(.8)',
             float: 'left',
-            height: '100%',
+            height: imageHeight,
             width: progressFilterWidth,
             marginLeft: -1,
+            backgroundSize: `${imageWidth}px ${imageHeight}px`
         };
 
         return <div id="image" style={imageStyle}>

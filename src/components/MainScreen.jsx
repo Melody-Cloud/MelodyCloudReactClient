@@ -1,12 +1,16 @@
 import React from "react";
-import {Menu, Container, Input, Icon, Item, List, Card, Grid, Popup, Button} from "semantic-ui-react";
+import {Menu, Container, Input, Icon, Item, List, Card, Grid, Popup, Button, Image} from "semantic-ui-react";
 import 'assets/scss/MainScreen.scss';
 import ReactJkMusicPlayer from "react-jinke-music-player";
 import "react-jinke-music-player/assets/index.css";
 
 import _ from 'lodash';
-import {getUiid, jinkieMockSongs, mockedPlaylist} from "../utils/mocks";
+import {getUiid, jinkieMockSongs} from "../utils/mocks";
 import {isArrayEmpty} from "../utils/common-utils";
+import {DEFAULT_PLAYER_VOLUME, WAVEFORM_IMAGE_HEIGHT, WAVEFORM_IMAGE_WIDTH} from "../config/application-config";
+import WaveformMock from 'assets/img/out2.png';
+import {WaveformProgress} from "./WaveformProgress";
+
 
 class MainScreen extends React.Component {
     constructor(props) {
@@ -19,11 +23,16 @@ class MainScreen extends React.Component {
         };
 
         this.musicPlayerRef = React.createRef();
+
+        setInterval(() => {
+            console.log(this.musicPlayerRef.current.state.currentTime);
+        }, 2000);
     }
 
     _getReorderedAudioList = (singleSong) => {
         let currentAudioListToBeUpdated = _.clone(this.state.audioList);
-        currentAudioListToBeUpdated.unshift(singleSong);
+        let audioListWithDuplicateSongRemoved = _.pull(currentAudioListToBeUpdated, singleSong);
+        audioListWithDuplicateSongRemoved.unshift(singleSong);
 
         return currentAudioListToBeUpdated;
     };
@@ -50,6 +59,14 @@ class MainScreen extends React.Component {
 
                 <Container className='feed-container' fluid>
                     <List id='songs-feed' celled>
+                        <List.Item>
+                            <WaveformProgress
+                                waveformSrc={WaveformMock}
+                                imageWidth={WAVEFORM_IMAGE_WIDTH}
+                                imageHeight={WAVEFORM_IMAGE_HEIGHT}
+                                progressFilterWidth={400}
+                            />
+                        </List.Item>
                         {
                             _.map(jinkieMockSongs, singleSong => {
                                 return <List.Item className='single-song-item'>
@@ -116,9 +133,10 @@ class MainScreen extends React.Component {
         return <ReactJkMusicPlayer
             audioLists={audioList}
             mode={'full'}
-            autoPlay={isArrayEmpty(audioList) ? false: true}
+            autoPlay={!isArrayEmpty(audioList)}
             ref={this.musicPlayerRef}
             key={this.state.playerUiid}
+            defaultVolume={DEFAULT_PLAYER_VOLUME}
         />;
     }
 }
