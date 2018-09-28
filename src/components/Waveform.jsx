@@ -6,23 +6,23 @@ export class Waveform extends React.Component {
     }
 
     render() {
-        const {waveformSrc} = this.props;
+        const {waveformSrc, imageWidth, imageHeight, progressFilterWidth} = this.props;
 
         const imageStyle = {
-            width: 1400,
-            height: 300,
+            width: imageWidth,
+            height: imageHeight,
             overflow: 'hidden',
             backgroundImage: `url('${waveformSrc}')`,
         };
 
         const blurStyle = {
             backgroundImage: `url('${waveformSrc}')`,
-            backgroundPosition: 'center right',
-            filter: 'blur(1px)',
-            float: 'right',
+            backgroundPosition: 'center left',
+            filter: 'invert(.8)',
+            float: 'left',
             height: '100%',
-            width: 360,
-            marginRight: -1,
+            width: progressFilterWidth,
+            marginLeft: -1,
         };
 
         return <div id="image" style={imageStyle}>
