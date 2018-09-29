@@ -8,7 +8,7 @@ import _ from 'lodash';
 import {getUiid, jinkieMockSongs} from "../utils/mocks";
 import {isArrayEmpty} from "../utils/common-utils";
 import {DEFAULT_PLAYER_VOLUME, WAVEFORM_IMAGE_HEIGHT, WAVEFORM_IMAGE_WIDTH} from "../config/application-config";
-import WaveformMock from 'assets/img/out2.png';
+import WaveformMock from 'assets/img/out.png';
 import {WaveformProgress} from "./WaveformProgress";
 
 
@@ -19,14 +19,26 @@ class MainScreen extends React.Component {
         this.state = {
             audioList: [
 
-            ]
+            ],
+            waveformProgressWidth: 0
         };
 
         this.musicPlayerRef = React.createRef();
 
-        setInterval(() => {
-            console.log(this.musicPlayerRef.current.state.currentTime);
-        }, 2000);
+        this.waveformRefreshInterval = setInterval(() => {
+            const newProgressBarWidth = this._calculateProgressBarWidth();
+
+            if(
+                !_.isEqual(
+                    _.get(this, 'state.waveformProgressWidth'),
+                    newProgressBarWidth
+                )
+            ) {
+                this.setState({
+                    waveformProgressWidth: this._calculateProgressBarWidth(),
+                });
+            }
+        }, 200);
     }
 
     _getReorderedAudioList = (singleSong) => {
@@ -59,25 +71,19 @@ class MainScreen extends React.Component {
 
                 <Container className='feed-container' fluid>
                     <List id='songs-feed' celled>
-                        <List.Item>
-                            <WaveformProgress
-                                waveformSrc={WaveformMock}
-                                imageWidth={WAVEFORM_IMAGE_WIDTH}
-                                imageHeight={WAVEFORM_IMAGE_HEIGHT}
-                                progressFilterWidth={400}
-                            />
-                        </List.Item>
                         {
                             _.map(jinkieMockSongs, singleSong => {
                                 return <List.Item className='single-song-item'>
                                     <List.Content>
-                                        <Grid>
-                                            <Grid.Column width={4}>
+                                        <Grid className='middle aligned' style={{alignItems: 'center'}}>
+                                            <Grid.Column width={3}>
                                                 {this._renderSongDetails(singleSong)}
                                             </Grid.Column>
-                                            <Grid.Column width={12}>
+                                            <Grid.Column width={2} className='play-button-column'>
                                                 <Button
-                                                    content='Primary'
+                                                    className='play-button'
+                                                    circular icon='play'
+                                                    size='huge'
                                                     onClick={() => {
                                                         let reorderedAudioList = this._getReorderedAudioList(singleSong);
 
@@ -86,7 +92,14 @@ class MainScreen extends React.Component {
                                                             playerUiid: getUiid()
                                                         });
                                                     }}
-                                                    primary
+                                                />
+                                            </Grid.Column>
+                                            <Grid.Column width={11} className='waveform-column'>
+                                                <WaveformProgress
+                                                    waveformSrc={WaveformMock}
+                                                    imageWidth={WAVEFORM_IMAGE_WIDTH}
+                                                    imageHeight={WAVEFORM_IMAGE_HEIGHT}
+                                                    progressFilterWidth={this.state.waveformProgressWidth}
                                                 />
                                             </Grid.Column>
                                         </Grid>
@@ -128,8 +141,6 @@ class MainScreen extends React.Component {
     }
 
     _renderAudioPlayer(audioList) {
-        console.dir(audioList);
-
         return <ReactJkMusicPlayer
             audioLists={audioList}
             mode={'full'}
@@ -138,6 +149,14 @@ class MainScreen extends React.Component {
             key={this.state.playerUiid}
             defaultVolume={DEFAULT_PLAYER_VOLUME}
         />;
+    }
+
+    _calculateProgressBarWidth = () => {
+        if (!this.musicPlayerRef.current || !this.musicPlayerRef.current.state || _.isEqual(this.musicPlayerRef.current.state.currentTime, 0)) {
+            return 0;
+        } else {
+            return (this.musicPlayerRef.current.state.currentTime/this.musicPlayerRef.current.state.duration)*WAVEFORM_IMAGE_WIDTH;
+        }
     }
 }
 

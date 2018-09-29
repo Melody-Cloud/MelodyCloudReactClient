@@ -53,3 +53,16 @@
 .player-wrapper-unsticked {
   transition: position 0.5s ease;
 }
+
+.ui.grid>.column:not(.row), .ui.grid>.row>.column {
+  &.play-button-column {
+    display: inline-flex;
+  }
+}
+
+.ui.button {
+  &.play-button {
+    height: 84px;
+    width: 84px;
+  }
+}
