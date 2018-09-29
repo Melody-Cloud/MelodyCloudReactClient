@@ -8,9 +8,10 @@ import _ from 'lodash';
 import {getUiid, jinkieMockSongs} from "../utils/mocks";
 import {isArrayEmpty} from "../utils/common-utils";
 import {DEFAULT_PLAYER_VOLUME, WAVEFORM_IMAGE_HEIGHT, WAVEFORM_IMAGE_WIDTH} from "../config/application-config";
-import WaveformMock from 'assets/img/out.png';
+// import WaveformMock from 'assets/img/out.bmp';
 import {WaveformProgress} from "./WaveformProgress";
 
+const WaveformMock = 'http://localhost:8081/out.bmp';
 
 class MainScreen extends React.Component {
     constructor(props) {

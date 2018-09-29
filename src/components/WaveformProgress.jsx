@@ -8,8 +8,6 @@ export class WaveformProgress extends React.Component {
     }
 
     render() {
-        console.log('rendering WaveformProgress');
-
         const {waveformSrc, imageWidth, imageHeight, progressFilterWidth, animationDuration, isActive} = this.props;
 
         const imageStyle = {
@@ -17,7 +15,7 @@ export class WaveformProgress extends React.Component {
             height: imageHeight,
             overflow: 'hidden',
             background: `url('${waveformSrc}')`,
-            backgroundSize: `${imageWidth}px ${imageHeight}px`
+            backgroundSize: `${imageWidth}px ${imageHeight}px`,
         };
 
         const slide = keyframes`
@@ -33,7 +31,7 @@ export class WaveformProgress extends React.Component {
         const blurStyle = {
             backgroundImage: `url('${waveformSrc}')`,
             backgroundPosition: 'center left',
-            filter: 'invert(.1)',
+            filter: 'grayscale(100%)',
             float: 'left',
             height: imageHeight,
             width: progressFilterWidth,
