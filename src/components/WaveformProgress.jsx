@@ -1,7 +1,6 @@
 import React from "react";
 import 'assets/scss/WaveformProgress.scss';
-import injectStyle from "../utils/inject-style";
-import styled, { keyframes } from 'styled-components'
+import { keyframes } from 'styled-components'
 
 export class WaveformProgress extends React.Component {
     constructor(props) {
@@ -9,7 +8,9 @@ export class WaveformProgress extends React.Component {
     }
 
     render() {
-        const {waveformSrc, imageWidth, imageHeight, progressFilterWidth} = this.props;
+        console.log('rendering WaveformProgress');
+
+        const {waveformSrc, imageWidth, imageHeight, progressFilterWidth, animationDuration, isActive} = this.props;
 
         const imageStyle = {
             width: imageWidth,
@@ -25,25 +26,24 @@ export class WaveformProgress extends React.Component {
           }
         
           to {
-            width: ${progressFilterWidth+1}px
+            width: ${imageWidth}px
           }
         `;
 
         const blurStyle = {
             backgroundImage: `url('${waveformSrc}')`,
             backgroundPosition: 'center left',
-            filter: 'blur(2px)',
+            filter: 'invert(.1)',
             float: 'left',
             height: imageHeight,
             width: progressFilterWidth,
             marginLeft: -1,
             backgroundSize: `${imageWidth}px ${imageHeight}px`,
-            // animationTimingFunction: 'ease-out',
-            animation: (progressFilterWidth > 0) ? `${slide} .2s forwards`: null,
+            animation: ((progressFilterWidth > 0) && isActive) ? `${slide} ${Math.floor(animationDuration)}s linear forwards`: 'none',
         };
 
         return <div id="image" style={imageStyle}>
-            <div className="blur" style={blurStyle}/>
+            <div id="blur" style={blurStyle}/>
         </div>;
     }
 }

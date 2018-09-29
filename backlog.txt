@@ -1,1 +1,4 @@
 waveform
+tutorial at start
+flowing bars while playing
+imporve griding

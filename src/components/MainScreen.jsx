@@ -20,25 +20,11 @@ class MainScreen extends React.Component {
             audioList: [
 
             ],
-            waveformProgressWidth: 0
+            waveformProgressWidth: 0,
+            songPlaying: false
         };
 
         this.musicPlayerRef = React.createRef();
-
-        this.waveformRefreshInterval = setInterval(() => {
-            const newProgressBarWidth = this._calculateProgressBarWidth();
-
-            if(
-                !_.isEqual(
-                    _.get(this, 'state.waveformProgressWidth'),
-                    newProgressBarWidth
-                )
-            ) {
-                this.setState({
-                    waveformProgressWidth: this._calculateProgressBarWidth(),
-                });
-            }
-        }, 200);
     }
 
     _getReorderedAudioList = (singleSong) => {
@@ -100,6 +86,11 @@ class MainScreen extends React.Component {
                                                     imageWidth={WAVEFORM_IMAGE_WIDTH}
                                                     imageHeight={WAVEFORM_IMAGE_HEIGHT}
                                                     progressFilterWidth={this.state.waveformProgressWidth}
+                                                    animationDuration={
+                                                        Math.floor(_.get(this, 'musicPlayerRef.current.state.duration')) -
+                                                        Math.ceil(_.get(this, 'musicPlayerRef.current.state.currentTime'))
+                                                    }
+                                                    isActive={_.get(this, 'state.songPlaying')}
                                                 />
                                             </Grid.Column>
                                         </Grid>
@@ -112,7 +103,33 @@ class MainScreen extends React.Component {
                     <p>Lorem ipsum</p>
                 </Container>
 
-                {this._renderAudioPlayer(this.state.audioList)}
+                <ReactJkMusicPlayer
+                    audioLists={this.state.audioList}
+                    mode={'full'}
+                    autoPlay={!isArrayEmpty(this.state.audioList)}
+                    ref={this.musicPlayerRef}
+                    key={this.state.playerUiid}
+                    defaultVolume={DEFAULT_PLAYER_VOLUME}
+                    onAudioPlay={() => {
+                        setTimeout(() => {
+                            this.setState({
+                                waveformProgressWidth: this.state.waveformProgressWidth+1,
+                                songPlaying: true
+                            });
+                        }, 500);
+                    }}
+                    onAudioPause={() => {
+                        this.setState({
+                            waveformProgressWidth: this._calculateProgressBarWidth(),
+                            songPlaying: false
+                        });
+                    }}
+                    onAudioSeeked={() => {
+                        this.setState({
+                            waveformProgressWidth: this._calculateProgressBarWidth()
+                        });
+                    }}
+                />;
             </div>
         );
     }
@@ -140,22 +157,11 @@ class MainScreen extends React.Component {
         </Card>;
     }
 
-    _renderAudioPlayer(audioList) {
-        return <ReactJkMusicPlayer
-            audioLists={audioList}
-            mode={'full'}
-            autoPlay={!isArrayEmpty(audioList)}
-            ref={this.musicPlayerRef}
-            key={this.state.playerUiid}
-            defaultVolume={DEFAULT_PLAYER_VOLUME}
-        />;
-    }
-
     _calculateProgressBarWidth = () => {
         if (!this.musicPlayerRef.current || !this.musicPlayerRef.current.state || _.isEqual(this.musicPlayerRef.current.state.currentTime, 0)) {
             return 0;
         } else {
-            return (this.musicPlayerRef.current.state.currentTime/this.musicPlayerRef.current.state.duration)*WAVEFORM_IMAGE_WIDTH;
+            return (_.get(this, 'musicPlayerRef.current.state.currentTime')/_.get(this, 'musicPlayerRef.current.state.duration'))*WAVEFORM_IMAGE_WIDTH;
         }
     }
 }
