@@ -1,0 +1,3 @@
+BARS = 200
+    BAR_HEIGHT = 200
+    LINE_WIDTH = 6

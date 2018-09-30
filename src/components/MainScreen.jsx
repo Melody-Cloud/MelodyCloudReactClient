@@ -9,6 +9,7 @@ import {getUiid, jinkieMockSongs} from "../utils/mocks";
 import {isArrayEmpty} from "../utils/common-utils";
 import {DEFAULT_PLAYER_VOLUME, WAVEFORM_IMAGE_HEIGHT, WAVEFORM_IMAGE_WIDTH} from "../config/application-config";
 import {WaveformProgress} from "./WaveformProgress";
+import SoundBars from "./SoundBars";
 
 class MainScreen extends React.Component {
     constructor(props) {
@@ -57,6 +58,13 @@ class MainScreen extends React.Component {
                     <List id='songs-feed' celled>
                         {
                             _.map(jinkieMockSongs, singleSong => {
+                                const isActive = _.isEqual(
+                                    _.get(this, 'musicPlayerRef.current.state.audioLists[0]'),
+                                    singleSong
+                                );
+
+                                const isSongPlaying = _.get(this, 'state.songPlaying');
+
                                 return <List.Item className='single-song-item'>
                                     <List.Content>
                                         <Grid className='middle aligned' style={{alignItems: 'center'}}>
@@ -64,19 +72,29 @@ class MainScreen extends React.Component {
                                                 {this._renderSongDetails(singleSong)}
                                             </Grid.Column>
                                             <Grid.Column width={2} className='play-button-column'>
-                                                <Button
-                                                    className='play-button'
-                                                    circular icon='play'
-                                                    size='huge'
-                                                    onClick={() => {
-                                                        let reorderedAudioList = this._getReorderedAudioList(singleSong);
+                                                {
+                                                    (isActive && isSongPlaying) ?
+                                                        <div className='bars-wrapper' onClick={() => {
+                                                            const pauseAudioFunction =
+                                                                _.get(this, 'musicPlayerRef.current._pauseAudio');
+                                                            pauseAudioFunction();
+                                                        }}>
+                                                            <SoundBars/>
+                                                        </div>:
+                                                        <Button
+                                                            className='play-button'
+                                                            circular icon='play'
+                                                            size='huge'
+                                                            onClick={() => {
+                                                                let reorderedAudioList = this._getReorderedAudioList(singleSong);
 
-                                                        this.setState({
-                                                            audioList: reorderedAudioList,
-                                                            playerUiid: getUiid()
-                                                        });
-                                                    }}
-                                                />
+                                                                this.setState({
+                                                                    audioList: reorderedAudioList,
+                                                                    playerUiid: getUiid()
+                                                                });
+                                                            }}
+                                                        />
+                                                }
                                             </Grid.Column>
                                             <Grid.Column width={11} className='waveform-column'>
                                                 <WaveformProgress
@@ -88,14 +106,11 @@ class MainScreen extends React.Component {
                                                         Math.floor(_.get(this, 'musicPlayerRef.current.state.duration')) -
                                                         Math.ceil(_.get(this, 'musicPlayerRef.current.state.currentTime'))
                                                     }
-                                                    isOnTopOfPlaylist={
-                                                        _.get(this, 'state.songPlaying')
+                                                    isSongPlaying={
+                                                        isSongPlaying
                                                     }
                                                     isActive={
-                                                        _.isEqual(
-                                                            _.get(this, 'musicPlayerRef.current.state.audioLists[0]'),
-                                                            singleSong
-                                                        )
+                                                        isActive
                                                     }
 
                                                 />
@@ -110,33 +125,35 @@ class MainScreen extends React.Component {
                     <p>Lorem ipsum</p>
                 </Container>
 
-                <ReactJkMusicPlayer
-                    audioLists={this.state.audioList}
-                    mode={'full'}
-                    autoPlay={!isArrayEmpty(this.state.audioList)}
-                    ref={this.musicPlayerRef}
-                    key={this.state.playerUiid}
-                    defaultVolume={DEFAULT_PLAYER_VOLUME}
-                    onAudioPlay={() => {
-                        setTimeout(() => {
+                {
+                    !_.isEqual(_.size(this.state.audioList), 0) && <ReactJkMusicPlayer
+                        audioLists={this.state.audioList}
+                        mode={'full'}
+                        autoPlay={!isArrayEmpty(this.state.audioList)}
+                        ref={this.musicPlayerRef}
+                        key={this.state.playerUiid}
+                        defaultVolume={DEFAULT_PLAYER_VOLUME}
+                        onAudioPlay={() => {
+                            setTimeout(() => {
+                                this.setState({
+                                    waveformProgressWidth: this._calculateProgressBarWidth(),
+                                    songPlaying: true
+                                });
+                            }, 500);
+                        }}
+                        onAudioPause={() => {
                             this.setState({
                                 waveformProgressWidth: this._calculateProgressBarWidth(),
-                                songPlaying: true
+                                songPlaying: false
                             });
-                        }, 500);
-                    }}
-                    onAudioPause={() => {
-                        this.setState({
-                            waveformProgressWidth: this._calculateProgressBarWidth(),
-                            songPlaying: false
-                        });
-                    }}
-                    onAudioSeeked={() => {
-                        this.setState({
-                            waveformProgressWidth: this._calculateProgressBarWidth()
-                        });
-                    }}
-                />;
+                        }}
+                        onAudioSeeked={() => {
+                            this.setState({
+                                waveformProgressWidth: this._calculateProgressBarWidth()
+                            });
+                        }}
+                    />
+                }
             </div>
         );
     }

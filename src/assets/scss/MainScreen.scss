@@ -56,7 +56,8 @@
 
 .ui.grid>.column:not(.row), .ui.grid>.row>.column {
   &.play-button-column {
-    display: inline-flex;
+    text-align: center;
+    //display: inline-flex;
   }
 }
 
@@ -64,5 +65,17 @@
   &.play-button {
     height: 84px;
     width: 84px;
+  }
+}
+
+.bars-wrapper {
+  width: 84px;
+  height: 84px;
+  background: #dcdcdc;
+  border-radius: 50%;
+  margin-left: 30px;
+
+  &:hover {
+    cursor: pointer;
   }
 }
