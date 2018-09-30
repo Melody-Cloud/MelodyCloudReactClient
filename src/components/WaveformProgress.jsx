@@ -8,7 +8,7 @@ export class WaveformProgress extends React.Component {
     }
 
     render() {
-        const {waveformSrc, imageWidth, imageHeight, progressFilterWidth, animationDuration, isActive} = this.props;
+        const {waveformSrc, imageWidth, imageHeight, progressFilterWidth, animationDuration, isOnTopOfPlaylist, isActive} = this.props;
 
         const imageStyle = {
             width: imageWidth,
@@ -16,6 +16,7 @@ export class WaveformProgress extends React.Component {
             overflow: 'hidden',
             background: `url('${waveformSrc}')`,
             backgroundSize: `${imageWidth}px ${imageHeight}px`,
+            // filter: 'blur(2px)'
         };
 
         const slide = keyframes`
@@ -28,17 +29,17 @@ export class WaveformProgress extends React.Component {
           }
         `;
 
-        const blurStyle = {
+        const blurStyle = isActive ? {
             backgroundImage: `url('${waveformSrc}')`,
             backgroundPosition: 'center left',
-            filter: 'grayscale(100%)',
+            filter: 'invert(.2) blur(3px)',
             float: 'left',
             height: imageHeight,
             width: progressFilterWidth,
-            marginLeft: -1,
+            marginLeft: 0,
             backgroundSize: `${imageWidth}px ${imageHeight}px`,
-            animation: ((progressFilterWidth > 0) && isActive) ? `${slide} ${Math.floor(animationDuration)}s linear forwards`: 'none',
-        };
+            animation: ((progressFilterWidth > 0) && isOnTopOfPlaylist) ? `${slide} ${Math.floor(animationDuration)}s linear forwards`: 'none',
+        }: {};
 
         return <div id="image" style={imageStyle}>
             <div id="blur" style={blurStyle}/>

@@ -8,10 +8,7 @@ import _ from 'lodash';
 import {getUiid, jinkieMockSongs} from "../utils/mocks";
 import {isArrayEmpty} from "../utils/common-utils";
 import {DEFAULT_PLAYER_VOLUME, WAVEFORM_IMAGE_HEIGHT, WAVEFORM_IMAGE_WIDTH} from "../config/application-config";
-// import WaveformMock from 'assets/img/out.bmp';
 import {WaveformProgress} from "./WaveformProgress";
-
-const WaveformMock = 'http://localhost:8081/out.bmp';
 
 class MainScreen extends React.Component {
     constructor(props) {
@@ -83,7 +80,7 @@ class MainScreen extends React.Component {
                                             </Grid.Column>
                                             <Grid.Column width={11} className='waveform-column'>
                                                 <WaveformProgress
-                                                    waveformSrc={WaveformMock}
+                                                    waveformSrc={_.get(singleSong, 'waveform')}
                                                     imageWidth={WAVEFORM_IMAGE_WIDTH}
                                                     imageHeight={WAVEFORM_IMAGE_HEIGHT}
                                                     progressFilterWidth={this.state.waveformProgressWidth}
@@ -91,7 +88,16 @@ class MainScreen extends React.Component {
                                                         Math.floor(_.get(this, 'musicPlayerRef.current.state.duration')) -
                                                         Math.ceil(_.get(this, 'musicPlayerRef.current.state.currentTime'))
                                                     }
-                                                    isActive={_.get(this, 'state.songPlaying')}
+                                                    isOnTopOfPlaylist={
+                                                        _.get(this, 'state.songPlaying')
+                                                    }
+                                                    isActive={
+                                                        _.isEqual(
+                                                            _.get(this, 'musicPlayerRef.current.state.audioLists[0]'),
+                                                            singleSong
+                                                        )
+                                                    }
+
                                                 />
                                             </Grid.Column>
                                         </Grid>
@@ -114,7 +120,7 @@ class MainScreen extends React.Component {
                     onAudioPlay={() => {
                         setTimeout(() => {
                             this.setState({
-                                waveformProgressWidth: this.state.waveformProgressWidth+1,
+                                waveformProgressWidth: this._calculateProgressBarWidth(),
                                 songPlaying: true
                             });
                         }, 500);
