@@ -11,21 +11,21 @@ export class WaveformProgress extends React.Component {
         const {waveformSrc, imageWidth, imageHeight, progressFilterWidth, animationDuration, isSongPlaying, isActive, howManySteps} = this.props;
 
         const imageStyle = {
-            width: imageWidth,
+            width: `${imageWidth}vw`,
             height: imageHeight,
             overflow: 'hidden',
             background: `url('${waveformSrc}')`,
-            backgroundSize: `${imageWidth}px ${imageHeight}px`,
+            backgroundSize: `${imageWidth}vw ${imageHeight}px`,
             // filter: 'blur(2px)'
         };
 
         const slide = keyframes`
           from {
-            width: ${progressFilterWidth}px
+            width: ${progressFilterWidth}vw
           }
         
           to {
-            width: ${imageWidth}px
+            width: ${imageWidth}vw
           }
         `;
 
@@ -37,7 +37,7 @@ export class WaveformProgress extends React.Component {
             height: imageHeight,
             width: progressFilterWidth,
             // marginLeft: '-1px',
-            backgroundSize: `${imageWidth}px ${imageHeight}px`,
+            backgroundSize: `${imageWidth}vw ${imageHeight}px`,
             animation: ((progressFilterWidth > 0) && isSongPlaying) ? `${slide} ${Math.floor(animationDuration)}s steps(${animationDuration*7}) forwards`: 'none',
         }: {};
 

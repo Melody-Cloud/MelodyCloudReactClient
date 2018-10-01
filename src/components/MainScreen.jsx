@@ -1,5 +1,5 @@
 import React from "react";
-import {Menu, Container, Input, Icon, Item, List, Card, Grid, Popup, Button, Image} from "semantic-ui-react";
+import {Menu, Container, Input, Icon, Item, List, Card, Grid, Popup, Button, Image, Label} from "semantic-ui-react";
 import 'assets/scss/MainScreen.scss';
 import ReactJkMusicPlayer from "react-jinke-music-player";
 import "react-jinke-music-player/assets/index.css";
@@ -113,7 +113,7 @@ class MainScreen extends React.Component {
                                                         />
                                                 }
                                             </Grid.Column>
-                                            <Grid.Column width={11} className='waveform-column'>
+                                            <Grid.Column width={8} className='waveform-column'>
                                                 <WaveformProgress
                                                     waveformSrc={_.get(singleSong, 'waveform')}
                                                     imageWidth={WAVEFORM_IMAGE_WIDTH}
@@ -131,6 +131,22 @@ class MainScreen extends React.Component {
                                                     }
 
                                                 />
+                                            </Grid.Column>
+                                            <Grid.Column width={3}>
+                                                <div>
+                                                    <Label color='green'>
+                                                        <Icon name='music' />
+                                                        Electronic
+                                                    </Label>
+                                                    <Label color='green'>
+                                                        <Icon name='music' />
+                                                        Alternative rock
+                                                    </Label>
+                                                    <Label color='green'>
+                                                        <Icon name='music' />
+                                                        Rap & Hip-hop
+                                                    </Label>
+                                                </div>
                                             </Grid.Column>
                                         </Grid>
                                     </List.Content>
@@ -176,7 +192,8 @@ class MainScreen extends React.Component {
     }
 
     _renderSongDetails(singleSong) {
-        return <Card>
+        return <Card color='green'>
+            <Image src={_.get(singleSong, 'cover')} />
             <Card.Content>
                 <Card.Header>
                     <span className="name">{_.get(singleSong, 'name')}</span>
@@ -187,13 +204,13 @@ class MainScreen extends React.Component {
                 </Card.Description>
             </Card.Content>
             <Card.Content extra>
-                <span className='date'><Icon name='play' />3200 plays</span>
+                <span className='date'><Icon name='user' />{_.get(singleSong, 'singer')}</span>
             </Card.Content>
             <Card.Content extra>
-                <span className='date'><Icon name='thumbs up outline' />100 likes</span>
+                <span className='date'><Icon name='play' />{_.get(singleSong, 'amountOfPlays')} plays</span>
             </Card.Content>
             <Card.Content extra>
-                <span className='date'><Icon name='calendar' />Created in 2015</span>
+                <span className='date'><Icon name='thumbs up outline' />{_.get(singleSong, 'amountOfLikes')} likes</span>
             </Card.Content>
         </Card>;
     }

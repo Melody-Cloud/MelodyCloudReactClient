@@ -1,5 +1,5 @@
 function getGenericImageUrl() {
-    return `http://lorempixel.com/640/360/?v=${getUiid()}`;
+    return `https://picsum.photos/400/50/?v=${getUiid()}`;
 }
 export function getUiid() {
     return Math.random().toString(36).substring(7);
@@ -82,11 +82,13 @@ export const songNames = [
 
 export const jinkieMockSongs = _.map(songNames, (songName, index) => {
     return {
+        id: index,
         name: songName,
         singer: `Singer${index}`,
         cover: getGenericImageUrl(),
         musicSrc: `http://localhost:8081/music/${songName}.mp3`,
         waveform: `http://localhost:8081/waveforms/${songName}.png`,
-        id: index
+        amountOfPlays: index*100+100,
+        amountOfLikes: index*20+15
     }
 });
