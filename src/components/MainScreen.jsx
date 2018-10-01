@@ -24,6 +24,10 @@ class MainScreen extends React.Component {
         };
 
         this.musicPlayerRef = React.createRef();
+
+        // setInterval(() => {
+        //     console.dir(this.musicPlayerRef);
+        // }, 1000);
     }
 
     _getReorderedAudioList = (singleSong) => {
@@ -86,13 +90,26 @@ class MainScreen extends React.Component {
                                                             circular icon='play'
                                                             size='huge'
                                                             onClick={() => {
-                                                                let reorderedAudioList = this._getReorderedAudioList(singleSong);
+                                                                const isThisSongFirstInPlaylist = _.isEqual(
+                                                                    _.get(this, 'musicPlayerRef.current.state.audioLists[0]'),
+                                                                    singleSong
+                                                                );
 
-                                                                this.setState({
-                                                                    audioList: reorderedAudioList,
-                                                                    playerUiid: getUiid()
-                                                                });
+                                                                if(!isThisSongFirstInPlaylist) {
+                                                                    let reorderedAudioList = this._getReorderedAudioList(singleSong);
+
+                                                                    this.setState({
+                                                                        audioList: reorderedAudioList,
+                                                                        playerUiid: getUiid()
+                                                                    });
+                                                                } else {
+                                                                    const onPlayFunction =
+                                                                        _.get(this, 'musicPlayerRef.current.onPlay');
+                                                                    onPlayFunction();
+                                                                }
                                                             }}
+                                                            color='green'
+                                                            inverted
                                                         />
                                                 }
                                             </Grid.Column>
