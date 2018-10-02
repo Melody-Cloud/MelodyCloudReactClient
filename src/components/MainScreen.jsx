@@ -24,6 +24,7 @@ import {isArrayEmpty} from "../utils/common-utils";
 import {DEFAULT_PLAYER_VOLUME, WAVEFORM_IMAGE_HEIGHT, WAVEFORM_IMAGE_WIDTH} from "../config/application-config";
 import {WaveformProgress} from "./WaveformProgress";
 import SoundBars from "./SoundBars";
+import Nav from "./pure-functional-components/Nav";
 
 class MainScreen extends React.Component {
     constructor(props) {
@@ -55,22 +56,7 @@ class MainScreen extends React.Component {
     render() {
         return (
             <div className="main-screen">
-                <Menu
-                    className='top-sticked-menu'
-                    fixed={'top'}
-                    inverted
-                    stackable
-                    borderless
-                >
-                    <Container text>
-                        <Menu.Item header>
-                            <Icon name='cloud' /> MelodyCloud
-                        </Menu.Item>
-                        <Menu.Item as='a'>
-                            <Input icon='search' placeholder='Search for songs...' />
-                        </Menu.Item>
-                    </Container>
-                </Menu>
+                <Nav/>
 
                 <Container className='feed-container' fluid>
                     <List id='songs-feed' celled>
@@ -110,6 +96,7 @@ class MainScreen extends React.Component {
                                                                 );
                                                                 const isSongEnded = _.get(this, 'musicPlayerRef.current.state.duration') >=
                                                                     Math.floor(_.get(this, 'musicPlayerRef.current.state.currentTime'));
+                                                                // TODO: maybe this double-checking with math.floor is not needed
 
                                                                 if(!isThisSongFirstInPlaylist || isSongEnded) {
                                                                     let reorderedAudioList = this._getReorderedAudioList(singleSong);

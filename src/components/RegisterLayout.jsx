@@ -137,8 +137,10 @@ class RegisterLayout extends React.Component {
                 open={this.state.registrationCompleteModalOpen}
                 className={this.state.redirectInProgress? 'redirect-in-progress-modal-content': ''}
             >
-                {!this.state.redirectInProgress &&
-                <Modal.Header>Your account has been created <Icon name='smile'/></Modal.Header>}
+                {
+                    !this.state.redirectInProgress &&
+                    <Modal.Header>Your account has been created <Icon name='smile'/></Modal.Header>
+                }
                 {
                     this.state.redirectInProgress ?
                         <Modal.Content>
