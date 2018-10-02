@@ -1,5 +1,19 @@
 import React from "react";
-import {Menu, Container, Input, Icon, Item, List, Card, Grid, Popup, Button, Image, Label} from "semantic-ui-react";
+import {
+    Menu,
+    Container,
+    Input,
+    Icon,
+    Item,
+    List,
+    Card,
+    Grid,
+    Popup,
+    Button,
+    Image,
+    Label,
+    Responsive, Segment
+} from "semantic-ui-react";
 import 'assets/scss/MainScreen.scss';
 import ReactJkMusicPlayer from "react-jinke-music-player";
 import "react-jinke-music-player/assets/index.css";
@@ -94,8 +108,10 @@ class MainScreen extends React.Component {
                                                                     _.get(this, 'musicPlayerRef.current.state.audioLists[0]'),
                                                                     singleSong
                                                                 );
+                                                                const isSongEnded = _.get(this, 'musicPlayerRef.current.state.duration') >=
+                                                                    Math.floor(_.get(this, 'musicPlayerRef.current.state.currentTime'));
 
-                                                                if(!isThisSongFirstInPlaylist) {
+                                                                if(!isThisSongFirstInPlaylist || isSongEnded) {
                                                                     let reorderedAudioList = this._getReorderedAudioList(singleSong);
 
                                                                     this.setState({
@@ -114,23 +130,22 @@ class MainScreen extends React.Component {
                                                 }
                                             </Grid.Column>
                                             <Grid.Column width={8} className='waveform-column'>
-                                                <WaveformProgress
-                                                    waveformSrc={_.get(singleSong, 'waveform')}
-                                                    imageWidth={WAVEFORM_IMAGE_WIDTH}
-                                                    imageHeight={WAVEFORM_IMAGE_HEIGHT}
-                                                    progressFilterWidth={this.state.waveformProgressWidth}
-                                                    animationDuration={
-                                                        Math.floor(_.get(this, 'musicPlayerRef.current.state.duration')) -
-                                                        Math.ceil(_.get(this, 'musicPlayerRef.current.state.currentTime'))
-                                                    }
-                                                    isSongPlaying={
-                                                        isSongPlaying
-                                                    }
-                                                    isActive={
-                                                        isActive
-                                                    }
-
-                                                />
+                                                    <WaveformProgress
+                                                        waveformSrc={_.get(singleSong, 'waveform')}
+                                                        imageWidth={WAVEFORM_IMAGE_WIDTH}
+                                                        imageHeight={WAVEFORM_IMAGE_HEIGHT}
+                                                        progressFilterWidth={this.state.waveformProgressWidth}
+                                                        animationDuration={
+                                                            Math.floor(_.get(this, 'musicPlayerRef.current.state.duration')) -
+                                                            Math.ceil(_.get(this, 'musicPlayerRef.current.state.currentTime'))
+                                                        }
+                                                        isSongPlaying={
+                                                            isSongPlaying
+                                                        }
+                                                        isActive={
+                                                            isActive
+                                                        }
+                                                    />
                                             </Grid.Column>
                                             <Grid.Column width={3}>
                                                 <div>
