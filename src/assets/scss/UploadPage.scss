@@ -1,0 +1,43 @@
+.upload-page {
+  margin-top: 7rem;
+
+  .new-song-header{
+    text-align: center;
+  }
+}
+
+.upload-button {
+  text-align: center;
+}
+
+.file-dropzone {
+  margin: 0 auto;
+  position: relative;
+  width: 200px;
+  height: 200px;
+  border: 2px dashed rgb(102, 102, 102);
+  border-radius: 5px;
+}
+
+.file-dropzone-wrapper {
+  text-align: center;
+}
+
+.upload-button {
+  &.ui.button {
+    margin-bottom: 1rem;
+  }
+}
+
+.upload-segment {
+  text-align: center;
+}
+
+.list-of-files-to-upload {
+  margin-top: 1rem;
+  display: inline-block;
+}
+
+.submit-button-wrapper {
+  margin-top: 1rem;
+}
