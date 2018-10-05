@@ -91,3 +91,16 @@
 .ui.label, .ui.labels .label {
   margin-top: .5rem;
 }
+
+.author-badge-content {
+  text-align: center;
+}
+
+@media (max-width: 1000px) {
+  .ui.button {
+    &.play-button {
+      height: 70px;
+      width: 70px;
+    }
+  }
+}

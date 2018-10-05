@@ -1,6 +1,11 @@
-function getGenericImageUrl() {
+function getBarUrl() {
     return `https://picsum.photos/400/50/?v=${getUiid()}`;
 }
+
+function getCoverUrl() {
+    return `https://picsum.photos/340/340/?v=${getUiid()}`;
+}
+
 export function getUiid() {
     return Math.random().toString(36).substring(7);
 }
@@ -22,35 +27,35 @@ const comments = [{"time": 1, "content": "A great song!!!!!!"}, {
 export const song1 = {
     name: 'Song1', // song name
     src: 'https://s0.vocaroo.com/media/download_temp/Vocaroo_s0FRiotFhFzX.mp3', // song source address
-    img: getGenericImageUrl(),
+    img: getBarUrl(),
     comments: comments
 };
 
 export const song2 = {
     name: 'Song2', // song name
     src: 'https://s0.vocaroo.com/media/download_temp/Vocaroo_s01uFiNgRFGP.mp3', // song source address
-    img: getGenericImageUrl(),
+    img: getBarUrl(),
     comments: comments
 };
 
 export const song3 = {
     name: 'Song3', // song name
     src: 'https://s1.vocaroo.com/media/download_temp/Vocaroo_s10KBi2dqEmz.mp3', // song source address
-    img: getGenericImageUrl(),
+    img: getBarUrl(),
     comments: comments
 };
 
 export const song4 = {
     name: 'Song4', // song name
     src: 'https://s0.vocaroo.com/media/download_temp/Vocaroo_s0crYi8mrRBP.mp3', // song source address
-    img: getGenericImageUrl(),
+    img: getBarUrl(),
     comments: comments
 };
 
 export const song5 = {
     name: 'Song5', // song name
     src: 'https://wenliangdai.github.io/src/songs/shape_of_you.mp3', // song source address
-    img: getGenericImageUrl(),
+    img: getBarUrl(),
     comments: comments
 };
 
@@ -61,14 +66,14 @@ export const mockedPlaylist = [song1, song2, song3, song4, song5];
 //     {
 //         name: "Song1",
 //         singer: "Singer1",
-//         cover: getGenericImageUrl(),
+//         cover: getBarUrl(),
 //         musicSrc: "https://s0.vocaroo.com/media/download_temp/Vocaroo_s01uFiNgRFGP.mp3",
 //         id: 1
 //     },
 //     {
 //         name: "Song2",
 //         singer: "Song2",
-//         cover: getGenericImageUrl(),
+//         cover: getBarUrl(),
 //         musicSrc: "https://s0.vocaroo.com/media/download_temp/Vocaroo_s0crYi8mrRBP.mp3",
 //         id: 2
 //     }
@@ -85,10 +90,11 @@ export const jinkieMockSongs = _.map(songNames, (songName, index) => {
         id: index,
         name: songName,
         singer: `Singer${index}`,
-        cover: getGenericImageUrl(),
+        cover: getBarUrl(),
         musicSrc: `http://localhost:8081/music/${songName}.mp3`,
         waveform: `http://localhost:8081/waveforms/${songName}.png`,
         amountOfPlays: index*100+100,
-        amountOfLikes: index*20+15
+        amountOfLikes: index*20+15,
+        coverUrl: getCoverUrl()
     }
 });

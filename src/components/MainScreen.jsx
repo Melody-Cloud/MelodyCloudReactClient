@@ -71,52 +71,18 @@ class MainScreen extends React.Component {
 
                                 return <List.Item className='single-song-item'>
                                     <List.Content>
-                                        <Grid className='middle aligned' style={{alignItems: 'center'}}>
-                                            <Grid.Column width={3}>
+                                        <Grid className='middle aligned' style={{alignItems: 'center'}} stackable>
+                                            <Grid.Column mobile={4} tablet={3} computer={3} largeScreen={3} widescreen={2}>
                                                 {this._renderSongDetails(singleSong)}
                                             </Grid.Column>
-                                            <Grid.Column width={2} className='play-button-column'>
+                                            <Grid.Column mobile={2} tablet={2} computer={2} largeScreen={2} widescreen={2} className='play-button-column'>
                                                 {
                                                     (isActive && isSongPlaying) ?
-                                                        <div className='bars-wrapper' onClick={() => {
-                                                            const pauseAudioFunction =
-                                                                _.get(this, 'musicPlayerRef.current._pauseAudio');
-                                                            pauseAudioFunction();
-                                                        }}>
-                                                            <SoundBars/>
-                                                        </div>:
-                                                        <Button
-                                                            className='play-button'
-                                                            circular icon='play'
-                                                            size='huge'
-                                                            onClick={() => {
-                                                                const isThisSongFirstInPlaylist = _.isEqual(
-                                                                    _.get(this, 'musicPlayerRef.current.state.audioLists[0]'),
-                                                                    singleSong
-                                                                );
-                                                                const isSongEnded = _.get(this, 'musicPlayerRef.current.state.currentTime') >=
-                                                                    Math.floor(_.get(this, 'musicPlayerRef.current.state.duration'));
-                                                                // TODO: maybe this double-checking with math.floor is not needed
-
-                                                                if(!isThisSongFirstInPlaylist || isSongEnded) {
-                                                                    let reorderedAudioList = this._getReorderedAudioList(singleSong);
-
-                                                                    this.setState({
-                                                                        audioList: reorderedAudioList,
-                                                                        playerUiid: getUiid()
-                                                                    });
-                                                                } else {
-                                                                    const onPlayFunction =
-                                                                        _.get(this, 'musicPlayerRef.current.onPlay');
-                                                                    onPlayFunction();
-                                                                }
-                                                            }}
-                                                            color='green'
-                                                            inverted
-                                                        />
+                                                        this._renderPauseButton():
+                                                        this._renderPlayButton(singleSong)
                                                 }
                                             </Grid.Column>
-                                            <Grid.Column width={8} className='waveform-column'>
+                                            <Grid.Column mobile={9} tablet={8} computer={8} largeScreen={8} widescreen={8} className='waveform-column'>
                                                     <WaveformProgress
                                                         waveformSrc={_.get(singleSong, 'waveform')}
                                                         imageWidth={WAVEFORM_IMAGE_WIDTH}
@@ -134,7 +100,7 @@ class MainScreen extends React.Component {
                                                         }
                                                     />
                                             </Grid.Column>
-                                            <Grid.Column width={3}>
+                                            <Grid.Column mobile={1} tablet={3} computer={3} largeScreen={3} widescreen={4}>
                                                 <div>
                                                     <Label color='green'>
                                                         <Icon name='music' />
@@ -194,6 +160,53 @@ class MainScreen extends React.Component {
             </div>
         );
     }
+
+    _renderPauseButton = () => {
+        return <Button
+            className='play-button'
+            circular icon='pause'
+            size='huge'
+            onClick={() => {
+                const pauseAudioFunction =
+                    _.get(this, 'musicPlayerRef.current._pauseAudio');
+                pauseAudioFunction();
+            }}
+            color='green'
+            inverted
+        />;
+    };
+
+    _renderPlayButton = (singleSong) => {
+        return <Button
+            className='play-button'
+            circular icon='play'
+            size='huge'
+            onClick={() => {
+                const isThisSongFirstInPlaylist = _.isEqual(
+                    _.get(this, 'musicPlayerRef.current.state.audioLists[0]'),
+                    singleSong
+                );
+                const isSongEnded = _.get(this, 'musicPlayerRef.current.state.currentTime') >=
+                    Math.floor(_.get(this, 'musicPlayerRef.current.state.duration'));
+                // TODO: maybe this double-checking with math.floor is not needed
+
+                if (!isThisSongFirstInPlaylist || isSongEnded) {
+                    let reorderedAudioList = this._getReorderedAudioList(singleSong);
+
+                    this.setState({
+                        audioList: reorderedAudioList,
+                        playerUiid: getUiid()
+                    });
+                } else {
+                    const onPlayFunction =
+                        _.get(this, 'musicPlayerRef.current.onPlay');
+                    onPlayFunction();
+                }
+            }}
+            color='green'
+            inverted
+        />;
+    };
 
     _renderSongDetails(singleSong) {
         return <Card color='green'>

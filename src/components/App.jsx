@@ -6,6 +6,7 @@ import MainScreen from "./MainScreen";
 import TestScreen from "./TestScreen";
 import LoginLayout from "./LoginLayout";
 import UploadPage from "./UploadPage";
+import SongDetails from "./SongDetails";
 
 class App extends React.PureComponent {
     render() {
@@ -17,6 +18,7 @@ class App extends React.PureComponent {
                     <Route exact path="/test" component={TestScreen} />
                     <Route exact path="/login" component={LoginLayout} />
                     <Route exact path="/upload" component={UploadPage} />
+                    <Route exact path="/song-details" component={SongDetails} />
                 </Switch>
             </HashRouter >
         );
