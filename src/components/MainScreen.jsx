@@ -94,8 +94,8 @@ class MainScreen extends React.Component {
                                                                     _.get(this, 'musicPlayerRef.current.state.audioLists[0]'),
                                                                     singleSong
                                                                 );
-                                                                const isSongEnded = _.get(this, 'musicPlayerRef.current.state.duration') >=
-                                                                    Math.floor(_.get(this, 'musicPlayerRef.current.state.currentTime'));
+                                                                const isSongEnded = _.get(this, 'musicPlayerRef.current.state.currentTime') >=
+                                                                    Math.floor(_.get(this, 'musicPlayerRef.current.state.duration'));
                                                                 // TODO: maybe this double-checking with math.floor is not needed
 
                                                                 if(!isThisSongFirstInPlaylist || isSongEnded) {
@@ -177,8 +177,10 @@ class MainScreen extends React.Component {
                             }, 500);
                         }}
                         onAudioPause={() => {
+                            const calculatedProgressBarWidth = this._calculateProgressBarWidth();
+
                             this.setState({
-                                waveformProgressWidth: this._calculateProgressBarWidth(),
+                                waveformProgressWidth: calculatedProgressBarWidth,
                                 songPlaying: false
                             });
                         }}

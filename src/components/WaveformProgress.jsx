@@ -8,6 +8,8 @@ export class WaveformProgress extends React.Component {
     }
 
     render() {
+        console.log('rendering waveform');
+
         const {waveformSrc, imageWidth, imageHeight, progressFilterWidth, animationDuration, isSongPlaying, isActive, howManySteps} = this.props;
 
         const imageStyle = {
@@ -35,7 +37,7 @@ export class WaveformProgress extends React.Component {
             filter: 'invert(.4)',
             float: 'left',
             height: imageHeight,
-            width: progressFilterWidth,
+            width: `${progressFilterWidth}vw`,
             // marginLeft: '-1px',
             backgroundSize: `${imageWidth}vw ${imageHeight}px`,
             animation: ((progressFilterWidth > 0) && isSongPlaying) ? `${slide} ${Math.floor(animationDuration)}s steps(${animationDuration*7}) forwards`: 'none',
