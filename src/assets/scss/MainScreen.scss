@@ -54,7 +54,7 @@
   transition: position 0.5s ease;
 }
 
-.ui.grid>.column:not(.row), .ui.grid>.row>.column {
+.ui.grid > .column:not(.row), .ui.grid > .row > .column {
   &.play-button-column {
     text-align: center;
     //display: inline-flex;
@@ -101,6 +101,15 @@
     &.play-button {
       height: 70px;
       width: 70px;
+    }
+  }
+}
+
+@media (max-width: 1440px) {
+  .ui.button {
+    &.add-to-playlist-button {
+      margin-top: .5rem;
+      margin-right: 3%;
     }
   }
 }

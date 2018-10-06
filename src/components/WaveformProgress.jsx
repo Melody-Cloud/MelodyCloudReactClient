@@ -8,8 +8,6 @@ export class WaveformProgress extends React.Component {
     }
 
     render() {
-        console.log('rendering waveform');
-
         const {waveformSrc, imageWidth, imageHeight, progressFilterWidth, animationDuration, isSongPlaying, isActive, howManySteps} = this.props;
 
         const imageStyle = {

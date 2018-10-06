@@ -73,13 +73,16 @@ class MainScreen extends React.Component {
                                     <List.Content>
                                         <Grid className='middle aligned' style={{alignItems: 'center'}} stackable>
                                             <Grid.Column mobile={4} tablet={3} computer={3} largeScreen={3} widescreen={2}>
-                                                {this._renderSongDetails(singleSong)}
+                                                {this._renderSongCard(singleSong)}
                                             </Grid.Column>
                                             <Grid.Column mobile={2} tablet={2} computer={2} largeScreen={2} widescreen={2} className='play-button-column'>
                                                 {
                                                     (isActive && isSongPlaying) ?
                                                         this._renderPauseButton():
                                                         this._renderPlayButton(singleSong)
+                                                }
+                                                {
+                                                    this._renderAppendToPlaylistButton(singleSong)
                                                 }
                                             </Grid.Column>
                                             <Grid.Column mobile={9} tablet={8} computer={8} largeScreen={8} widescreen={8} className='waveform-column'>
@@ -128,6 +131,7 @@ class MainScreen extends React.Component {
 
                 {
                     !_.isEqual(_.size(this.state.audioList), 0) && <ReactJkMusicPlayer
+                        preload={true}
                         audioLists={this.state.audioList}
                         mode={'full'}
                         autoPlay={!isArrayEmpty(this.state.audioList)}
@@ -208,7 +212,24 @@ class MainScreen extends React.Component {
         />;
     };
 
-    _renderSongDetails(singleSong) {
+    _renderAppendToPlaylistButton = (singleSong) => {
+        return <Button
+            className='add-to-playlist-button'
+            circular icon='plus'
+            color='green'
+            inverted
+            onClick={() => {
+                let currentAudioListToBeUpdated = _.clone(this.state.audioList);
+                currentAudioListToBeUpdated.push(singleSong);
+                this.setState({
+                    audioList: currentAudioListToBeUpdated
+                });
+            }}
+        >
+        </Button>
+    };
+
+    _renderSongCard(singleSong) {
         return <Card color='green'>
             <Image src={_.get(singleSong, 'cover')} />
             <Card.Content>
