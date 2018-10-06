@@ -227,7 +227,7 @@ class MainScreen extends React.Component {
                 });
 
                 let notyf = new Notyf({
-                    delay: 3000,
+                    delay: 2000,
                 });
                 notyf.confirm(`Song ${_.get(singleSong, 'name')} was added to your playlist`);
             }}
@@ -241,7 +241,9 @@ class MainScreen extends React.Component {
             <Card.Content>
                 <Card.Header>
                     <span className="name">{_.get(singleSong, 'name')}</span>
-                    <a className='song-show-more-info'>(<Icon name='chain'/>details)</a>
+                    <a className='song-show-more-info'>
+                        (<Icon name='chain'/>details)
+                    </a>
                 </Card.Header>
                 <Card.Description>
                     <Popup trigger={<a>Click to display song description</a>} content='Add users to your feed' position='bottom left' on='click'/>
