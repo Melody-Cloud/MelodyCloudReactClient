@@ -25,6 +25,7 @@ import {DEFAULT_PLAYER_VOLUME, WAVEFORM_IMAGE_HEIGHT, WAVEFORM_IMAGE_WIDTH} from
 import {WaveformProgress} from "./WaveformProgress";
 import SoundBars from "./SoundBars";
 import Nav from "./pure-functional-components/Nav";
+import Notyf from "notyf";
 
 class MainScreen extends React.Component {
     constructor(props) {
@@ -224,6 +225,11 @@ class MainScreen extends React.Component {
                 this.setState({
                     audioList: currentAudioListToBeUpdated
                 });
+
+                let notyf = new Notyf({
+                    delay: 3000,
+                });
+                notyf.confirm(`Song ${_.get(singleSong, 'name')} was added to your playlist`);
             }}
         >
         </Button>
