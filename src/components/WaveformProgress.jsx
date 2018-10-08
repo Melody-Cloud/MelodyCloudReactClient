@@ -1,5 +1,5 @@
-import React from "react";
 import { keyframes } from 'styled-components';
+import React from "react";
 import PropTypes from 'prop-types';
 
 import 'assets/scss/WaveformProgress.scss';
