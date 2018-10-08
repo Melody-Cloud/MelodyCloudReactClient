@@ -1,10 +1,7 @@
 import React from "react";
 import {
-    Menu,
     Container,
-    Input,
     Icon,
-    Item,
     List,
     Card,
     Grid,
@@ -12,7 +9,6 @@ import {
     Button,
     Image,
     Label,
-    Responsive, Segment
 } from "semantic-ui-react";
 import 'assets/scss/MainScreen.scss';
 import ReactJkMusicPlayer from "react-jinke-music-player";
@@ -23,7 +19,6 @@ import {getUiid, jinkieMockSongs} from "../utils/mocks";
 import {isArrayEmpty} from "../utils/common-utils";
 import {DEFAULT_PLAYER_VOLUME, WAVEFORM_IMAGE_HEIGHT, WAVEFORM_IMAGE_WIDTH} from "../config/application-config";
 import {WaveformProgress} from "./WaveformProgress";
-import SoundBars from "./SoundBars";
 import Nav from "./pure-functional-components/Nav";
 import Notyf from "notyf";
 
@@ -40,10 +35,6 @@ class MainScreen extends React.Component {
         };
 
         this.musicPlayerRef = React.createRef();
-
-        // setInterval(() => {
-        //     console.dir(this.musicPlayerRef);
-        // }, 1000);
     }
 
     _getReorderedAudioList = (singleSong) => {

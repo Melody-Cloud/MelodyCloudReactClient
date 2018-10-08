@@ -15,3 +15,5 @@ seek working wrong ? (working better if stopping and then seeking)
 - waveform presigned urls?
 
 - rewrite some "dummy" components to functional way
+
+- player in "root" - stored globally
