@@ -1,7 +1,6 @@
 import 'assets/scss/MainScreen.scss';
 import 'react-jinke-music-player/assets/index.css';
 
-import Notyf from 'notyf';
 import _ from 'lodash';
 
 import { Button, Container, Grid, List } from 'semantic-ui-react';
@@ -9,14 +8,17 @@ import React from 'react';
 
 import ReactJkMusicPlayer from 'react-jinke-music-player';
 
-import { WAVEFORM_IMAGE_HEIGHT, WAVEFORM_IMAGE_WIDTH } from '../config/application-config';
 import {
+    APPEND_TO_PLAYLIST_BUTTON_PROPS,
     FIRST_COLUMN_PROPS,
     FOURTH_COLUMN_PROPS,
     JK_MUSIC_PLAYER_DEFAULT_SETTINGS,
+    PAUSE_BUTTON_PROPS,
+    PLAY_BUTTON_PROPS,
     SECOND_COLUMN_PROPS,
     THIRD_COLUMN_PROPS,
 } from '../config/components-defaults-config';
+import { WAVEFORM_IMAGE_HEIGHT, WAVEFORM_IMAGE_WIDTH, notyf } from '../config/application-config';
 import { WaveformProgress } from './WaveformProgress';
 import { getUiid, jinkieMockSongs } from '../utils/mocks';
 import { isArrayEmpty } from '../utils/common-utils';
@@ -46,89 +48,48 @@ class MainScreen extends React.Component {
     };
 
     calculateProgressBarWidth = () => {
-        if (
-            !this.musicPlayerRef.current ||
-            !this.musicPlayerRef.current.state ||
-            _.isEqual(this.musicPlayerRef.current.state.currentTime, 0)
-        ) {
+        if (!this.musicPlayerRef.current || !this.musicPlayerRef.current.state || _.isEqual(this.musicPlayerRef.current.state.currentTime, 0)) {
             return 0;
         }
         return (
-            (_.get(this, 'musicPlayerRef.current.state.currentTime') /
-                _.get(this, 'musicPlayerRef.current.state.duration')) *
-            WAVEFORM_IMAGE_WIDTH
+            (_.get(this, 'musicPlayerRef.current.state.currentTime') / _.get(this, 'musicPlayerRef.current.state.duration')) * WAVEFORM_IMAGE_WIDTH
         );
     };
 
-    renderPlayButton = singleSong => (
-        <Button
-            className="play-button"
-            circular
-            icon="play"
-            size="huge"
-            onClick={() => {
-                const isThisSongFirstInPlaylist = _.isEqual(
-                    _.get(this, 'musicPlayerRef.current.state.audioLists[0]'),
-                    singleSong,
-                );
-                const isSongEnded =
-                    _.get(this, 'musicPlayerRef.current.state.currentTime') >=
-                    Math.floor(_.get(this, 'musicPlayerRef.current.state.duration'));
-                // TODO: maybe this double-checking with math.floor is not needed
+    isGivenSongFirstInPlaylist = songObject => {
+        return _.isEqual(_.get(this, 'musicPlayerRef.current.state.audioLists[0]'), songObject);
+    };
 
-                if (!isThisSongFirstInPlaylist || isSongEnded) {
-                    const reorderedAudioList = this.getReorderedAudioList(singleSong);
+    isCurrentSongAlmostAtTheEnd = () => {
+        return _.get(this, 'musicPlayerRef.current.state.currentTime') >= Math.floor(_.get(this, 'musicPlayerRef.current.state.duration'));
+    };
 
-                    this.setState({
-                        audioList: reorderedAudioList,
-                        playerUiid: getUiid(),
-                    });
-                } else {
-                    const onPlayFunction = _.get(this, 'musicPlayerRef.current.onPlay');
-                    onPlayFunction();
-                }
-            }}
-            color="green"
-            inverted
-        />
-    );
+    onPlayButtonClicked = songObject => {
+        const isThisSongFirstInPlaylist = this.isGivenSongFirstInPlaylist(songObject);
+        const isSongAtTheEnd = this.isCurrentSongAlmostAtTheEnd();
 
-    renderPauseButton = () => (
-        <Button
-            className="play-button"
-            circular
-            icon="pause"
-            size="huge"
-            onClick={() => {
-                const pauseAudioFunction = _.get(this, 'musicPlayerRef.current._pauseAudio');
-                pauseAudioFunction();
-            }}
-            color="green"
-            inverted
-        />
-    );
+        if (!isThisSongFirstInPlaylist || isSongAtTheEnd) {
+            const reorderedAudioList = this.getReorderedAudioList(songObject);
 
-    renderAppendToPlaylistButton = singleSong => (
-        <Button
-            className="add-to-playlist-button"
-            circular
-            icon="plus"
-            color="green"
-            inverted
-            onClick={() => {
-                const currentAudioListToBeUpdated = _.clone(this.state.audioList);
-                currentAudioListToBeUpdated.push(singleSong);
-                this.setState({
-                    audioList: currentAudioListToBeUpdated,
-                });
+            this.setState({
+                audioList: reorderedAudioList,
+                playerUiid: getUiid(),
+            });
+        } else {
+            const onPlayFunction = _.get(this, 'musicPlayerRef.current.onPlay');
+            onPlayFunction();
+        }
+    };
 
-                const notyf = new Notyf({
-                    delay: 2000,
-                });
-                notyf.confirm(`Song ${_.get(singleSong, 'name')} was added to your playlist`);
-            }}
-        />
-    );
+    appendSongToPlaylist = (songObject) => {
+        const currentAudioListToBeUpdated = _.clone(this.state.audioList);
+        currentAudioListToBeUpdated.push(songObject);
+        this.setState({
+            audioList: currentAudioListToBeUpdated,
+        });
+
+        notyf.confirm(`Song ${_.get(songObject, 'name')} was added to your playlist`);
+    };
 
     render() {
         const flooredSongDuration = Math.floor(_.get(this, 'musicPlayerRef.current.state.duration'));
@@ -142,12 +103,9 @@ class MainScreen extends React.Component {
                 <Container className="feed-container" fluid>
                     <List id="songs-feed" celled>
                         {_.map(jinkieMockSongs, songObject => {
-                            const isThisSongOnTopOfPlaylist = _.isEqual(
-                                _.get(this, 'musicPlayerRef.current.state.audioLists[0]'),
-                                songObject,
-                            );
+                            const isThisSongOnTopOfPlaylist = this.isGivenSongFirstInPlaylist(songObject);
 
-                            const isAnySongPlaying = _.get(this.state.songPlaying);
+                            const isAnySongPlaying = this.state.songPlaying;
 
                             return (
                                 <List.Item className="single-song-item">
@@ -157,10 +115,26 @@ class MainScreen extends React.Component {
                                                 <SongCard songObject={songObject} />
                                             </Grid.Column>
                                             <Grid.Column {...SECOND_COLUMN_PROPS}>
-                                                {isThisSongOnTopOfPlaylist && isAnySongPlaying
-                                                    ? this.renderPauseButton()
-                                                    : this.renderPlayButton(songObject)}
-                                                {this.renderAppendToPlaylistButton(songObject)}
+                                                {isThisSongOnTopOfPlaylist && isAnySongPlaying ? (
+                                                    <Button
+                                                        {...PAUSE_BUTTON_PROPS}
+                                                        onClick={() => {
+                                                            const pauseAudioFunction = _.get(this, 'musicPlayerRef.current._pauseAudio');
+                                                            pauseAudioFunction();
+                                                        }}
+                                                    />
+                                                ) : (
+                                                    <Button
+                                                        {...PLAY_BUTTON_PROPS}
+                                                        onClick={() => {
+                                                            this.onPlayButtonClicked(songObject);
+                                                        }}
+                                                    />
+                                                )}
+                                                <Button
+                                                    {...APPEND_TO_PLAYLIST_BUTTON_PROPS}
+                                                    onClick={() => {this.appendSongToPlaylist(songObject)}}
+                                                />
                                             </Grid.Column>
                                             <Grid.Column {...THIRD_COLUMN_PROPS}>
                                                 <WaveformProgress

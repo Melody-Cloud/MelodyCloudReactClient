@@ -39,3 +39,29 @@ export const JK_MUSIC_PLAYER_DEFAULT_SETTINGS = {
     mode: 'full',
     defaultVolume: DEFAULT_PLAYER_VOLUME,
 };
+
+export const PLAY_BUTTON_PROPS = {
+    className: 'play-button',
+    icon: 'play',
+    size: 'huge',
+    color: 'green',
+    circular: true,
+    inverted: true,
+};
+
+export const PAUSE_BUTTON_PROPS = {
+    className: 'play-button',
+    icon: 'pause',
+    size: 'huge',
+    color: 'green',
+    circular: true,
+    inverted: true,
+};
+
+export const APPEND_TO_PLAYLIST_BUTTON_PROPS = {
+    className: 'add-to-playlist-button',
+    icon: 'plus',
+    color: 'green',
+    circular: true,
+    inverted: true,
+};
