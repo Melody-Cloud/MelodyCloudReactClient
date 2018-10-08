@@ -1,6 +1,8 @@
 import React from "react";
+import { keyframes } from 'styled-components';
+import PropTypes from 'prop-types';
+
 import 'assets/scss/WaveformProgress.scss';
-import { keyframes } from 'styled-components'
 
 export class WaveformProgress extends React.Component {
     constructor(props) {
@@ -8,20 +10,24 @@ export class WaveformProgress extends React.Component {
     }
 
     render() {
-        const {waveformSrc, imageWidth, imageHeight, progressFilterWidth, animationDuration, isSongPlaying, isActive, howManySteps} = this.props;
+        const {
+            waveformImageSource, imageWidth,
+            imageHeight, waveformProgressBarWidth,
+            animationDuration, isAnimationEnabled, isActive
+        } = this.props;
 
         const imageStyle = {
             width: `${imageWidth}vw`,
             height: imageHeight,
             overflow: 'hidden',
-            background: `url('${waveformSrc}')`,
+            background: `url('${waveformImageSource}')`,
             backgroundSize: `${imageWidth}vw ${imageHeight}px`,
             // filter: 'blur(2px)'
         };
 
         const slide = keyframes`
           from {
-            width: ${progressFilterWidth}vw
+            width: ${waveformProgressBarWidth}vw
           }
         
           to {
@@ -30,15 +36,14 @@ export class WaveformProgress extends React.Component {
         `;
 
         const blurStyle = isActive ? {
-            backgroundImage: `url('${waveformSrc}')`,
+            backgroundImage: `url('${waveformImageSource}')`,
             backgroundPosition: 'center left',
             filter: 'invert(.4)',
             float: 'left',
             height: imageHeight,
-            width: `${progressFilterWidth}vw`,
-            // marginLeft: '-1px',
+            width: `${waveformProgressBarWidth}vw`,
             backgroundSize: `${imageWidth}vw ${imageHeight}px`,
-            animation: ((progressFilterWidth > 0) && isSongPlaying) ? `${slide} ${Math.floor(animationDuration)}s steps(${animationDuration*7}) forwards`: 'none',
+            animation: ((waveformProgressBarWidth > 0) && isAnimationEnabled) ? `${slide} ${Math.floor(animationDuration)}s steps(${animationDuration*7}) forwards`: 'none',
         }: {};
 
         return <div id="image" style={imageStyle}>
@@ -46,3 +51,13 @@ export class WaveformProgress extends React.Component {
         </div>;
     }
 }
+
+WaveformProgress.propTypes = {
+    waveformImageSource: PropTypes.string,
+    imageWidth: PropTypes.number,
+    imageHeight: PropTypes.number,
+    waveformProgressBarWidth: PropTypes.number,
+    animationDuration: PropTypes.number,
+    isAnimationEnabled: PropTypes.bool,
+    isActive: PropTypes.bool
+};

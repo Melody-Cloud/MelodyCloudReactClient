@@ -30,19 +30,19 @@ class MainScreen extends React.Component {
             audioList: [
 
             ],
-            waveformProgressWidth: 0,
+            waveformProgressBarWidth: 0,
             songPlaying: false
         };
 
         this.musicPlayerRef = React.createRef();
     }
 
-    _getReorderedAudioList = (singleSong) => {
-        let currentAudioListToBeUpdated = _.clone(this.state.audioList);
-        let audioListWithDuplicateSongRemoved = _.pull(currentAudioListToBeUpdated, singleSong);
-        audioListWithDuplicateSongRemoved.unshift(singleSong);
+    _getReorderedAudioList = (songToBePlayedNow) => {
+        let newAudioListToBePlayed = _.clone(this.state.audioList);
+        let audioListWithDuplicateSongRemoved = _.pull(newAudioListToBePlayed, songToBePlayedNow);
+        audioListWithDuplicateSongRemoved.unshift(songToBePlayedNow);
 
-        return currentAudioListToBeUpdated;
+        return newAudioListToBePlayed;
     };
 
     render() {
@@ -53,45 +53,45 @@ class MainScreen extends React.Component {
                 <Container className='feed-container' fluid>
                     <List id='songs-feed' celled>
                         {
-                            _.map(jinkieMockSongs, singleSong => {
-                                const isActive = _.isEqual(
+                            _.map(jinkieMockSongs, songObject => {
+                                const isThisSongOnTopOfPlaylist = _.isEqual(
                                     _.get(this, 'musicPlayerRef.current.state.audioLists[0]'),
-                                    singleSong
+                                    songObject
                                 );
 
-                                const isSongPlaying = _.get(this, 'state.songPlaying');
+                                const isSongPlaying = _.get(this.state.songPlaying);
 
                                 return <List.Item className='single-song-item'>
                                     <List.Content>
                                         <Grid className='middle aligned' style={{alignItems: 'center'}} stackable>
                                             <Grid.Column mobile={4} tablet={3} computer={3} largeScreen={3} widescreen={2}>
-                                                {this._renderSongCard(singleSong)}
+                                                {this._renderSongCard(songObject)}
                                             </Grid.Column>
                                             <Grid.Column mobile={2} tablet={2} computer={2} largeScreen={2} widescreen={2} className='play-button-column'>
                                                 {
-                                                    (isActive && isSongPlaying) ?
+                                                    (isThisSongOnTopOfPlaylist && isSongPlaying) ?
                                                         this._renderPauseButton():
-                                                        this._renderPlayButton(singleSong)
+                                                        this._renderPlayButton(songObject)
                                                 }
                                                 {
-                                                    this._renderAppendToPlaylistButton(singleSong)
+                                                    this._renderAppendToPlaylistButton(songObject)
                                                 }
                                             </Grid.Column>
                                             <Grid.Column mobile={9} tablet={8} computer={8} largeScreen={8} widescreen={8} className='waveform-column'>
                                                     <WaveformProgress
-                                                        waveformSrc={_.get(singleSong, 'waveform')}
+                                                        waveformImageSource={_.get(songObject, 'waveform')}
                                                         imageWidth={WAVEFORM_IMAGE_WIDTH}
                                                         imageHeight={WAVEFORM_IMAGE_HEIGHT}
-                                                        progressFilterWidth={this.state.waveformProgressWidth}
+                                                        waveformProgressBarWidth={this.state.waveformProgressBarWidth}
                                                         animationDuration={
                                                             Math.floor(_.get(this, 'musicPlayerRef.current.state.duration')) -
                                                             Math.ceil(_.get(this, 'musicPlayerRef.current.state.currentTime'))
                                                         }
-                                                        isSongPlaying={
+                                                        isAnimationEnabled={
                                                             isSongPlaying
                                                         }
                                                         isActive={
-                                                            isActive
+                                                            isThisSongOnTopOfPlaylist
                                                         }
                                                     />
                                             </Grid.Column>
@@ -133,7 +133,7 @@ class MainScreen extends React.Component {
                         onAudioPlay={() => {
                             setTimeout(() => {
                                 this.setState({
-                                    waveformProgressWidth: this._calculateProgressBarWidth(),
+                                    waveformProgressBarWidth: this._calculateProgressBarWidth(),
                                     songPlaying: true
                                 });
                             }, 500);
@@ -142,13 +142,13 @@ class MainScreen extends React.Component {
                             const calculatedProgressBarWidth = this._calculateProgressBarWidth();
 
                             this.setState({
-                                waveformProgressWidth: calculatedProgressBarWidth,
+                                waveformProgressBarWidth: calculatedProgressBarWidth,
                                 songPlaying: false
                             });
                         }}
                         onAudioSeeked={() => {
                             this.setState({
-                                waveformProgressWidth: this._calculateProgressBarWidth()
+                                waveformProgressBarWidth: this._calculateProgressBarWidth()
                             });
                         }}
                     />

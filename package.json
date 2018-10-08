@@ -73,6 +73,7 @@
     "aws-sdk": "^2.320.0",
     "lodash": "^4.17.11",
     "notyf": "^2.0.1",
+    "prop-types": "^15.6.2",
     "react-audioplayer": "^0.3.1",
     "react-dropzone": "^6.0.2",
     "react-image-overlay": "^1.0.3",
