@@ -4,7 +4,7 @@ import 'react-jinke-music-player/assets/index.css';
 import Notyf from 'notyf';
 import _ from 'lodash';
 
-import { Button, Card, Container, Grid, Icon, Image, Label, List, Popup } from 'semantic-ui-react';
+import { Button, Container, Grid, Icon, Label, List } from 'semantic-ui-react';
 import React from 'react';
 
 import ReactJkMusicPlayer from 'react-jinke-music-player';
@@ -14,6 +14,15 @@ import { WaveformProgress } from './WaveformProgress';
 import { getUiid, jinkieMockSongs } from '../utils/mocks';
 import { isArrayEmpty } from '../utils/common-utils';
 import Nav from './pure-functional-components/Nav';
+import SongCard from './pure-functional-components/SongCard';
+import {
+    FIRST_COLUMN_PROPS,
+    FIRST_COLUMN_SETTINGS,
+    FOURTH_COLUMN_PROPS,
+    SECOND_COLUMN_PROPS,
+    THIRD_COLUMN_PROPS,
+} from '../config/visuals-config';
+import SongTags from './pure-functional-components/SongTags';
 
 class MainScreen extends React.Component {
     constructor(props) {
@@ -35,49 +44,6 @@ class MainScreen extends React.Component {
 
         return newAudioListToBePlayed;
     };
-
-    static renderSongCard(songObject) {
-        return (
-            <Card color="green">
-                <Image src={_.get(songObject, 'cover')} />
-                <Card.Content>
-                    <Card.Header>
-                        <span className="name">{_.get(songObject, 'name')}</span>
-                        <a className="song-show-more-info" href="/">
-                            (<Icon name="chain" />
-                            details)
-                        </a>
-                    </Card.Header>
-                    <Card.Description>
-                        <Popup
-                            trigger={<a href="/">Click to display song description</a>}
-                            content="Add users to your feed"
-                            position="bottom left"
-                            on="click"
-                        />
-                    </Card.Description>
-                </Card.Content>
-                <Card.Content extra>
-                    <span className="date">
-                        <Icon name="user" />
-                        {_.get(songObject, 'singer')}
-                    </span>
-                </Card.Content>
-                <Card.Content extra>
-                    <span className="date">
-                        <Icon name="play" />
-                        {_.get(songObject, 'amountOfPlays')} plays
-                    </span>
-                </Card.Content>
-                <Card.Content extra>
-                    <span className="date">
-                        <Icon name="thumbs up outline" />
-                        {_.get(songObject, 'amountOfLikes')} likes
-                    </span>
-                </Card.Content>
-            </Card>
-        );
-    }
 
     calculateProgressBarWidth = () => {
         if (
@@ -165,6 +131,10 @@ class MainScreen extends React.Component {
     );
 
     render() {
+        const flooredSongDuration = Math.floor(_.get(this, 'musicPlayerRef.current.state.duration'));
+
+        const currentSongTime = Math.ceil(_.get(this, 'musicPlayerRef.current.state.currentTime'));
+
         return (
             <div className="main-screen">
                 <Nav />
@@ -183,73 +153,32 @@ class MainScreen extends React.Component {
                                 <List.Item className="single-song-item">
                                     <List.Content>
                                         <Grid className="middle aligned" style={{ alignItems: 'center' }} stackable>
-                                            <Grid.Column
-                                                mobile={4}
-                                                tablet={3}
-                                                computer={3}
-                                                largeScreen={3}
-                                                widescreen={2}
-                                            >
-                                                {MainScreen.renderSongCard(songObject)}
+                                            <Grid.Column {...FIRST_COLUMN_PROPS}>
+                                                <SongCard songObject={songObject} />
                                             </Grid.Column>
-                                            <Grid.Column
-                                                mobile={2}
-                                                tablet={2}
-                                                computer={2}
-                                                largeScreen={2}
-                                                widescreen={2}
-                                                className="play-button-column"
-                                            >
+                                            <Grid.Column {...SECOND_COLUMN_PROPS}>
                                                 {isThisSongOnTopOfPlaylist && isAnySongPlaying
                                                     ? this.renderPauseButton()
                                                     : this.renderPlayButton(songObject)}
                                                 {this.renderAppendToPlaylistButton(songObject)}
                                             </Grid.Column>
-                                            <Grid.Column
-                                                mobile={9}
-                                                tablet={8}
-                                                computer={8}
-                                                largeScreen={8}
-                                                widescreen={8}
-                                                className="waveform-column"
-                                            >
+                                            <Grid.Column {...THIRD_COLUMN_PROPS}>
                                                 <WaveformProgress
                                                     waveformImageSource={_.get(songObject, 'waveform')}
                                                     imageWidth={WAVEFORM_IMAGE_WIDTH}
                                                     imageHeight={WAVEFORM_IMAGE_HEIGHT}
                                                     waveformProgressBarWidth={this.state.waveformProgressBarWidth}
-                                                    animationDuration={
-                                                        Math.floor(
-                                                            _.get(this, 'musicPlayerRef.current.state.duration'),
-                                                        ) -
-                                                        Math.ceil(
-                                                            _.get(this, 'musicPlayerRef.current.state.currentTime'),
-                                                        )
-                                                    }
+                                                    animationDuration={flooredSongDuration - currentSongTime}
                                                     isAnimationEnabled={isAnySongPlaying}
                                                     isActive={isThisSongOnTopOfPlaylist}
                                                 />
                                             </Grid.Column>
-                                            <Grid.Column
-                                                mobile={1}
-                                                tablet={3}
-                                                computer={3}
-                                                largeScreen={3}
-                                                widescreen={4}
-                                            >
-                                                <div>
-                                                    <Label color="green">
-                                                        <Icon name="music" />
-                                                        Electronic
-                                                    </Label>
-                                                    <Label color="green">
-                                                        <Icon name="music" />
-                                                        Alternative rock
-                                                    </Label>
-                                                    <Label color="green">
-                                                        <Icon name="music" />
-                                                        Rap & Hip-hop
-                                                    </Label>
+                                            <Grid.Column {...FOURTH_COLUMN_PROPS}>
+                                                <div className='song-tags-wrapper'>
+                                                    <SongTags
+                                                        songTags={['Electronic', 'Alternative rock', 'Rap & Hip-hop']}
+                                                        //TODO: remove this mock
+                                                    />
                                                 </div>
                                             </Grid.Column>
                                         </Grid>
@@ -258,8 +187,6 @@ class MainScreen extends React.Component {
                             );
                         })}
                     </List>
-
-                    <p>Lorem ipsum</p>
                 </Container>
 
                 {!_.isEqual(_.size(this.state.audioList), 0) && (
