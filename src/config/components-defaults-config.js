@@ -1,3 +1,5 @@
+import { DEFAULT_PLAYER_VOLUME } from './application-config';
+
 export const FIRST_COLUMN_PROPS = {
     mobile: 4,
     tablet: 3,
@@ -30,4 +32,10 @@ export const FOURTH_COLUMN_PROPS = {
     computer: 3,
     largeScreen: 3,
     widescreen: 4,
+};
+
+export const JK_MUSIC_PLAYER_DEFAULT_SETTINGS = {
+    preload: true,
+    mode: 'full',
+    defaultVolume: DEFAULT_PLAYER_VOLUME,
 };

@@ -4,24 +4,24 @@ import 'react-jinke-music-player/assets/index.css';
 import Notyf from 'notyf';
 import _ from 'lodash';
 
-import { Button, Container, Grid, Icon, Label, List } from 'semantic-ui-react';
+import { Button, Container, Grid, List } from 'semantic-ui-react';
 import React from 'react';
 
 import ReactJkMusicPlayer from 'react-jinke-music-player';
 
-import { DEFAULT_PLAYER_VOLUME, WAVEFORM_IMAGE_HEIGHT, WAVEFORM_IMAGE_WIDTH } from '../config/application-config';
+import { WAVEFORM_IMAGE_HEIGHT, WAVEFORM_IMAGE_WIDTH } from '../config/application-config';
+import {
+    FIRST_COLUMN_PROPS,
+    FOURTH_COLUMN_PROPS,
+    JK_MUSIC_PLAYER_DEFAULT_SETTINGS,
+    SECOND_COLUMN_PROPS,
+    THIRD_COLUMN_PROPS,
+} from '../config/components-defaults-config';
 import { WaveformProgress } from './WaveformProgress';
 import { getUiid, jinkieMockSongs } from '../utils/mocks';
 import { isArrayEmpty } from '../utils/common-utils';
 import Nav from './pure-functional-components/Nav';
 import SongCard from './pure-functional-components/SongCard';
-import {
-    FIRST_COLUMN_PROPS,
-    FIRST_COLUMN_SETTINGS,
-    FOURTH_COLUMN_PROPS,
-    SECOND_COLUMN_PROPS,
-    THIRD_COLUMN_PROPS,
-} from '../config/visuals-config';
 import SongTags from './pure-functional-components/SongTags';
 
 class MainScreen extends React.Component {
@@ -174,7 +174,7 @@ class MainScreen extends React.Component {
                                                 />
                                             </Grid.Column>
                                             <Grid.Column {...FOURTH_COLUMN_PROPS}>
-                                                <div className='song-tags-wrapper'>
+                                                <div className="song-tags-wrapper">
                                                     <SongTags
                                                         songTags={['Electronic', 'Alternative rock', 'Rap & Hip-hop']}
                                                         //TODO: remove this mock
@@ -191,13 +191,11 @@ class MainScreen extends React.Component {
 
                 {!_.isEqual(_.size(this.state.audioList), 0) && (
                     <ReactJkMusicPlayer
-                        preload
+                        {...JK_MUSIC_PLAYER_DEFAULT_SETTINGS}
                         audioLists={this.state.audioList}
-                        mode="full"
                         autoPlay={!isArrayEmpty(this.state.audioList)}
                         ref={this.musicPlayerRef}
                         key={this.state.playerUiid}
-                        defaultVolume={DEFAULT_PLAYER_VOLUME}
                         onAudioPlay={() => {
                             setTimeout(() => {
                                 this.setState({
@@ -207,10 +205,8 @@ class MainScreen extends React.Component {
                             }, 500);
                         }}
                         onAudioPause={() => {
-                            const calculatedProgressBarWidth = this.calculateProgressBarWidth();
-
                             this.setState({
-                                waveformProgressBarWidth: calculatedProgressBarWidth,
+                                waveformProgressBarWidth: this.calculateProgressBarWidth(),
                                 songPlaying: false,
                             });
                         }}
