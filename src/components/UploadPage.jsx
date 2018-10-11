@@ -1,21 +1,20 @@
-import React from 'react';
 import 'assets/scss/UploadPage.scss';
-import Nav from './pure-functional-components/Nav';
 import {
   Button,
-  Icon,
   Container,
   Header,
+  Icon,
   List,
   Message,
   Modal,
   Segment,
 } from 'semantic-ui-react';
-import UploadButton from './pure-functional-components/UploadButton';
+import Nav from './pure-functional-components/Nav';
+import React from 'react';
 
+import { Link } from 'react-router-dom';
 import Amplify, { Storage } from 'aws-amplify';
 import Dropzone from 'react-dropzone';
-import { Link } from 'react-router-dom';
 import _ from 'lodash';
 
 Amplify.configure({
@@ -55,7 +54,7 @@ class UploadPage extends React.Component {
       <div className="upload-page">
         <Modal open={this.state.errorModalOpen}>
           <Modal.Header>
-            Couldn't upload the file <Icon name="frown" />
+            Could not upload the file <Icon name="frown" />
           </Modal.Header>
           <Modal.Content>
             <p>{errorMessage}</p>
@@ -96,7 +95,7 @@ class UploadPage extends React.Component {
                 ref={node => {
                   this.dropzoneRef = node;
                 }}
-                onDrop={(accepted, rejected) => {
+                onDrop={(accepted) => {
                   this.setState({ files: accepted });
                 }}
                 className="file-dropzone"
@@ -123,7 +122,6 @@ class UploadPage extends React.Component {
                   !this.state.isFileUploading &&
                     Storage.put(this.state.files[0].name, this.state.files[0])
                       .then(result => {
-                        console.dir(result);
                         this.setState({
                           isFileUploading: false,
                           displayUploadSuccessMessage: true,
@@ -131,8 +129,6 @@ class UploadPage extends React.Component {
                         });
                       })
                       .catch(err => {
-                        console.log('console.dir(err);');
-                        console.dir(err);
                         this.setState({
                           errorMessageObject: err,
                           errorModalOpen: true,
