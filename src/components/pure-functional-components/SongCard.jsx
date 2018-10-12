@@ -1,5 +1,4 @@
 import React from 'react';
-import _ from 'lodash';
 
 import { Card, Icon, Image, Popup } from 'semantic-ui-react';
 import PropTypes from 'prop-types';

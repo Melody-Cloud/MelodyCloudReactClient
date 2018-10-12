@@ -95,6 +95,43 @@ export const jinkieMockSongs = _.map(songTitles, (songTitle, index) => {
         waveform: `http://localhost:8081/waveforms/${songTitle}.png`,
         amountOfPlays: index*100+100,
         amountOfLikes: index*20+15,
-        coverUrl: getCoverUrl()
+        cover: getCoverUrl()
     }
 });
+
+export const mockedUsers = [
+    {
+        name: 'Matt',
+        avatarImageUrl: 'https://react.semantic-ui.com/images/avatar/small/matt.jpg',
+    },
+    {
+        name: 'Elliot',
+        avatarImageUrl: 'https://react.semantic-ui.com/images/avatar/small/elliot.jpg',
+    },
+    {
+        name: 'Jenny',
+        avatarImageUrl: 'https://react.semantic-ui.com/images/avatar/small/jenny.jpg',
+    },
+    {
+        name: 'Joe',
+        avatarImageUrl: 'https://react.semantic-ui.com/images/avatar/small/joe.jpg',
+    }
+];
+
+export const mockedComments = [
+    {
+        content: 'How artistic!',
+        author: mockedUsers[0],
+        datetime: 'October 12, 2018 8:19PM'
+    },
+    {
+        content: 'This has been very useful for my research. Thanks as well!',
+        author: mockedUsers[1],
+        datetime: 'August 12, 2018 8:19PM'
+    },
+    {
+        content: 'Dude, this is awesome. Thanks so much',
+        author: mockedUsers[2],
+        datetime: 'July 2, 2018 8:19PM'
+    }
+];
