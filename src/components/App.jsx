@@ -1,12 +1,11 @@
-import React from 'react';
 import 'assets/scss/App.scss';
 import {HashRouter, Route, Switch} from 'react-router-dom';
+import LoginLayout from './LoginLayout';
+import MainScreen from './MainScreen';
+import React from 'react';
 import RegisterLayout from './RegisterLayout';
-import MainScreen from "./MainScreen";
-import TestScreen from "./TestScreen";
-import LoginLayout from "./LoginLayout";
-import UploadPage from "./UploadPage";
-import SongDetails from "./SongDetails";
+import TestScreen from './TestScreen';
+import UploadPage from './UploadPage';
 
 class App extends React.PureComponent {
     render() {
@@ -18,7 +17,6 @@ class App extends React.PureComponent {
                     <Route exact path="/test" component={TestScreen} />
                     <Route exact path="/login" component={LoginLayout} />
                     <Route exact path="/upload" component={UploadPage} />
-                    <Route exact path="/song-details" component={SongDetails} />
                 </Switch>
             </HashRouter >
         );

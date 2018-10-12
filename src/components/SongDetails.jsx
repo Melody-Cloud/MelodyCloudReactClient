@@ -1,8 +1,8 @@
 import 'assets/scss/SongDetails.scss';
 import { Breadcrumb, Container, Header, Icon, Image } from 'semantic-ui-react';
+import CommentSection from './CommentSection';
 import PropTypes from 'prop-types';
 import React from 'react';
-import CommentSection from './CommentSection';
 
 class SongDetails extends React.Component {
     constructor(props) {

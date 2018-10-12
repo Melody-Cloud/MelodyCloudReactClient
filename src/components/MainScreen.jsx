@@ -18,13 +18,18 @@ import Nav from './pure-functional-components/Nav';
 import SongDetails from './SongDetails';
 import SongsFeed from './SongsFeed';
 
+import queryString from 'query-string';
+
 class MainScreen extends React.Component {
     constructor(props) {
         super(props);
 
+        const queryStringParams = queryString.parse(this.props.location.search);
+        const currentView = _.get(queryStringParams, 'view', SONGS_FEED);
+
         this.state = {
             //Management/Controller
-            currentView: SONGS_FEED,
+            currentView: currentView,
 
             //SongsFeed
             waveformProgressBarWidth: 0,

@@ -8,6 +8,7 @@ import {
 import { Button, Container, Grid, List } from 'semantic-ui-react';
 import { WAVEFORM_IMAGE_HEIGHT, WAVEFORM_IMAGE_WIDTH, notyf } from '../config/application-config';
 import { WaveformProgress } from './WaveformProgress';
+import { history } from '../utils/history';
 import { jinkieMockSongs } from '../utils/mocks';
 import PropTypes from 'prop-types';
 import React from 'react';
