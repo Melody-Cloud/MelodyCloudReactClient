@@ -12,11 +12,19 @@
 
 .song-details-go-back {
   padding-right: 1.5rem;
+  padding-top: .5rem;
+  padding-bottom: .5rem;
   color: #4183c4;
 
   &:hover {
     cursor: pointer;
     color: darken(#4183c4, 20%);
+  }
+}
+
+.song-details-go-back-btn {
+  &.ui.basic.blue.button, &.ui.basic.blue.buttons .button {
+    margin-right: 2rem;
   }
 }
 
@@ -32,6 +40,11 @@
 }
 
 .divider {
-  margin-top: 2rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.song-description {
+  margin-top: 2.5rem;
   margin-bottom: 1rem;
 }

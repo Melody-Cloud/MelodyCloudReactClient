@@ -30,12 +30,9 @@ const SongCard = ({ songObject, switchViewToSongDetails }) => {
                     </span>
                 </Card.Header>
                 <Card.Description>
-                    <Popup
-                        trigger={<a href="/">Click to display song description</a>}
-                        content="Add users to your feed"
-                        position="bottom left"
-                        on="click"
-                    />
+                    <div className='description ellipsis'>
+                        {songObject.description}
+                    </div>
                 </Card.Description>
             </Card.Content>
             <Card.Content extra>

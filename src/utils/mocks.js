@@ -85,20 +85,6 @@ export const songNames = [
     'last_thing'
 ];
 
-export const jinkieMockSongs = _.map(songNames, (songName, index) => {
-    return {
-        id: index,
-        name: songName,
-        singer: `Singer${index}`,
-        barImageUrl: getBarUrl(),
-        musicSrc: `http://localhost:8081/music/${songName}.mp3`,
-        waveform: `http://localhost:8081/waveforms/${songName}.png`,
-        amountOfPlays: index*100+100,
-        amountOfLikes: index*20+15,
-        cover: getCoverUrl()
-    }
-});
-
 export const mockedUsers = [
     {
         name: 'Matt',
@@ -135,3 +121,19 @@ export const mockedComments = [
         datetime: 'July 2, 2018 8:19PM'
     }
 ];
+
+export const jinkieMockSongs = _.map(songNames, (songName, index) => {
+    return {
+        id: index,
+        name: songName,
+        singer: `Singer${index}`,
+        barImageUrl: getBarUrl(),
+        musicSrc: `http://localhost:8081/music/${songName}.mp3`,
+        waveform: `http://localhost:8081/waveforms/${songName}.png`,
+        amountOfPlays: index*100+100,
+        amountOfLikes: index*20+15,
+        cover: getCoverUrl(),
+        comments: mockedComments,
+        description: `Description${index} Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sed commodo quam, sed cursus velit. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer justo elit, varius id nibh vel, mollis tincidunt sapien`,
+    }
+});

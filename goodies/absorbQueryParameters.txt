@@ -1,0 +1,2 @@
+const queryStringParams = queryString.parse(this.props.location.search);
+const currentView = _.get(queryStringParams, 'view', SONGS_FEED);

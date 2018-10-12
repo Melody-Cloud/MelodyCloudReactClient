@@ -8,8 +8,6 @@ import {
 import { Button, Container, Grid, List } from 'semantic-ui-react';
 import { WAVEFORM_IMAGE_HEIGHT, WAVEFORM_IMAGE_WIDTH, notyf } from '../config/application-config';
 import { WaveformProgress } from './WaveformProgress';
-import { history } from '../utils/history';
-import { jinkieMockSongs } from '../utils/mocks';
 import PropTypes from 'prop-types';
 import React from 'react';
 import SongCard from './pure-functional-components/SongCard';
@@ -67,12 +65,14 @@ class SongsFeed extends React.Component {
     };
 
     render() {
-        const flooredSongDuration = Math.floor(_.get(this.props, 'musicPlayerRef.current.state.duration'));
-        const currentSongTime = Math.ceil(_.get(this.props, 'musicPlayerRef.current.state.currentTime'));
+        const {songsInFeed, musicPlayerRef, waveformProgressBarWidth} = this.props;
+
+        const flooredSongDuration = Math.floor(_.get(musicPlayerRef, 'current.state.duration'));
+        const currentSongTime = Math.ceil(_.get(musicPlayerRef, 'current.state.currentTime'));
 
         return <Container className="feed-container" fluid>
             <List id="songs-feed" celled>
-                {_.map(jinkieMockSongs, songObject => {
+                {_.map(songsInFeed, songObject => {
                     const isThisSongOnTopOfPlaylist = this.isGivenSongFirstInPlaylist(songObject);
 
                     const isAnySongPlaying = this.props.songPlaying;
@@ -94,7 +94,7 @@ class SongsFeed extends React.Component {
                                             <Button
                                                 {...PAUSE_BUTTON_PROPS}
                                                 onClick={() => {
-                                                    const pauseAudioFunction = _.get(this.props, 'musicPlayerRef.current._pauseAudio');
+                                                    const pauseAudioFunction = _.get(musicPlayerRef, 'current._pauseAudio');
                                                     pauseAudioFunction();
                                                 }}
                                             />
@@ -116,7 +116,7 @@ class SongsFeed extends React.Component {
                                             waveformImageSource={songObject.waveform}
                                             imageWidth={WAVEFORM_IMAGE_WIDTH}
                                             imageHeight={WAVEFORM_IMAGE_HEIGHT}
-                                            waveformProgressBarWidth={this.props.waveformProgressBarWidth}
+                                            waveformProgressBarWidth={waveformProgressBarWidth}
                                             animationDuration={flooredSongDuration - currentSongTime}
                                             isAnimationEnabled={isAnySongPlaying}
                                             isActive={isThisSongOnTopOfPlaylist}
@@ -145,6 +145,7 @@ export default SongsFeed;
 SongsFeed.propTypes = {
     musicPlayerRef: PropTypes.object,
     currentAudioList: PropTypes.array,
+    songsInFeed: PropTypes.array,
     waveformProgressBarWidth: PropTypes.number,
     updateAudioList: PropTypes.func,
     switchViewToSongDetails: PropTypes.func,

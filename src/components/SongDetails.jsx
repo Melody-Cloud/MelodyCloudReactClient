@@ -1,5 +1,5 @@
 import 'assets/scss/SongDetails.scss';
-import { Breadcrumb, Container, Header, Icon, Image } from 'semantic-ui-react';
+import { Breadcrumb, Button, Container, Header, Icon, Image } from 'semantic-ui-react';
 import CommentSection from './CommentSection';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -15,12 +15,14 @@ class SongDetails extends React.Component {
         return <div className="song-details-page">
             <Container className='song-details-container'>
                 <Breadcrumb>
-                    <span
-                        className='song-details-go-back'
+                    <Button
                         onClick={goToSongsFeed}
+                        color='blue'
+                        className={'song-details-go-back-btn'}
+                        basic
                     >
                         <Icon name='arrow left'/> Back
-                    </span>
+                    </Button>
                     <Breadcrumb.Section
                         onClick={goToSongsFeed}
                         link
@@ -36,8 +38,13 @@ class SongDetails extends React.Component {
                     className='song-cover'
                     src={songToDisplay.cover}
                 />
+
+                <p className='song-description'>{songToDisplay.description}</p>
+
                 <hr className='divider'/>
-                <CommentSection/>
+                <CommentSection
+                    comments={songToDisplay.comments}
+                />
             </Container>
         </div>;
     }

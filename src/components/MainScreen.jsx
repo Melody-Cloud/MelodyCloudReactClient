@@ -12,29 +12,25 @@ import {
 } from '../config/components-defaults-config';
 import { SONGS_FEED, SONG_DETAILS } from '../utils/enumerations';
 import { WAVEFORM_IMAGE_WIDTH } from '../config/application-config';
-import { getUiid } from '../utils/mocks';
+import { getUiid, jinkieMockSongs } from '../utils/mocks';
 import { isArrayEmpty } from '../utils/common-utils';
 import Nav from './pure-functional-components/Nav';
 import SongDetails from './SongDetails';
 import SongsFeed from './SongsFeed';
 
-import queryString from 'query-string';
-
 class MainScreen extends React.Component {
     constructor(props) {
         super(props);
 
-        const queryStringParams = queryString.parse(this.props.location.search);
-        const currentView = _.get(queryStringParams, 'view', SONGS_FEED);
-
         this.state = {
             //Management/Controller
-            currentView: currentView,
+            currentView: SONGS_FEED,
 
             //SongsFeed
             waveformProgressBarWidth: 0,
             audioList: [],
             songPlaying: false,
+            songsInFeed: jinkieMockSongs,
 
             //SongDetails
             songToDisplay: {},
@@ -66,6 +62,7 @@ class MainScreen extends React.Component {
                             currentAudioList={this.state.audioList}
                             waveformProgressBarWidth={this.state.waveformProgressBarWidth}
                             songPlaying={this.state.songPlaying}
+                            songsInFeed={this.state.songsInFeed}
                             updateAudioList={(newAudioList, shouldRerenderPlayer) => {
                                 const newState = shouldRerenderPlayer?
                                     {

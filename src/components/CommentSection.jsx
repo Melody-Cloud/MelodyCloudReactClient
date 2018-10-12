@@ -2,7 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 
 import { Comment, Header } from 'semantic-ui-react';
-import { mockedComments } from '../utils/mocks';
+import PropTypes from 'prop-types';
 
 
 class CommentSection extends React.Component {
@@ -11,13 +11,15 @@ class CommentSection extends React.Component {
     }
 
     render() {
+        const {comments} = this.props;
+
         return <Comment.Group>
             <Header as='h3' dividing>
                 Comments
             </Header>
 
             {
-                _.map(mockedComments, comment => {
+                _.map(comments, comment => {
                     return <Comment>
                         <Comment.Avatar src={comment.author.avatarImageUrl} />
                         <Comment.Content>
@@ -40,3 +42,7 @@ class CommentSection extends React.Component {
 }
 
 export default CommentSection;
+
+CommentSection.propTypes = {
+    comments: PropTypes.array,
+};
