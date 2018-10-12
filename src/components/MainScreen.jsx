@@ -21,8 +21,11 @@ class MainScreen extends React.Component {
         super(props);
 
         this.state = {
+            //SongsFeed
             waveformProgressBarWidth: 0,
             audioList: [],
+            songPlaying: false,
+
             playerUiid: ''
         };
 
@@ -46,6 +49,8 @@ class MainScreen extends React.Component {
                 <SongsFeed
                     musicPlayerRef={this.musicPlayerRef}
                     currentAudioList={this.state.audioList}
+                    waveformProgressBarWidth={this.state.waveformProgressBarWidth}
+                    songPlaying={this.state.songPlaying}
                     updateAudioList={(newAudioList, shouldRerenderPlayer) => {
                         const newState = shouldRerenderPlayer?
                             {

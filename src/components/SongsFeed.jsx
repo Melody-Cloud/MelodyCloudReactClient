@@ -20,7 +20,6 @@ class SongsFeed extends React.Component {
         super(props);
 
         this.state = {
-            songPlaying: false,
         }
     }
 
@@ -75,7 +74,7 @@ class SongsFeed extends React.Component {
                 {_.map(jinkieMockSongs, songObject => {
                     const isThisSongOnTopOfPlaylist = this.isGivenSongFirstInPlaylist(songObject);
 
-                    const isAnySongPlaying = this.state.songPlaying;
+                    const isAnySongPlaying = this.props.songPlaying;
 
                     return (
                         <List.Item className="single-song-item">
@@ -89,7 +88,7 @@ class SongsFeed extends React.Component {
                                             <Button
                                                 {...PAUSE_BUTTON_PROPS}
                                                 onClick={() => {
-                                                    const pauseAudioFunction = _.get(this, 'musicPlayerRef.current._pauseAudio');
+                                                    const pauseAudioFunction = _.get(this.props, 'musicPlayerRef.current._pauseAudio');
                                                     pauseAudioFunction();
                                                 }}
                                             />
@@ -111,7 +110,7 @@ class SongsFeed extends React.Component {
                                             waveformImageSource={_.get(songObject, 'waveform')}
                                             imageWidth={WAVEFORM_IMAGE_WIDTH}
                                             imageHeight={WAVEFORM_IMAGE_HEIGHT}
-                                            waveformProgressBarWidth={this.state.waveformProgressBarWidth}
+                                            waveformProgressBarWidth={this.props.waveformProgressBarWidth}
                                             animationDuration={flooredSongDuration - currentSongTime}
                                             isAnimationEnabled={isAnySongPlaying}
                                             isActive={isThisSongOnTopOfPlaylist}
@@ -141,4 +140,5 @@ SongsFeed.propTypes = {
     musicPlayerRef: PropTypes.object,
     updateAudioList: PropTypes.func,
     currentAudioList: PropTypes.array,
+    waveformProgressBarWidth: PropTypes.number,
 };

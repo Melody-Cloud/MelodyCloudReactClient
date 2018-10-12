@@ -1,6 +1,6 @@
 import { keyframes } from 'styled-components';
-import React from "react";
 import PropTypes from 'prop-types';
+import React from 'react';
 
 import 'assets/scss/WaveformProgress.scss';
 
@@ -35,6 +35,10 @@ export class WaveformProgress extends React.Component {
           }
         `;
 
+        const animation = ((waveformProgressBarWidth > 0) && isAnimationEnabled) ? `${slide} ${Math.floor(animationDuration)}s steps(${animationDuration*7}) forwards`: 'none';
+        console.log(waveformProgressBarWidth);
+        console.log(`is anim enabled ${isAnimationEnabled}`);
+
         const blurStyle = isActive ? {
             backgroundImage: `url('${waveformImageSource}')`,
             backgroundPosition: 'center left',
@@ -43,7 +47,7 @@ export class WaveformProgress extends React.Component {
             height: imageHeight,
             width: `${waveformProgressBarWidth}vw`,
             backgroundSize: `${imageWidth}vw ${imageHeight}px`,
-            animation: ((waveformProgressBarWidth > 0) && isAnimationEnabled) ? `${slide} ${Math.floor(animationDuration)}s steps(${animationDuration*7}) forwards`: 'none',
+            animation: animation,
         }: {};
 
         return <div id="image" style={imageStyle}>
