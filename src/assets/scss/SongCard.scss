@@ -1,0 +1,24 @@
+.song-show-more-info {
+  margin-right: 1.5rem;
+  color: #4183c4;
+
+  &:hover {
+    cursor: pointer;
+    color: darken(#4183c4, 20%);
+  }
+}
+
+.song-title {
+  color: #4183c4;
+
+  &:hover {
+    cursor: pointer;
+    color: darken(#4183c4, 20%);
+  }
+}
+
+.song-card-bar-image {
+  &:hover {
+    cursor: pointer;
+  }
+}

@@ -10,10 +10,12 @@ import ReactJkMusicPlayer from 'react-jinke-music-player';
 import {
     JK_MUSIC_PLAYER_DEFAULT_SETTINGS,
 } from '../config/components-defaults-config';
+import { SONGS_FEED, SONG_DETAILS } from '../utils/enumerations';
 import { WAVEFORM_IMAGE_WIDTH } from '../config/application-config';
 import { getUiid } from '../utils/mocks';
 import { isArrayEmpty } from '../utils/common-utils';
 import Nav from './pure-functional-components/Nav';
+import SongDetails from './SongDetails';
 import SongsFeed from './SongsFeed';
 
 class MainScreen extends React.Component {
@@ -21,10 +23,16 @@ class MainScreen extends React.Component {
         super(props);
 
         this.state = {
+            //Management/Controller
+            currentView: SONGS_FEED,
+
             //SongsFeed
             waveformProgressBarWidth: 0,
             audioList: [],
             songPlaying: false,
+
+            //SongDetails
+            songToDisplay: {},
 
             playerUiid: ''
         };
@@ -46,24 +54,42 @@ class MainScreen extends React.Component {
             <div className="main-screen">
                 <Nav />
 
-                <SongsFeed
-                    musicPlayerRef={this.musicPlayerRef}
-                    currentAudioList={this.state.audioList}
-                    waveformProgressBarWidth={this.state.waveformProgressBarWidth}
-                    songPlaying={this.state.songPlaying}
-                    updateAudioList={(newAudioList, shouldRerenderPlayer) => {
-                        const newState = shouldRerenderPlayer?
-                            {
-                                audioList: newAudioList,
-                                playerUiid: getUiid()
-                            }:
-                            {
-                                audioList: newAudioList,
-                            };
+                {
+                    {
+                        SONGS_FEED: <SongsFeed
+                            musicPlayerRef={this.musicPlayerRef}
+                            currentAudioList={this.state.audioList}
+                            waveformProgressBarWidth={this.state.waveformProgressBarWidth}
+                            songPlaying={this.state.songPlaying}
+                            updateAudioList={(newAudioList, shouldRerenderPlayer) => {
+                                const newState = shouldRerenderPlayer?
+                                    {
+                                        audioList: newAudioList,
+                                        playerUiid: getUiid()
+                                    }:
+                                    {
+                                        audioList: newAudioList,
+                                    };
 
-                        this.setState(newState);
-                    }}
-                />
+                                this.setState(newState);
+                            }}
+                            switchViewToSongDetails={(songToDisplay) => {
+                                this.setState({
+                                    songToDisplay: songToDisplay,
+                                    currentView: SONG_DETAILS
+                                });
+                            }}
+                        />,
+                        SONG_DETAILS: <SongDetails
+                            songToDisplay={this.state.songToDisplay}
+                            goToSongsFeed={() => {
+                                this.setState({
+                                    currentView: SONGS_FEED
+                                });
+                            }}
+                        />
+                    }[this.state.currentView]
+                }
 
                 {/*{!this.isPlaylistEmpty() && (*/}
                 <ReactJkMusicPlayer

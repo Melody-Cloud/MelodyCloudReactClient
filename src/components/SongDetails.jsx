@@ -1,27 +1,45 @@
-import React from "react";
-import Nav from "./pure-functional-components/Nav";
-import {Header, Segment, Container} from "semantic-ui-react";
-import {jinkieMockSongs} from "../utils/mocks";
 import 'assets/scss/SongDetails.scss';
+import { Breadcrumb, Container, Header, Icon } from 'semantic-ui-react';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 class SongDetails extends React.Component {
     constructor(props) {
         super(props);
-
-        this.state = {
-            displayedSong: jinkieMockSongs[0]
-        }
     }
 
     render() {
+        const {songToDisplay, goToSongsFeed} = this.props;
+
         return <div className="song-details-page">
-            <Nav/>
-            <Container className='song-details-container' fluid>
-                <Header as='h3' className='song-name-header txt-center'>{_.get(this.state.displayedSong, 'singer')}</Header>
-                <Header as='h2' className='song-title-header txt-center'>{_.get(this.state.displayedSong, 'name')}</Header>
+            <Container className='song-details-container'>
+                <Breadcrumb>
+                    <span
+                        className='song-details-go-back'
+                        onClick={goToSongsFeed}
+                    >
+                        <Icon name='arrow left'/> Back
+                    </span>
+                    <Breadcrumb.Section
+                        onClick={goToSongsFeed}
+                        link
+                    >
+                        Home
+                    </Breadcrumb.Section>
+                    <Breadcrumb.Divider />
+                    <Breadcrumb.Section active>Song Details</Breadcrumb.Section>
+                </Breadcrumb>
+                <Header as='h3' className='song-name-header txt-center'>{songToDisplay.singer}</Header>
+                <Header
+                    as='h2' className='song-title-header txt-center'>{songToDisplay.title}</Header>
             </Container>
         </div>;
     }
 }
 
 export default SongDetails;
+
+SongDetails.propTypes = {
+    songToDisplay: PropTypes.object,
+    goToSongsFeed: PropTypes.func
+};

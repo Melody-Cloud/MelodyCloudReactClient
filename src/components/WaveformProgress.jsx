@@ -36,8 +36,6 @@ export class WaveformProgress extends React.Component {
         `;
 
         const animation = ((waveformProgressBarWidth > 0) && isAnimationEnabled) ? `${slide} ${Math.floor(animationDuration)}s steps(${animationDuration*7}) forwards`: 'none';
-        console.log(waveformProgressBarWidth);
-        console.log(`is anim enabled ${isAnimationEnabled}`);
 
         const blurStyle = isActive ? {
             backgroundImage: `url('${waveformImageSource}')`,

@@ -45,7 +45,7 @@ class SongsFeed extends React.Component {
         const currentAudioListToBeUpdated = _.clone(this.props.currentAudioList);
         currentAudioListToBeUpdated.push(songObject);
         this.props.updateAudioList(currentAudioListToBeUpdated, false);
-        notyf.confirm(`Song ${_.get(songObject, 'name')} was added to your playlist`);
+        notyf.confirm(`Song ${songObject.title} was added to your playlist`);
     };
 
     isPlaylistEmpty = () => {
@@ -81,7 +81,12 @@ class SongsFeed extends React.Component {
                             <List.Content>
                                 <Grid className="middle aligned" style={{ alignItems: 'center' }} stackable>
                                     <Grid.Column {...FIRST_COLUMN_PROPS}>
-                                        <SongCard songObject={songObject} />
+                                        <SongCard
+                                            songObject={songObject}
+                                            switchViewToSongDetails={() => {
+                                                this.props.switchViewToSongDetails(songObject)
+                                            }}
+                                        />
                                     </Grid.Column>
                                     <Grid.Column {...SECOND_COLUMN_PROPS}>
                                         {isThisSongOnTopOfPlaylist && isAnySongPlaying ? (
@@ -107,7 +112,7 @@ class SongsFeed extends React.Component {
                                     </Grid.Column>
                                     <Grid.Column {...THIRD_COLUMN_PROPS}>
                                         <WaveformProgress
-                                            waveformImageSource={_.get(songObject, 'waveform')}
+                                            waveformImageSource={songObject.waveform}
                                             imageWidth={WAVEFORM_IMAGE_WIDTH}
                                             imageHeight={WAVEFORM_IMAGE_HEIGHT}
                                             waveformProgressBarWidth={this.props.waveformProgressBarWidth}
@@ -138,7 +143,8 @@ export default SongsFeed;
 
 SongsFeed.propTypes = {
     musicPlayerRef: PropTypes.object,
-    updateAudioList: PropTypes.func,
     currentAudioList: PropTypes.array,
     waveformProgressBarWidth: PropTypes.number,
+    updateAudioList: PropTypes.func,
+    switchViewToSongDetails: PropTypes.func,
 };

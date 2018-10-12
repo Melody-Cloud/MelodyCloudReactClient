@@ -9,3 +9,13 @@
 .song-name-header {
   text-align: center;
 }
+
+.song-details-go-back {
+  margin-right: 1.5rem;
+  color: #4183c4;
+
+  &:hover {
+    cursor: pointer;
+    color: darken(#4183c4, 20%);
+  }
+}
