@@ -19,7 +19,7 @@ const SongCard = ({ songObject, switchViewToSongDetails }) => {
                         className="song-title"
                         onClick={switchViewToSongDetails}
                     >
-                        {songObject.title}
+                        {songObject.name}
                     </span>
                     <span
                         className="song-show-more-info"

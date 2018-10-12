@@ -79,20 +79,20 @@ export const mockedPlaylist = [song1, song2, song3, song4, song5];
 //     }
 // ];
 
-export const songTitles = [
+export const songNames = [
     'appetite',
     'cobain',
     'last_thing'
 ];
 
-export const jinkieMockSongs = _.map(songTitles, (songTitle, index) => {
+export const jinkieMockSongs = _.map(songNames, (songName, index) => {
     return {
         id: index,
-        title: songTitle,
+        name: songName,
         singer: `Singer${index}`,
         barImageUrl: getBarUrl(),
-        musicSrc: `http://localhost:8081/music/${songTitle}.mp3`,
-        waveform: `http://localhost:8081/waveforms/${songTitle}.png`,
+        musicSrc: `http://localhost:8081/music/${songName}.mp3`,
+        waveform: `http://localhost:8081/waveforms/${songName}.png`,
         amountOfPlays: index*100+100,
         amountOfLikes: index*20+15,
         cover: getCoverUrl()

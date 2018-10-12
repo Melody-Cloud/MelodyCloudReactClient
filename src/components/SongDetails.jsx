@@ -31,7 +31,7 @@ class SongDetails extends React.Component {
                     <Breadcrumb.Section active>Song Details</Breadcrumb.Section>
                 </Breadcrumb>
                 <Header as='h3' className='song-name-header txt-center'>{songToDisplay.singer}</Header>
-                <Header as='h2' className='song-title-header txt-center'>{songToDisplay.title}</Header>
+                <Header as='h2' className='song-title-header txt-center'>{songToDisplay.name}</Header>
                 <Image
                     className='song-cover'
                     src={songToDisplay.cover}

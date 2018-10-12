@@ -45,7 +45,7 @@ class SongsFeed extends React.Component {
         const currentAudioListToBeUpdated = _.clone(this.props.currentAudioList);
         currentAudioListToBeUpdated.push(songObject);
         this.props.updateAudioList(currentAudioListToBeUpdated, false);
-        notyf.confirm(`Song ${songObject.title} was added to your playlist`);
+        notyf.confirm(`Song ${songObject.name} was added to your playlist`);
     };
 
     isPlaylistEmpty = () => {
