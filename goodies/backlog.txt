@@ -6,9 +6,9 @@ seek working wrong ? (working better if stopping and then seeking)
 
 - getReorderedPlaylist - play button can take up playing // DONE
 
-- hyperbole as description
+- hyperbole as description // DONE
 
-- rozdzielenie na card bar & cover
+- rozdzielenie na card bar & cover // DONE
 
 - checking file icons on multiple files upload
 
@@ -16,8 +16,14 @@ seek working wrong ? (working better if stopping and then seeking)
 
 - rewrite some "dummy" components to functional way
 
-- player in "root" - stored globally
+- player in "root" - stored globally // ANOTHER APPROACH
 
 - smart routing and history push
 
 - integrate flow
+
+- feed for artist page(?)
+
+- artist/song urls - redirection
+
+- database design
