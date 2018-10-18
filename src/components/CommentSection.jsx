@@ -1,3 +1,4 @@
+import 'assets/scss/CommentSection.scss';
 import React from 'react';
 import _ from 'lodash';
 
@@ -13,7 +14,7 @@ class CommentSection extends React.Component {
     render() {
         const {comments} = this.props;
 
-        return <Comment.Group>
+        return <Comment.Group className='comment-section'>
             <Header as='h3' dividing>
                 Comments
             </Header>

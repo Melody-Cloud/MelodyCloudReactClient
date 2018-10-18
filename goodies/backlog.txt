@@ -27,3 +27,7 @@ seek working wrong ? (working better if stopping and then seeking)
 - artist/song urls - redirection
 
 - database design
+
+- lyrics
+
+- social media

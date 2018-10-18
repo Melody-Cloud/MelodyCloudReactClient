@@ -1,3 +1,5 @@
+import faker from 'faker';
+
 function getBarUrl() {
     return `https://picsum.photos/400/50/?v=${getUiid()}`;
 }
@@ -134,6 +136,6 @@ export const jinkieMockSongs = _.map(songNames, (songName, index) => {
         amountOfLikes: index*20+15,
         cover: getCoverUrl(),
         comments: mockedComments,
-        description: `Description${index} Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sed commodo quam, sed cursus velit. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer justo elit, varius id nibh vel, mollis tincidunt sapien`,
+        description: faker.lorem.paragraphs(2)
     }
 });

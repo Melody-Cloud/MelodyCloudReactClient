@@ -30,7 +30,7 @@ const SongCard = ({ songObject, switchViewToSongDetails }) => {
                     </span>
                 </Card.Header>
                 <Card.Description>
-                    <div className='description ellipsis'>
+                    <div className='description ellipsis' title={songObject.description}>
                         {songObject.description}
                     </div>
                 </Card.Description>
