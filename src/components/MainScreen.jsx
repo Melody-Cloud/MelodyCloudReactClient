@@ -15,6 +15,7 @@ import { WAVEFORM_IMAGE_WIDTH } from '../config/application-config';
 import { getUiid, jinkieMockSongs } from '../utils/mocks';
 import { isArrayEmpty } from '../utils/common-utils';
 import Nav from './pure-functional-components/Nav';
+import Footer from './pure-functional-components/Footer';
 import SongDetails from './SongDetails';
 import SongsFeed from './SongsFeed';
 
@@ -121,6 +122,7 @@ class MainScreen extends React.Component {
                     }}
                 />
                 {/*)}*/}
+                <Footer/>
             </div>
         );
     }

@@ -136,6 +136,7 @@ export const jinkieMockSongs = _.map(songNames, (songName, index) => {
         amountOfLikes: index*20+15,
         cover: getCoverUrl(),
         comments: mockedComments,
-        description: faker.lorem.paragraphs(2)
+        description: faker.lorem.paragraphs(2),
+        tags: faker.lorem.words(3).split(' ')
     }
 });

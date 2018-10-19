@@ -125,8 +125,7 @@ class SongsFeed extends React.Component {
                                     <Grid.Column {...FOURTH_COLUMN_PROPS}>
                                         <div className="song-tags-wrapper">
                                             <SongTags
-                                                songTags={['Electronic', 'Alternative rock', 'Rap & Hip-hop']}
-                                                //TODO: remove this mock
+                                                songTags={songObject.tags}
                                             />
                                         </div>
                                     </Grid.Column>

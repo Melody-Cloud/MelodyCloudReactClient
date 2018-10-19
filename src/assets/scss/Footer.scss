@@ -1,0 +1,26 @@
+div [class*="right floated"] {
+  float: right;
+  margin-right: 0.25em;
+}
+
+.footer-segment {
+  &.ui.vertical.segment {
+    margin: 5em 0 0;
+    padding: 2em 0 8em 0;
+  }
+}
+
+.brand-name-wrapper {
+  display: inline-block;
+  padding-top: 1em;
+
+  a {
+    color: white;
+  }
+}
+
+.social-media-icons-wrapper {
+  .ui.button {
+    margin-right: 1rem;
+  }
+}

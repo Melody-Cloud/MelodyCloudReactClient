@@ -7,7 +7,7 @@ import RegisterLayout from './RegisterLayout';
 import TestScreen from './TestScreen';
 import UploadPage from './UploadPage';
 
-class App extends React.PureComponent {
+class AppRouting extends React.PureComponent {
     render() {
         return (
             <HashRouter >
@@ -23,4 +23,4 @@ class App extends React.PureComponent {
     }
 }
 
-export default App;
+export default AppRouting;

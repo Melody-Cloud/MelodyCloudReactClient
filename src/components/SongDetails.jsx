@@ -3,6 +3,7 @@ import { Breadcrumb, Button, Container, Header, Icon, Image } from 'semantic-ui-
 import CommentSection from './CommentSection';
 import PropTypes from 'prop-types';
 import React from 'react';
+import SongTags from './pure-functional-components/SongTags';
 import faker from 'faker';
 
 class SongDetails extends React.Component {
@@ -49,6 +50,14 @@ class SongDetails extends React.Component {
                 <pre className='song-lyrics'>
                     {faker.lorem.lines(16)}
                 </pre>
+
+                <Header as='h4' className='tags-header'>Tags</Header>
+
+                <div className="song-tags">
+                    <SongTags
+                        songTags={songToDisplay.tags}
+                    />
+                </div>
 
                 <hr className='divider'/>
                 <CommentSection
