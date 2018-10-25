@@ -8,6 +8,15 @@
   }
 }
 
+.song-show-artist-details {
+  color: #4183c4;
+
+  &:hover {
+    cursor: pointer;
+    color: darken(#4183c4, 20%);
+  }
+}
+
 .song-title {
   color: #4183c4;
 

@@ -8,6 +8,18 @@ function getCoverUrl() {
     return `https://picsum.photos/340/340/?v=${getUiid()}`;
 }
 
+function getAvatarUrl() {
+    return `https://picsum.photos/240/240/?v=${getUiid()}`;
+}
+
+export function getSongMiniature() {
+    return `https://picsum.photos/50/50/?v=${getUiid()}`;
+}
+
+export function getAlbumMiniature() {
+    return `https://picsum.photos/50/50/?v=${getUiid()}`;
+}
+
 export function getUiid() {
     return Math.random().toString(36).substring(7);
 }
@@ -125,10 +137,17 @@ export const mockedComments = [
 ];
 
 export const jinkieMockSongs = _.map(songNames, (songName, index) => {
+    const artistName = faker.lorem.word();
+
     return {
         id: index,
         name: songName,
-        singer: `Singer${index}`,
+        singer: artistName, // TODO: resolve confusion with singer name object
+        artist: {
+            name: artistName,
+            avatar: getAvatarUrl(),
+            artistDescription: faker.lorem.paragraphs(2)
+        },
         barImageUrl: getBarUrl(),
         musicSrc: `http://localhost:8081/music/${songName}.mp3`,
         waveform: `http://localhost:8081/waveforms/${songName}.png`,
@@ -137,6 +156,7 @@ export const jinkieMockSongs = _.map(songNames, (songName, index) => {
         cover: getCoverUrl(),
         comments: mockedComments,
         description: faker.lorem.paragraphs(2),
-        tags: faker.lorem.words(3).split(' ')
+        tags: faker.lorem.words(3).split(' '),
+        songMiniature: getSongMiniature(),
     }
 });

@@ -1,6 +1,9 @@
-import { Breadcrumb, Button, Container, Header, Icon } from 'semantic-ui-react';
+import 'assets/scss/ArtistDetails.scss';
+import { Breadcrumb, Button, Container, Header, Icon, Image } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import React from 'react';
+import ListOfSongsInArtistDetails from './ListOfSongsInArtistDetails';
+import ListOfAlbumsInArtistDetails from './ListOfAlbumsInArtistDetails';
 
 class ArtistDetails extends React.Component {
     constructor(props) {
@@ -8,7 +11,7 @@ class ArtistDetails extends React.Component {
     }
 
     render() {
-        const {goToSongsFeed, artistToDisplay} = this.props;
+        const {goToSongsFeed, artistToDisplay, songsCreatedByThisArtist, switchViewToSongDetails} = this.props;
 
         return <Container className='song-details-container'>
             <Breadcrumb>
@@ -27,10 +30,32 @@ class ArtistDetails extends React.Component {
                     Home
                 </Breadcrumb.Section>
                 <Breadcrumb.Divider />
-                <Breadcrumb.Section active>Song Details</Breadcrumb.Section>
+                <Breadcrumb.Section active>Artist Details</Breadcrumb.Section>
+                <Breadcrumb.Divider />
+                <Breadcrumb.Section active>{artistToDisplay.name}</Breadcrumb.Section>
             </Breadcrumb>
 
             <Header as='h2' className='song-title-header txt-center'>{artistToDisplay.name}</Header>
+
+            <Image
+                className='artist-avatar'
+                src={artistToDisplay.avatar}
+            />
+
+            <Header as='h3' className='artist-about'>About {artistToDisplay.name}</Header>
+
+            <p className='artist-description'>{artistToDisplay.artistDescription}</p>
+
+            <Header as='h3' className='popular-songs-header'>Popular {artistToDisplay.name} songs</Header>
+
+            <ListOfSongsInArtistDetails
+                switchViewToSongDetails={switchViewToSongDetails}
+                songsCreatedByThisArtist={songsCreatedByThisArtist}
+            />
+
+            <Header as='h3' className='albums-header'>Artist albums</Header>
+
+            <ListOfAlbumsInArtistDetails/>
         </Container>;
     }
 }
@@ -39,5 +64,7 @@ export default ArtistDetails;
 
 ArtistDetails.propTypes = {
     artistToDisplay: PropTypes.object,
-    goToSongsFeed: PropTypes.func
+    songsCreatedByThisArtist: PropTypes.array,
+    goToSongsFeed: PropTypes.func,
+    switchViewToSongDetails: PropTypes.func,
 };

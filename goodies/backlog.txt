@@ -12,9 +12,9 @@ seek working wrong ? (working better if stopping and then seeking)
 
 - checking file icons on multiple files upload
 
-- waveform presigned urls?
+- waveform presigned urls? // BAD
 
-- rewrite some "dummy" components to functional way
+- rewrite some "dummy" components to functional way // DONE
 
 - player in "root" - stored globally // ANOTHER APPROACH
 
@@ -39,3 +39,7 @@ seek working wrong ? (working better if stopping and then seeking)
 - social media
 
 - search by tags on click
+
+- image placeholder if it is loading
+
+- routing -> from singer page to song details

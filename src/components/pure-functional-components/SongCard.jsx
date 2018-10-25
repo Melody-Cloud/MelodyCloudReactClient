@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { Card, Icon, Image, Popup } from 'semantic-ui-react';
+import { Card, Icon, Image } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 
 import 'assets/scss/SongCard.scss';
 
-const SongCard = ({ songObject, switchViewToSongDetails }) => {
+const SongCard = ({ songObject, switchViewToSongDetails, switchViewToArtistDetails }) => {
     return (
         <Card color="green">
             <Image
@@ -37,8 +37,13 @@ const SongCard = ({ songObject, switchViewToSongDetails }) => {
             </Card.Content>
             <Card.Content extra>
                 <span className="date">
-                    <Icon name="user" />
-                    {songObject.singer}
+                    <span
+                        className="song-show-artist-details"
+                        onClick={switchViewToArtistDetails}
+                    >
+                        <Icon name="user" />
+                        {songObject.artist.name}
+                    </span>
                 </span>
             </Card.Content>
             <Card.Content extra>
@@ -62,4 +67,5 @@ export default SongCard;
 SongCard.propTypes = {
     songObject: PropTypes.object,
     switchViewToSongDetails: PropTypes.func,
+    switchViewToArtistDetails: PropTypes.func,
 };

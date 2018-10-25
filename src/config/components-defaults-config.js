@@ -49,6 +49,12 @@ export const PLAY_BUTTON_PROPS = {
     inverted: true,
 };
 
+export const MEDIUM_PLAY_BUTTON_PROPS = {
+    ...PLAY_BUTTON_PROPS,
+    className: '',
+    size: 'medium',
+};
+
 export const PAUSE_BUTTON_PROPS = {
     className: 'play-button',
     icon: 'pause',

@@ -20,14 +20,14 @@
 `yarn run start-dev`
 
 * Build app continously (HMR enabled)
-* App served @ `http://localhost:8080`
+* AppRouting served @ `http://localhost:8080`
 
 **Production**
 
 `yarn run start-prod`
 
 * Build app once (HMR disabled)
-* App served @ `http://localhost:3000`
+* AppRouting served @ `http://localhost:3000`
 
 ---
 

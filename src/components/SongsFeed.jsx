@@ -31,41 +31,25 @@ class SongsFeed extends React.Component {
         const isSongAtTheEnd = this.isCurrentSongAlmostAtTheEnd();
 
         if (!isThisSongFirstInPlaylist || isSongAtTheEnd) {
-            const reorderedAudioList = this.getReorderedAudioList(songObject);
-
-            this.props.updateAudioList(reorderedAudioList, true);
+            this.props.playSongInPlayer(songObject);
         } else {
             const onPlayFunction = _.get(this.props, 'musicPlayerRef.current.onPlay');
             onPlayFunction();
         }
     };
 
-    appendSongToPlaylist = (songObject) => {
-        const currentAudioListToBeUpdated = _.clone(this.props.currentAudioList);
-        currentAudioListToBeUpdated.push(songObject);
-        this.props.updateAudioList(currentAudioListToBeUpdated, false);
-        notyf.confirm(`Song ${songObject.name} was added to your playlist`);
-    };
-
     isPlaylistEmpty = () => {
         return _.isEqual(_.size(this.state.audioList), 0);
     };
 
-    getReorderedAudioList = songToBePlayedNow => {
-        const newAudioListToBePlayed = _.clone(this.props.currentAudioList);
 
-        const audioListWithDuplicateSongRemoved = _.pull(newAudioListToBePlayed, songToBePlayedNow);
-        audioListWithDuplicateSongRemoved.unshift(songToBePlayedNow);
-
-        return newAudioListToBePlayed;
-    };
 
     isCurrentSongAlmostAtTheEnd = () => {
         return _.get(this.props, 'musicPlayerRef.current.state.currentTime') >= Math.floor(_.get(this, 'musicPlayerRef.current.state.duration'));
     };
 
     render() {
-        const {songsInFeed, musicPlayerRef, waveformProgressBarWidth} = this.props;
+        const {songsInFeed, musicPlayerRef, waveformProgressBarWidth, appendSongToPlaylist} = this.props;
 
         const flooredSongDuration = Math.floor(_.get(musicPlayerRef, 'current.state.duration'));
         const currentSongTime = Math.ceil(_.get(musicPlayerRef, 'current.state.currentTime'));
@@ -86,6 +70,9 @@ class SongsFeed extends React.Component {
                                             songObject={songObject}
                                             switchViewToSongDetails={() => {
                                                 this.props.switchViewToSongDetails(songObject)
+                                            }}
+                                            switchViewToArtistDetails={() => {
+                                                this.props.switchViewToArtistDetails(songObject.artist)
                                             }}
                                         />
                                     </Grid.Column>
@@ -108,7 +95,7 @@ class SongsFeed extends React.Component {
                                         )}
                                         <Button
                                             {...APPEND_TO_PLAYLIST_BUTTON_PROPS}
-                                            onClick={() => {this.appendSongToPlaylist(songObject)}}
+                                            onClick={() => {appendSongToPlaylist(songObject)}}
                                         />
                                     </Grid.Column>
                                     <Grid.Column {...THIRD_COLUMN_PROPS}>
@@ -143,9 +130,10 @@ export default SongsFeed;
 
 SongsFeed.propTypes = {
     musicPlayerRef: PropTypes.object,
-    currentAudioList: PropTypes.array,
     songsInFeed: PropTypes.array,
     waveformProgressBarWidth: PropTypes.number,
-    updateAudioList: PropTypes.func,
     switchViewToSongDetails: PropTypes.func,
+    switchViewToArtistDetails: PropTypes.func,
+    appendSongToPlaylist: PropTypes.func,
+    playSongInPlayer: PropTypes.func,
 };

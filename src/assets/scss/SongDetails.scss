@@ -72,3 +72,16 @@ $text-blocks-padding: 16px;
 .song-tags {
   margin-bottom: 2rem;
 }
+
+.go-to-singer-page {
+  color: #4183c4;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.control-buttons-in-song-details {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
