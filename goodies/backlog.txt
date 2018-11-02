@@ -47,3 +47,5 @@ seek working wrong ? (working better if stopping and then seeking)
 - breadcrumbs -> don't repeat yourself
 
 - similar view -> repeating themselves
+
+- play album as playlist

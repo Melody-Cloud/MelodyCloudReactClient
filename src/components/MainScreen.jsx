@@ -95,6 +95,10 @@ class MainScreen extends React.Component {
         return jinkieMockSongs;
     };
 
+    getSongsToDisplayByAlbum = (albumToDisplay) => {
+        return jinkieMockSongs;
+    };
+
     getReorderedAudioList = songToBePlayedNow => {
         const newAudioListToBePlayed = _.clone(this.state.audioList);
 
@@ -162,6 +166,7 @@ class MainScreen extends React.Component {
                 goToSongsFeed={this.goToSongsFeed}
                 switchViewToSongDetails={this.switchViewToSongDetails}
                 albumToDisplay={this.subviewDetails.albumToDisplay}
+                songsInThisAlbum={this.getSongsToDisplayByAlbum(this.subviewDetails.albumToDisplay)}
             />,
         };
 

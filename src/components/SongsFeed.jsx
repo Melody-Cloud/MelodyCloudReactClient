@@ -54,7 +54,7 @@ class SongsFeed extends React.Component {
         const flooredSongDuration = Math.floor(_.get(musicPlayerRef, 'current.state.duration'));
         const currentSongTime = Math.ceil(_.get(musicPlayerRef, 'current.state.currentTime'));
 
-        return <Container className="feed-container" fluid>
+        return <Container className="songs-feed-container" fluid>
             <List id="songs-feed" celled>
                 {_.map(songsInFeed, songObject => {
                     const isThisSongOnTopOfPlaylist = this.isGivenSongFirstInPlaylist(songObject);

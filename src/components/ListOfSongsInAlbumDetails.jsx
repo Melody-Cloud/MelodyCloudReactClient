@@ -2,9 +2,9 @@ import { Image, List } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import 'assets/scss/ListOfSongsInArtistDetails.scss';
+import 'assets/scss/ListOfSongsInAlbumDetails.scss';
 
-class ListOfSongsInArtistDetails extends React.Component {
+class ListOfSongsInAlbumDetails extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -12,24 +12,16 @@ class ListOfSongsInArtistDetails extends React.Component {
     render() {
         const {
             switchViewToSongDetails,
-            songsCreatedByThisArtist
+            songsInThisAlbum
         } = this.props;
-        // const songNames = ['appetite', 'cobain', 'last thing'];
-        //
-        // const mockedSongs = _.map(songNames, songName => {
-        //     return {
-        //         songMiniature: getSongMiniature(),
-        //         title: songName,
-        //     };
-        // }); // TODO: resolve mock
 
-        return _.map(songsCreatedByThisArtist, mockedSong => {
+        return _.map(songsInThisAlbum, mockedSong => {
             return (<List celled>
                 <List.Item
                     onClick={() => {
                         switchViewToSongDetails(mockedSong)
                     }}
-                    className="song-item-in-artist-details"
+                    className="song-item-in-album-details"
                 >
                     <Image avatar src={mockedSong.songMiniature} />
                     <List.Content>
@@ -42,9 +34,9 @@ class ListOfSongsInArtistDetails extends React.Component {
     }
 }
 
-export default ListOfSongsInArtistDetails;
+export default ListOfSongsInAlbumDetails;
 
-ListOfSongsInArtistDetails.propTypes = {
-    songsCreatedByThisArtist: PropTypes.array,
+ListOfSongsInAlbumDetails.propTypes = {
+    songsInThisAlbum: PropTypes.func,
     switchViewToSongDetails: PropTypes.func,
 };
