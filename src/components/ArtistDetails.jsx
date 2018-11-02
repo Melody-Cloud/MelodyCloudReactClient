@@ -1,9 +1,9 @@
 import 'assets/scss/ArtistDetails.scss';
 import { Breadcrumb, Button, Container, Header, Icon, Image } from 'semantic-ui-react';
+import ListOfAlbumsInArtistDetails from './ListOfAlbumsInArtistDetails';
+import ListOfSongsInArtistDetails from './ListOfSongsInArtistDetails';
 import PropTypes from 'prop-types';
 import React from 'react';
-import ListOfSongsInArtistDetails from './ListOfSongsInArtistDetails';
-import ListOfAlbumsInArtistDetails from './ListOfAlbumsInArtistDetails';
 
 class ArtistDetails extends React.Component {
     constructor(props) {
@@ -11,7 +11,13 @@ class ArtistDetails extends React.Component {
     }
 
     render() {
-        const {goToSongsFeed, artistToDisplay, songsCreatedByThisArtist, switchViewToSongDetails} = this.props;
+        const {
+            goToSongsFeed,
+            artistToDisplay,
+            songsCreatedByThisArtist,
+            switchViewToSongDetails,
+            switchViewToAlbumDetails
+        } = this.props;
 
         return <Container className='song-details-container'>
             <Breadcrumb>
@@ -55,7 +61,9 @@ class ArtistDetails extends React.Component {
 
             <Header as='h3' className='albums-header'>Artist albums</Header>
 
-            <ListOfAlbumsInArtistDetails/>
+            <ListOfAlbumsInArtistDetails
+                switchViewToAlbumDetails={switchViewToAlbumDetails}
+            />
         </Container>;
     }
 }
@@ -65,6 +73,8 @@ export default ArtistDetails;
 ArtistDetails.propTypes = {
     artistToDisplay: PropTypes.object,
     songsCreatedByThisArtist: PropTypes.array,
+
     goToSongsFeed: PropTypes.func,
     switchViewToSongDetails: PropTypes.func,
+    switchViewToAlbumDetails: PropTypes.func,
 };

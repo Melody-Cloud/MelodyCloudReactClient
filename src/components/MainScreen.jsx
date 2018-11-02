@@ -7,13 +7,14 @@ import React from 'react';
 
 import ReactJkMusicPlayer from 'react-jinke-music-player';
 
-import { ARTIST_DETAILS, SONGS_FEED, SONG_DETAILS } from '../utils/enumerations';
 import {
     JK_MUSIC_PLAYER_DEFAULT_SETTINGS,
 } from '../config/components-defaults-config';
+import { Views } from '../utils/enumerations';
 import { WAVEFORM_IMAGE_WIDTH, notyf } from '../config/application-config';
-import { getUiid, jinkieMockSongs } from '../utils/mocks';
+import { getUiid, jinkieMockSongs, mockedAlbums } from '../utils/mocks';
 import { isArrayEmpty } from '../utils/common-utils';
+import AlbumDetails from './AlbumDetails';
 import ArtistDetails from './ArtistDetails';
 import Footer from './pure-functional-components/Footer';
 import Nav from './pure-functional-components/Nav';
@@ -26,7 +27,7 @@ class MainScreen extends React.Component {
 
         this.state = {
             //Management/Controller
-            currentView: SONGS_FEED,
+            currentView: Views.SONGS_FEED,
 
             //SongsFeed
             waveformProgressBarWidth: 0,
@@ -34,13 +35,18 @@ class MainScreen extends React.Component {
             songPlaying: false,
             songsInFeed: jinkieMockSongs,
 
+            playerUiid: ''
+        };
+
+        this.subviewDetails = {
             //SongDetails
             songToDisplay: {},
 
             //ArtistDetails
             artistToDisplay: {},
 
-            playerUiid: ''
+            //AlbumDetails
+            albumToDisplay: {},
         };
 
         this.musicPlayerRef = React.createRef();
@@ -57,21 +63,31 @@ class MainScreen extends React.Component {
 
     goToSongsFeed = () => {
         this.setState({
-            currentView: SONGS_FEED
+            currentView: Views.SONGS_FEED
         });
     };
 
     switchViewToArtistDetails = (artistToDisplay) => {
+        this.subviewDetails.artistToDisplay = artistToDisplay;
+
         this.setState({
-            artistToDisplay: artistToDisplay,
-            currentView: ARTIST_DETAILS
+            currentView: Views.ARTIST_DETAILS
         });
     };
 
     switchViewToSongDetails = (songToDisplay) => {
+        this.subviewDetails.songToDisplay = songToDisplay;
+
         this.setState({
-            songToDisplay: songToDisplay,
-            currentView: SONG_DETAILS
+            currentView: Views.SONG_DETAILS
+        });
+    };
+
+    switchViewToAlbumDetails = (albumToDisplay) => {
+        this.subviewDetails.albumToDisplay = albumToDisplay;
+
+        this.setState({
+            currentView: Views.ALBUM_DETAILS
         });
     };
 
@@ -115,33 +131,37 @@ class MainScreen extends React.Component {
 
     render() {
         const mainScreenRouting = {
-            SONGS_FEED: <SongsFeed
+            [Views.SONGS_FEED]: <SongsFeed
                 musicPlayerRef={this.musicPlayerRef}
                 waveformProgressBarWidth={this.state.waveformProgressBarWidth}
                 songPlaying={this.state.songPlaying}
                 songsInFeed={this.state.songsInFeed}
-                switchViewToSongDetails={(songToDisplay) => {
-                    this.setState({
-                        songToDisplay: songToDisplay,
-                        currentView: SONG_DETAILS
-                    });
-                }}
+
+                switchViewToSongDetails={this.switchViewToSongDetails}
                 switchViewToArtistDetails={this.switchViewToArtistDetails}
                 appendSongToPlaylist={this.appendSongToPlaylist}
                 playSongInPlayer={this.playSongInPlayer}
             />,
-            SONG_DETAILS: <SongDetails
-                songToDisplay={this.state.songToDisplay}
+            [Views.SONG_DETAILS]: <SongDetails
+                songToDisplay={this.subviewDetails.songToDisplay}
+
                 goToSongsFeed={this.goToSongsFeed}
                 switchViewToArtistDetails={this.switchViewToArtistDetails}
                 appendSongToPlaylist={this.appendSongToPlaylist}
                 playSongInPlayer={this.playSongInPlayer}
             />,
-            ARTIST_DETAILS: <ArtistDetails
-                artistToDisplay={this.state.artistToDisplay}
+            [Views.ARTIST_DETAILS]: <ArtistDetails
+                artistToDisplay={this.subviewDetails.artistToDisplay}
+                songsCreatedByThisArtist={this.getSongsToDisplayByArtist(this.subviewDetails.artistToDisplay)}
+
                 goToSongsFeed={this.goToSongsFeed}
                 switchViewToSongDetails={this.switchViewToSongDetails}
-                songsCreatedByThisArtist={this.getSongsToDisplayByArtist(this.state.artistToDisplay)}
+                switchViewToAlbumDetails={this.switchViewToAlbumDetails}
+            />,
+            [Views.ALBUM_DETAILS]: <AlbumDetails
+                goToSongsFeed={this.goToSongsFeed}
+                switchViewToSongDetails={this.switchViewToSongDetails}
+                albumToDisplay={this.subviewDetails.albumToDisplay}
             />,
         };
 

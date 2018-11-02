@@ -22,13 +22,13 @@ seek working wrong ? (working better if stopping and then seeking)
 
 - integrate flow
 
-- feed for artist page(?)
+- feed for artist page(?) // DONE list of songs
 
 - artist/song urls - redirection
 
 - database design
 
-- lyrics
+- lyrics // DONE
 
 - song -> album
 
@@ -42,4 +42,8 @@ seek working wrong ? (working better if stopping and then seeking)
 
 - image placeholder if it is loading
 
-- routing -> from singer page to song details
+- routing -> from singer page to song details // DONE
+
+- breadcrumbs -> don't repeat yourself
+
+- similar view -> repeating themselves

@@ -1,4 +1,7 @@
-export const SONGS_FEED = 'SONGS_FEED';
-export const SONG_DETAILS = 'SONG_DETAILS';
-export const ARTIST_DETAILS = 'ARTIST_DETAILS';
+export const Views = {
+    SONGS_FEED: 'SONGS_FEED',
+    SONG_DETAILS: 'SONG_DETAILS',
+    ARTIST_DETAILS: 'ARTIST_DETAILS',
+    ALBUM_DETAILS: 'ALBUM_DETAILS',
+};
 
