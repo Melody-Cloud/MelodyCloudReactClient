@@ -12,7 +12,7 @@ import {
 } from '../config/components-defaults-config';
 import { Views } from '../utils/enumerations';
 import { WAVEFORM_IMAGE_WIDTH, notyf } from '../config/application-config';
-import { getUiid, jinkieMockSongs, mockedAlbums } from '../utils/mocks';
+import { getUiid, jinkieMockSongs } from '../utils/mocks';
 import { isArrayEmpty } from '../utils/common-utils';
 import AlbumDetails from './AlbumDetails';
 import ArtistDetails from './ArtistDetails';
@@ -167,6 +167,7 @@ class MainScreen extends React.Component {
                 switchViewToSongDetails={this.switchViewToSongDetails}
                 albumToDisplay={this.subviewDetails.albumToDisplay}
                 songsInThisAlbum={this.getSongsToDisplayByAlbum(this.subviewDetails.albumToDisplay)}
+                switchViewToArtistDetails={this.switchViewToArtistDetails}
             />,
         };
 

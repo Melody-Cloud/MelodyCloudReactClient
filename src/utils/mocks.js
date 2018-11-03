@@ -75,23 +75,13 @@ export const song5 = {
 
 export const mockedPlaylist = [song1, song2, song3, song4, song5];
 
-
-// export const jinkieMockSongs = [
-//     {
-//         name: "Song1",
-//         singer: "Singer1",
-//         cover: getBarUrl(),
-//         musicSrc: "https://s0.vocaroo.com/media/download_temp/Vocaroo_s01uFiNgRFGP.mp3",
-//         id: 1
-//     },
-//     {
-//         name: "Song2",
-//         singer: "Song2",
-//         cover: getBarUrl(),
-//         musicSrc: "https://s0.vocaroo.com/media/download_temp/Vocaroo_s0crYi8mrRBP.mp3",
-//         id: 2
-//     }
-// ];
+export const getMockedAuthor = () => {
+    return {
+        name: faker.lorem.word(),
+        avatar: getAvatarUrl(),
+        artistDescription: faker.lorem.paragraphs(2)
+    };
+};
 
 export const songNames = [
     'appetite',
@@ -143,11 +133,7 @@ export const jinkieMockSongs = _.map(songNames, (songName, index) => {
         id: index,
         name: songName,
         singer: artistName, // TODO: resolve confusion with singer name object
-        artist: {
-            name: artistName,
-            avatar: getAvatarUrl(),
-            artistDescription: faker.lorem.paragraphs(2)
-        },
+        artist: getMockedAuthor(),
         barImageUrl: getBarUrl(),
         musicSrc: `http://localhost:8081/music/${songName}.mp3`,
         waveform: `http://localhost:8081/waveforms/${songName}.png`,
@@ -167,10 +153,13 @@ const albumNames = [
     'Cry Baby',
 ];
 
-export const mockedAlbums = _.map(albumNames, albumName => {
-    return {
-        albumName: albumName,
-        artistName: faker.lorem.word(),
-        songsInAlbum: jinkieMockSongs,
-    };
-});
+export const getMockedAlbums = () => {
+    return _.map(albumNames, albumName => {
+        return {
+            albumName: albumName,
+            author: getMockedAuthor(),
+            songsInAlbum: jinkieMockSongs,
+            albumMiniature: getAlbumMiniature(),
+        };
+    });
+};

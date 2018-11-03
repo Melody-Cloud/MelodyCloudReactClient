@@ -12,9 +12,12 @@ class AlbumDetails extends React.Component {
 
     render() {
         const {
-            goToSongsFeed,
             albumToDisplay,
-            songsInThisAlbum
+            songsInThisAlbum,
+
+            goToSongsFeed,
+            switchViewToSongDetails,
+            switchViewToArtistDetails
         } = this.props;
 
         return (<Container className='album-details-container'>
@@ -36,10 +39,22 @@ class AlbumDetails extends React.Component {
                 <Breadcrumb.Divider />
                 <Breadcrumb.Section active>Album Details</Breadcrumb.Section>
                 <Breadcrumb.Divider />
-                <Breadcrumb.Section active>{albumToDisplay.title}</Breadcrumb.Section>
+                <Breadcrumb.Section active>{albumToDisplay.albumName}</Breadcrumb.Section>
             </Breadcrumb>
 
-            <Header as='h2' className='album-title-header txt-center'>{albumToDisplay.title}</Header>
+            <Header as='h3' className='album-author-header txt-center'>
+                by&nbsp;
+                <span
+                    onClick={() => {
+                        switchViewToArtistDetails(albumToDisplay.author)
+                    }}
+                    className='go-to-singer-page'
+                >
+                        {albumToDisplay.author.name}
+                    </span>
+            </Header>
+
+            <Header as='h2' className='album-title-header txt-center'>{albumToDisplay.albumName}</Header>
 
             <Image
                 className='artist-avatar'
@@ -50,11 +65,11 @@ class AlbumDetails extends React.Component {
 
             <p className='album-description'>Here goes description</p>
 
-            <Header as='h3' className='songs-header'>Songs</Header>
+            <Header as='h3' className='songs-header'>List of songs</Header>
 
             <ListOfSongsInAlbumDetails
                 songsInThisAlbum={songsInThisAlbum}
-                // switchViewToSongDetails={switchViewToSongDetails}
+                switchViewToSongDetails={switchViewToSongDetails}
                 // songsCreatedByThisArtist={songsCreatedByThisArtist}
             />
         </Container>);
@@ -68,4 +83,5 @@ AlbumDetails.propTypes = {
     songsInThisAlbum: PropTypes.array,
     goToSongsFeed: PropTypes.func,
     switchViewToSongDetails: PropTypes.func,
+    switchViewToArtistDetails: PropTypes.func,
 };

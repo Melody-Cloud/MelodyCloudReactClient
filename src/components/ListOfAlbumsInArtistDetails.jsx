@@ -1,7 +1,7 @@
 import 'assets/scss/ListOfAlbumsInArtistDetails.scss';
 
 import { Image, List } from 'semantic-ui-react';
-import { getAlbumMiniature } from '../utils/mocks';
+import { getMockedAlbums } from '../utils/mocks';
 import PropTypes from 'prop-types';
 import React from 'react';
 
@@ -15,16 +15,7 @@ class ListOfSongsInArtistDetails extends React.Component {
             switchViewToAlbumDetails
         } = this.props;
 
-        const albumNames = ['Thraxxl Rose', 'Hellboy', 'Cry Baby'];
-
-        const mockedAlbums = _.map(albumNames, albumName => {
-            return {
-                albumMiniature: getAlbumMiniature(),
-                title: albumName,
-            };
-        }); // TODO: resolve mock
-
-        return _.map(mockedAlbums, mockedAlbum => {
+        return _.map(getMockedAlbums(), mockedAlbum => {
             return (<List celled>
                 <List.Item
                     onClick={() => {
@@ -34,7 +25,7 @@ class ListOfSongsInArtistDetails extends React.Component {
                 >
                     <Image avatar src={mockedAlbum.albumMiniature} />
                     <List.Content>
-                        <List.Header>{mockedAlbum.title}</List.Header>
+                        <List.Header>{mockedAlbum.albumName}</List.Header>
                         <span>An excellent companion</span>
                     </List.Content>
                 </List.Item>

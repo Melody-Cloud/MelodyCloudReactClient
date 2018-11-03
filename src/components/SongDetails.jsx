@@ -40,7 +40,7 @@ class SongDetails extends React.Component {
                     <Breadcrumb.Divider />
                     <Breadcrumb.Section active>{songToDisplay.name}</Breadcrumb.Section>
                 </Breadcrumb>
-                <Header as='h3' className='song-name-header txt-center'>
+                <Header as='h3' className='song-author-header txt-center'>
                     by&nbsp;
                     <span
                         onClick={() => {
