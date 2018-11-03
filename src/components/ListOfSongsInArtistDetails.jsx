@@ -12,33 +12,27 @@ class ListOfSongsInArtistDetails extends React.Component {
     render() {
         const {
             switchViewToSongDetails,
-            songsCreatedByThisArtist
+            songsCreatedByThisArtist,
         } = this.props;
-        // const songNames = ['appetite', 'cobain', 'last thing'];
-        //
-        // const mockedSongs = _.map(songNames, songName => {
-        //     return {
-        //         songMiniature: getSongMiniature(),
-        //         title: songName,
-        //     };
-        // }); // TODO: resolve mock
 
-        return _.map(songsCreatedByThisArtist, mockedSong => {
-            return (<List celled>
-                <List.Item
-                    onClick={() => {
-                        switchViewToSongDetails(mockedSong)
-                    }}
-                    className="song-item-in-artist-details"
-                >
-                    <Image avatar src={mockedSong.songMiniature} />
-                    <List.Content>
-                        <List.Header>{mockedSong.name}</List.Header>
-                        <span>An excellent companion</span>
-                    </List.Content>
-                </List.Item>
-            </List>);
-        });
+        return (<List celled>
+            {
+                _.map(songsCreatedByThisArtist, mockedSong => {
+                    return (<List.Item
+                        onClick={() => {
+                            switchViewToSongDetails(mockedSong);
+                        }}
+                        className="song-item-in-artist-details"
+                    >
+                        <Image avatar src={mockedSong.songMiniature}/>
+                        <List.Content>
+                            <List.Header>{mockedSong.name}</List.Header>
+                            <span>An excellent companion</span>
+                        </List.Content>
+                    </List.Item>);
+                })
+            }
+        </List>);
     }
 }
 

@@ -1,5 +1,7 @@
+@import "./constants";
+
 .album-details-container {
-  margin-top: 7rem;
+  margin-top: $top-margin-for-view-containers;
 }
 
 .album-cover {

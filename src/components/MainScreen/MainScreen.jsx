@@ -7,19 +7,20 @@ import React from 'react';
 
 import ReactJkMusicPlayer from 'react-jinke-music-player';
 
+import { INDEX_OF_FIRST_SONG_IN_PLAYLIST, WAVEFORM_IMAGE_WIDTH, notyf } from '../../config/application-config';
 import {
     JK_MUSIC_PLAYER_DEFAULT_SETTINGS,
-} from '../config/components-defaults-config';
-import { Views } from '../utils/enumerations';
-import { WAVEFORM_IMAGE_WIDTH, notyf, INDEX_OF_FIRST_SONG_IN_PLAYLIST } from '../config/application-config';
-import { getUiid, jinkieMockSongs } from '../utils/mocks';
-import { isArrayEmpty } from '../utils/common-utils';
-import AlbumDetails from './AlbumDetails';
-import ArtistDetails from './ArtistDetails';
-import Footer from './pure-functional-components/Footer';
-import Nav from './pure-functional-components/Nav';
-import SongDetails from './SongDetails';
-import SongsFeed from './SongsFeed';
+} from '../../config/components-defaults-config';
+import { Views } from '../../utils/enumerations';
+import { getMockedAlbums, getUiid, jinkieMockSongs } from '../../utils/mocks';
+import { isArrayEmpty } from '../../utils/common-utils';
+import AlbumDetails from '../AlbumDetails';
+import ArtistDetails from '../ArtistDetails';
+import ExploreNewAlbums from '../ExploreNewAlbums';
+import Footer from '../pure-functional-components/Footer';
+import Nav from '../pure-functional-components/Nav';
+import SongDetails from '../SongDetails';
+import SongsFeed from '../SongsFeed';
 
 class MainScreen extends React.Component {
     constructor(props) {
@@ -61,9 +62,16 @@ class MainScreen extends React.Component {
         );
     };
 
+
     goToSongsFeed = () => {
         this.setState({
-            currentView: Views.SONGS_FEED
+            currentView: Views.SONGS_FEED,
+        });
+    };
+
+    goToExploreNewAlbums = () => {
+        this.setState({
+            currentView: Views.EXPLORE_NEW_ALBUMS,
         });
     };
 
@@ -187,11 +195,18 @@ class MainScreen extends React.Component {
                 switchViewToArtistDetails={this.switchViewToArtistDetails}
                 replaceAudioList={this.replaceAudioList}
             />,
+            [Views.EXPLORE_NEW_ALBUMS]: <ExploreNewAlbums
+                goToSongsFeed={this.goToSongsFeed}
+                listOfAlbumsToPresent={getMockedAlbums()}
+            />
         };
 
         return (
             <div className="main-screen">
-                <Nav />
+                <Nav
+                    goToSongsFeed={this.goToSongsFeed}
+                    goToExploreNewAlbums={this.goToExploreNewAlbums}
+                />
 
                 {
                     mainScreenRouting[this.state.currentView]

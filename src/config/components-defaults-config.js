@@ -1,5 +1,12 @@
 import { DEFAULT_PLAYER_VOLUME } from './application-config';
 
+export const NAVIGATION_MENU_PROPS = {
+    className: 'top-sticked-menu',
+    fixed: 'top',
+    inverted: true,
+    stackable: true,
+};
+
 export const FIRST_COLUMN_PROPS = {
     mobile: 4,
     tablet: 3,
@@ -71,6 +78,15 @@ export const APPEND_TO_PLAYLIST_BUTTON_PROPS = {
     circular: true,
     inverted: true,
 };
+
+export const APPEND_TO_PLAYLIST_BUTTON_SONG_DETAILS_PROPS = {
+    className: 'add-to-playlist-button-in-song-details',
+    icon: 'plus',
+    color: 'green',
+    circular: true,
+    inverted: true,
+};
+
 
 export const PLAY_ALBUM_BUTTON_PROPS = {
     className: 'play-album-button',

@@ -1,0 +1,8 @@
+.ui.inverted.menu {
+  .explore-new-albums-item.item {
+    &:hover {
+      cursor: pointer;
+      background: rgba(255,255,255,.08);
+    }
+  }
+}

@@ -12,25 +12,28 @@ class ListOfSongsInArtistDetails extends React.Component {
 
     render() {
         const {
-            switchViewToAlbumDetails
+            switchViewToAlbumDetails,
         } = this.props;
 
-        return _.map(getMockedAlbums(), mockedAlbum => {
-            return (<List celled>
-                <List.Item
-                    onClick={() => {
-                        switchViewToAlbumDetails(mockedAlbum)
-                    }}
-                    className="album-item-in-artist-details"
-                >
-                    <Image avatar src={mockedAlbum.albumMiniature} />
-                    <List.Content>
-                        <List.Header>{mockedAlbum.albumName}</List.Header>
-                        <span>An excellent companion</span>
-                    </List.Content>
-                </List.Item>
-            </List>);
-        });
+        return (<List celled>
+            {
+                _.map(getMockedAlbums(), mockedAlbum => {
+                    return (
+                        <List.Item
+                            onClick={() => {
+                                switchViewToAlbumDetails(mockedAlbum);
+                            }}
+                            className="album-item-in-artist-details"
+                        >
+                            <Image avatar src={mockedAlbum.albumMiniature}/>
+                            <List.Content>
+                                <List.Header>{mockedAlbum.albumName}</List.Header>
+                                <span>An excellent companion</span>
+                            </List.Content>
+                        </List.Item>);
+                })
+            }
+        </List>);
     }
 }
 
@@ -40,5 +43,5 @@ ListOfSongsInArtistDetails.propTypes = {
     songToDisplay: PropTypes.object,
 
     goToSongsFeed: PropTypes.func,
-    switchViewToAlbumDetails: PropTypes.func
+    switchViewToAlbumDetails: PropTypes.func,
 };

@@ -1,7 +1,10 @@
+@import "./constants";
+
 .top-sticked-menu {
   background-color: #fff;
   border: 1px solid #ddd;
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+  padding-left: 5rem;
 }
 
 .fixed-side-menu {
@@ -12,7 +15,7 @@
 }
 
 .songs-feed-container {
-  margin-top: 7rem;
+  margin-top: $top-margin-for-view-containers;
   padding-left: 2rem;
   padding-right: 2rem;
 }

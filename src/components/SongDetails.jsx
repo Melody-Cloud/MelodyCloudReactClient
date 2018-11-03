@@ -1,6 +1,6 @@
 import 'assets/scss/SongDetails.scss';
 import {
-    APPEND_TO_PLAYLIST_BUTTON_PROPS, MEDIUM_PLAY_BUTTON_PROPS,
+    APPEND_TO_PLAYLIST_BUTTON_PROPS, APPEND_TO_PLAYLIST_BUTTON_SONG_DETAILS_PROPS, MEDIUM_PLAY_BUTTON_PROPS,
 } from '../config/components-defaults-config';
 import { Breadcrumb, Button, Container, Header, Icon, Image } from 'semantic-ui-react';
 import CommentSection from './CommentSection';
@@ -60,7 +60,7 @@ class SongDetails extends React.Component {
                         }}
                     />
                     <Button
-                        {...APPEND_TO_PLAYLIST_BUTTON_PROPS}
+                        {...APPEND_TO_PLAYLIST_BUTTON_SONG_DETAILS_PROPS}
                         onClick={() => {appendSongToPlaylist(songToDisplay)}}
                     />
                 </div>

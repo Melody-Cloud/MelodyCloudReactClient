@@ -12,25 +12,27 @@ class ListOfSongsInAlbumDetails extends React.Component {
     render() {
         const {
             switchViewToSongDetails,
-            songsInThisAlbum
+            songsInThisAlbum,
         } = this.props;
 
-        return _.map(songsInThisAlbum, mockedSong => {
-            return (<List celled>
-                <List.Item
-                    onClick={() => {
-                        switchViewToSongDetails(mockedSong)
-                    }}
-                    className="song-item-in-album-details"
-                >
-                    <Image avatar src={mockedSong.songMiniature} />
-                    <List.Content>
-                        <List.Header>{mockedSong.name}</List.Header>
-                        <span>An excellent companion</span>
-                    </List.Content>
-                </List.Item>
-            </List>);
-        });
+        return (<List celled>
+            {
+                _.map(songsInThisAlbum, mockedSong => {
+                    return (<List.Item
+                        onClick={() => {
+                            switchViewToSongDetails(mockedSong);
+                        }}
+                        className="song-item-in-album-details"
+                    >
+                        <Image avatar src={mockedSong.songMiniature}/>
+                        <List.Content>
+                            <List.Header>{mockedSong.name}</List.Header>
+                            <span>An excellent companion</span>
+                        </List.Content>
+                    </List.Item>);
+                })
+            }
+        </List>);
     }
 }
 

@@ -1,5 +1,7 @@
+@import "./constants";
+
 .upload-page {
-  margin-top: 7rem;
+  margin-top: $top-margin-for-view-containers;
 
   .new-song-header{
     text-align: center;
