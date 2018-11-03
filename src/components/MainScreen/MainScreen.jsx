@@ -198,6 +198,7 @@ class MainScreen extends React.Component {
             [Views.EXPLORE_NEW_ALBUMS]: <ExploreNewAlbums
                 goToSongsFeed={this.goToSongsFeed}
                 listOfAlbumsToPresent={getMockedAlbums()}
+                switchViewToAlbumDetails={this.switchViewToAlbumDetails}
             />
         };
 

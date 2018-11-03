@@ -16,3 +16,13 @@
     margin-top: 2rem;
   }
 }
+
+.play-album-button-wrapper {
+  .play-album-button {
+    &.ui.button {
+      margin-top: .5rem;
+    }
+  }
+
+  margin-bottom: 1rem;
+}

@@ -90,6 +90,5 @@ export const APPEND_TO_PLAYLIST_BUTTON_SONG_DETAILS_PROPS = {
 
 export const PLAY_ALBUM_BUTTON_PROPS = {
     className: 'play-album-button',
-    size: 'huge',
     primary: true
 };

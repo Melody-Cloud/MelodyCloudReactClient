@@ -54,7 +54,7 @@ seek working wrong ? (working better if stopping and then seeking)
 
 - lokalizacja -> i18n
 - placeholder base64 image of matching resolution in case of slow loading
-
+- accessibility (could include this in thesis content)
 - song details go back btn - export properties to config file and DontRepeatYrslf
 
 PRIORITY: New albums feed -> Playlists -> Database implementation

@@ -1,6 +1,6 @@
 import 'assets/scss/ExploreNewAlbums.scss';
 
-import { Breadcrumb, Button, Container, Icon, Image, List } from 'semantic-ui-react';
+import { Breadcrumb, Button, Container, Header, Icon, Image, List } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import React from 'react';
 import _ from 'lodash';
@@ -9,14 +9,15 @@ class ExploreNewAlbums extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-        }
+        this.state = {};
     }
 
     render() {
         const {
             listOfAlbumsToPresent,
-            goToSongsFeed
+
+            goToSongsFeed,
+            switchViewToAlbumDetails,
         } = this.props;
 
         return <Container className="albums-feed-container">
@@ -35,26 +36,29 @@ class ExploreNewAlbums extends React.Component {
                 >
                     Home
                 </Breadcrumb.Section>
-                <Breadcrumb.Divider />
+                <Breadcrumb.Divider/>
                 <Breadcrumb.Section active>Explore new albums</Breadcrumb.Section>
             </Breadcrumb>
 
+            <Header as='h2' className='explore-new-albums-header txt-center'>Explore new albums</Header>
+
             <List
                 id="albums-feed"
-                size={'big'}
+                size={'huge'}
                 celled
             >
                 {_.map(listOfAlbumsToPresent, albumObject => {
                     return (
                         <List.Item
-                            className="single-album-item"
+                            className="single-album-item-in-explore-new-albums"
+                            onClick={() => {
+                                switchViewToAlbumDetails(albumObject)
+                            }}
                         >
+                            <Image avatar src={albumObject.albumMiniature}/>
                             <List.Content>
-                                <Image avatar src={albumObject.albumMiniature} />
-                                <List.Content>
-                                    <List.Header>{albumObject.albumName}</List.Header>
-                                    <span>An excellent companion</span>
-                                </List.Content>
+                                <List.Header>{albumObject.albumName}</List.Header>
+                                <span>An excellent companion</span>
                             </List.Content>
                         </List.Item>
                     );
@@ -70,4 +74,5 @@ ExploreNewAlbums.propTypes = {
     listOfAlbumsToPresent: PropTypes.array,
 
     goToSongsFeed: PropTypes.func,
+    switchViewToAlbumDetails: PropTypes.func,
 };
