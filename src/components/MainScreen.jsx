@@ -11,7 +11,7 @@ import {
     JK_MUSIC_PLAYER_DEFAULT_SETTINGS,
 } from '../config/components-defaults-config';
 import { Views } from '../utils/enumerations';
-import { WAVEFORM_IMAGE_WIDTH, notyf } from '../config/application-config';
+import { WAVEFORM_IMAGE_WIDTH, notyf, INDEX_OF_FIRST_SONG_IN_PLAYLIST } from '../config/application-config';
 import { getUiid, jinkieMockSongs } from '../utils/mocks';
 import { isArrayEmpty } from '../utils/common-utils';
 import AlbumDetails from './AlbumDetails';
@@ -126,6 +126,23 @@ class MainScreen extends React.Component {
         this.setState(newState);
     };
 
+    replaceAudioList = (newAudioList) => {
+        const currentMusicPlayer = _.get(this.musicPlayerRef, 'current');
+
+        const playAudioListFunc = _.get(currentMusicPlayer, 'audioListsPlay');
+
+        this.setState({
+            audioList: newAudioList,
+        });
+
+        currentMusicPlayer.setState({
+            playId: INDEX_OF_FIRST_SONG_IN_PLAYLIST,
+            audioList: newAudioList,
+        });
+
+        playAudioListFunc(INDEX_OF_FIRST_SONG_IN_PLAYLIST);
+    };
+
     appendSongToPlaylist = (songObject) => {
         const currentAudioListToBeUpdated = _.clone(this.state.audioList);
         currentAudioListToBeUpdated.push(songObject);
@@ -168,6 +185,7 @@ class MainScreen extends React.Component {
                 albumToDisplay={this.subviewDetails.albumToDisplay}
                 songsInThisAlbum={this.getSongsToDisplayByAlbum(this.subviewDetails.albumToDisplay)}
                 switchViewToArtistDetails={this.switchViewToArtistDetails}
+                replaceAudioList={this.replaceAudioList}
             />,
         };
 

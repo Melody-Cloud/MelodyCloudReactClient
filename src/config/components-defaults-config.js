@@ -71,3 +71,9 @@ export const APPEND_TO_PLAYLIST_BUTTON_PROPS = {
     circular: true,
     inverted: true,
 };
+
+export const PLAY_ALBUM_BUTTON_PROPS = {
+    className: 'play-album-button',
+    size: 'huge',
+    primary: true
+};

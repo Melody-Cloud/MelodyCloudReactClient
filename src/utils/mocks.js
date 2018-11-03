@@ -20,6 +20,10 @@ export function getAlbumMiniature() {
     return `https://picsum.photos/50/50/?v=${getUiid()}`;
 }
 
+export function getAlbumCover() {
+    return `https://picsum.photos/340/340/?v=${getUiid()}`;
+}
+
 export function getUiid() {
     return Math.random().toString(36).substring(7);
 }
@@ -160,6 +164,7 @@ export const getMockedAlbums = () => {
             author: getMockedAuthor(),
             songsInAlbum: jinkieMockSongs,
             albumMiniature: getAlbumMiniature(),
+            albumCover: getAlbumCover(),
         };
     });
 };

@@ -1,8 +1,11 @@
 import 'assets/scss/AlbumDetails.scss';
+
 import PropTypes from 'prop-types';
 import React from 'react';
 
 import { Breadcrumb, Button, Container, Header, Icon, Image } from 'semantic-ui-react';
+import { PLAY_ALBUM_BUTTON_PROPS } from '../config/components-defaults-config';
+import { notyf } from '../config/application-config';
 import ListOfSongsInAlbumDetails from './ListOfSongsInAlbumDetails';
 
 class AlbumDetails extends React.Component {
@@ -17,7 +20,8 @@ class AlbumDetails extends React.Component {
 
             goToSongsFeed,
             switchViewToSongDetails,
-            switchViewToArtistDetails
+            switchViewToArtistDetails,
+            replaceAudioList
         } = this.props;
 
         return (<Container className='album-details-container'>
@@ -57,11 +61,11 @@ class AlbumDetails extends React.Component {
             <Header as='h2' className='album-title-header txt-center'>{albumToDisplay.albumName}</Header>
 
             <Image
-                className='artist-avatar'
-                src={albumToDisplay.albumMiniature}
+                className='album-cover'
+                src={albumToDisplay.albumCover}
             />
 
-            <Header as='h3' className='artist-about'>Description</Header>
+            <Header as='h3' className='album-description'>Description</Header>
 
             <p className='album-description'>Here goes description</p>
 
@@ -72,6 +76,20 @@ class AlbumDetails extends React.Component {
                 switchViewToSongDetails={switchViewToSongDetails}
                 // songsCreatedByThisArtist={songsCreatedByThisArtist}
             />
+
+            {/*<Header as='h3' className='play-album-head'>Play album</Header>*/}
+
+            <Button
+                {...PLAY_ALBUM_BUTTON_PROPS}
+                onClick={
+                    () => {
+                        notyf.confirm(`Playing album ${albumToDisplay.albumName}`);
+                        replaceAudioList(songsInThisAlbum)
+                    }
+                }
+            >
+                <Icon name='play' /> Play album
+            </Button>
         </Container>);
     }
 }
@@ -84,4 +102,5 @@ AlbumDetails.propTypes = {
     goToSongsFeed: PropTypes.func,
     switchViewToSongDetails: PropTypes.func,
     switchViewToArtistDetails: PropTypes.func,
+    replaceAudioList: PropTypes.func,
 };
