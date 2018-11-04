@@ -9,6 +9,7 @@ import React from 'react';
 import SongTags from './pure-functional-components/SongTags';
 import _ from 'lodash';
 import faker from 'faker';
+import GenericBreadcrumbs from './pure-functional-components/GenericBreadcrumbs';
 
 class SongDetails extends React.Component {
     constructor(props) {
@@ -20,26 +21,11 @@ class SongDetails extends React.Component {
 
         return <div className="song-details-page">
             <Container className='song-details-container'>
-                <Breadcrumb>
-                    <Button
-                        onClick={goToSongsFeed}
-                        color='blue'
-                        className={'song-details-go-back-btn'}
-                        basic
-                    >
-                        <Icon name='arrow left'/> Back
-                    </Button>
-                    <Breadcrumb.Section
-                        onClick={goToSongsFeed}
-                        link
-                    >
-                        Home
-                    </Breadcrumb.Section>
-                    <Breadcrumb.Divider />
-                    <Breadcrumb.Section active>Song Details</Breadcrumb.Section>
-                    <Breadcrumb.Divider />
-                    <Breadcrumb.Section active>{songToDisplay.name}</Breadcrumb.Section>
-                </Breadcrumb>
+                <GenericBreadcrumbs
+                    goToSongsFeed={goToSongsFeed}
+                    activeItemLabel={'Song Details'}
+                    detailedName={songToDisplay.name}
+                />
                 <Header as='h3' className='song-author-header txt-center'>
                     by&nbsp;
                     <span

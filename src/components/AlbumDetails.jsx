@@ -7,6 +7,7 @@ import { Breadcrumb, Button, Container, Header, Icon, Image } from 'semantic-ui-
 import { PLAY_ALBUM_BUTTON_PROPS } from '../config/components-defaults-config';
 import { notyf } from '../config/application-config';
 import ListOfSongsInAlbumDetails from './ListOfSongsInAlbumDetails';
+import GenericBreadcrumbs from './pure-functional-components/GenericBreadcrumbs';
 
 class AlbumDetails extends React.Component {
     constructor(props) {
@@ -45,26 +46,11 @@ class AlbumDetails extends React.Component {
         } = this.props;
 
         return (<Container className='album-details-container'>
-            <Breadcrumb>
-                <Button
-                    onClick={goToSongsFeed}
-                    color='blue'
-                    className={'song-details-go-back-btn'}
-                    basic
-                >
-                    <Icon name='arrow left'/> Back
-                </Button>
-                <Breadcrumb.Section
-                    onClick={goToSongsFeed}
-                    link
-                >
-                    Home
-                </Breadcrumb.Section>
-                <Breadcrumb.Divider />
-                <Breadcrumb.Section active>Album Details</Breadcrumb.Section>
-                <Breadcrumb.Divider />
-                <Breadcrumb.Section active>{albumToDisplay.albumName}</Breadcrumb.Section>
-            </Breadcrumb>
+            <GenericBreadcrumbs
+                goToSongsFeed={goToSongsFeed}
+                activeItemLabel={'Album Details'}
+                detailedName={albumToDisplay.albumName}
+            />
 
             <Header as='h3' className='album-author-header txt-center'>
                 by&nbsp;

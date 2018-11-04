@@ -4,6 +4,7 @@ import { Breadcrumb, Button, Container, Header, Icon, Image, List } from 'semant
 import PropTypes from 'prop-types';
 import React from 'react';
 import _ from 'lodash';
+import GenericBreadcrumbs from './pure-functional-components/GenericBreadcrumbs';
 
 class ExploreNewAlbums extends React.Component {
     constructor(props) {
@@ -21,24 +22,10 @@ class ExploreNewAlbums extends React.Component {
         } = this.props;
 
         return <Container className="albums-feed-container">
-            <Breadcrumb>
-                <Button
-                    onClick={goToSongsFeed}
-                    color='blue'
-                    className={'song-details-go-back-btn'}
-                    basic
-                >
-                    <Icon name='arrow left'/> Back
-                </Button>
-                <Breadcrumb.Section
-                    onClick={goToSongsFeed}
-                    link
-                >
-                    Home
-                </Breadcrumb.Section>
-                <Breadcrumb.Divider/>
-                <Breadcrumb.Section active>Explore new albums</Breadcrumb.Section>
-            </Breadcrumb>
+            <GenericBreadcrumbs
+                goToSongsFeed={goToSongsFeed}
+                activeItemLabel={'Explore new albums'}
+            />
 
             <Header as='h2' className='explore-new-albums-header txt-center'>Explore new albums</Header>
 

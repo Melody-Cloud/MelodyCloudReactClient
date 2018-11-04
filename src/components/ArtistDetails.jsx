@@ -1,5 +1,6 @@
 import 'assets/scss/ArtistDetails.scss';
-import { Breadcrumb, Button, Container, Header, Icon, Image } from 'semantic-ui-react';
+import {  Container, Header, Image } from 'semantic-ui-react';
+import GenericBreadcrumbs from './pure-functional-components/GenericBreadcrumbs';
 import ListOfAlbumsInArtistDetails from './ListOfAlbumsInArtistDetails';
 import ListOfSongsInArtistDetails from './ListOfSongsInArtistDetails';
 import PropTypes from 'prop-types';
@@ -20,26 +21,11 @@ class ArtistDetails extends React.Component {
         } = this.props;
 
         return <Container className='song-details-container'>
-            <Breadcrumb>
-                <Button
-                    onClick={goToSongsFeed}
-                    color='blue'
-                    className={'song-details-go-back-btn'}
-                    basic
-                >
-                    <Icon name='arrow left'/> Back
-                </Button>
-                <Breadcrumb.Section
-                    onClick={goToSongsFeed}
-                    link
-                >
-                    Home
-                </Breadcrumb.Section>
-                <Breadcrumb.Divider />
-                <Breadcrumb.Section active>Artist Details</Breadcrumb.Section>
-                <Breadcrumb.Divider />
-                <Breadcrumb.Section active>{artistToDisplay.name}</Breadcrumb.Section>
-            </Breadcrumb>
+            <GenericBreadcrumbs
+                activeItemLabel={'Artist details'}
+                goToSongsFeed={goToSongsFeed}
+                detailedName={artistToDisplay.name}
+            />
 
             <Header as='h2' className='song-title-header txt-center'>{artistToDisplay.name}</Header>
 
