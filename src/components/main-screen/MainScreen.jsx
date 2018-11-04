@@ -21,6 +21,7 @@ import Footer from '../pure-functional-components/Footer';
 import Nav from '../pure-functional-components/Nav';
 import SongDetails from '../SongDetails';
 import SongsFeed from '../SongsFeed';
+import PlaylistView from '../PlaylistView';
 
 class MainScreen extends React.Component {
     constructor(props) {
@@ -72,6 +73,12 @@ class MainScreen extends React.Component {
     goToExploreNewAlbums = () => {
         this.setState({
             currentView: Views.EXPLORE_NEW_ALBUMS,
+        });
+    };
+
+    goToMyPlaylists = () => {
+        this.setState({
+            currentView: Views.PLAYLIST_VIEW,
         });
     };
 
@@ -199,6 +206,9 @@ class MainScreen extends React.Component {
                 goToSongsFeed={this.goToSongsFeed}
                 listOfAlbumsToPresent={getMockedAlbums()}
                 switchViewToAlbumDetails={this.switchViewToAlbumDetails}
+            />,
+            [Views.PLAYLIST_VIEW]: <PlaylistView
+                goToSongsFeed={this.goToSongsFeed}
             />
         };
 
@@ -207,6 +217,7 @@ class MainScreen extends React.Component {
                 <Nav
                     goToSongsFeed={this.goToSongsFeed}
                     goToExploreNewAlbums={this.goToExploreNewAlbums}
+                    goToMyPlaylists={this.goToMyPlaylists}
                 />
 
                 {

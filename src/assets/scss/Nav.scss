@@ -1,5 +1,5 @@
 .ui.inverted.menu {
-  .explore-new-albums-item.item {
+  .explore-new-albums-item.item, .go-to-my-playlists-item {
     &:hover {
       cursor: pointer;
       background: rgba(255,255,255,.08);

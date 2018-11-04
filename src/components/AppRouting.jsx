@@ -1,7 +1,7 @@
 import 'assets/scss/App.scss';
 import {HashRouter, Route, Switch} from 'react-router-dom';
 import LoginLayout from './LoginLayout';
-import MainScreen from './MainScreen/MainScreen';
+import MainScreen from './main-screen/MainScreen';
 import React from 'react';
 import RegisterLayout from './RegisterLayout';
 import TestScreen from './TestScreen';

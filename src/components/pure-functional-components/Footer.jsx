@@ -1,7 +1,7 @@
 import 'assets/scss/Footer.scss';
 import React from 'react';
 
-import { Container, Segment, Button } from 'semantic-ui-react';
+import { Button, Container, Segment } from 'semantic-ui-react';
 
 const Footer = () => {
     return (<Segment inverted vertical className="footer-segment">
