@@ -1,15 +1,15 @@
 import 'assets/scss/SongDetails.scss';
 import {
-    APPEND_TO_PLAYLIST_BUTTON_PROPS, APPEND_TO_PLAYLIST_BUTTON_SONG_DETAILS_PROPS, MEDIUM_PLAY_BUTTON_PROPS,
+     APPEND_TO_PLAYLIST_BUTTON_SONG_DETAILS_PROPS, MEDIUM_PLAY_BUTTON_PROPS,
 } from '../config/components-defaults-config';
-import { Breadcrumb, Button, Container, Header, Icon, Image } from 'semantic-ui-react';
+import { Button, Container, Header, Image } from 'semantic-ui-react';
 import CommentSection from './CommentSection';
+import GenericBreadcrumbs from './pure-functional-components/GenericBreadcrumbs';
 import PropTypes from 'prop-types';
 import React from 'react';
 import SongTags from './pure-functional-components/SongTags';
 import _ from 'lodash';
 import faker from 'faker';
-import GenericBreadcrumbs from './pure-functional-components/GenericBreadcrumbs';
 
 class SongDetails extends React.Component {
     constructor(props) {

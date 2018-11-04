@@ -38,12 +38,6 @@ class SongsFeed extends React.Component {
         }
     };
 
-    isPlaylistEmpty = () => {
-        return _.isEqual(_.size(this.state.audioList), 0);
-    };
-
-
-
     isCurrentSongAlmostAtTheEnd = () => {
         return _.get(this.props, 'musicPlayerRef.current.state.currentTime') >= Math.floor(_.get(this, 'musicPlayerRef.current.state.duration'));
     };

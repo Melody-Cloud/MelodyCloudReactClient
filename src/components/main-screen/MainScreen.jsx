@@ -12,16 +12,16 @@ import {
     JK_MUSIC_PLAYER_DEFAULT_SETTINGS,
 } from '../../config/components-defaults-config';
 import { Views } from '../../utils/enumerations';
-import { getMockedAlbums, getUiid, jinkieMockSongs } from '../../utils/mocks';
+import { getMockedAlbums, getMockedPlaylists, getUiid, jinkieMockSongs } from '../../utils/mocks';
 import { isArrayEmpty } from '../../utils/common-utils';
 import AlbumDetails from '../AlbumDetails';
 import ArtistDetails from '../ArtistDetails';
 import ExploreNewAlbums from '../ExploreNewAlbums';
 import Footer from '../pure-functional-components/Footer';
+import ListOfPlaylists from '../ListOfPlaylists';
 import Nav from '../pure-functional-components/Nav';
 import SongDetails from '../SongDetails';
 import SongsFeed from '../SongsFeed';
-import PlaylistView from '../PlaylistView';
 
 class MainScreen extends React.Component {
     constructor(props) {
@@ -37,7 +37,7 @@ class MainScreen extends React.Component {
             songPlaying: false,
             songsInFeed: jinkieMockSongs,
 
-            playerUiid: ''
+            playerUiid: '',
         };
 
         this.subviewDetails = {
@@ -53,6 +53,10 @@ class MainScreen extends React.Component {
 
         this.musicPlayerRef = React.createRef();
     }
+
+    isPlaylistEmpty = () => {
+        return _.isEqual(_.size(this.state.audioList), 0);
+    };
 
     calculateProgressBarWidth = () => {
         if (!this.musicPlayerRef.current || !this.musicPlayerRef.current.state || _.isEqual(this.musicPlayerRef.current.state.currentTime, 0)) {
@@ -86,7 +90,7 @@ class MainScreen extends React.Component {
         this.subviewDetails.artistToDisplay = artistToDisplay;
 
         this.setState({
-            currentView: Views.ARTIST_DETAILS
+            currentView: Views.ARTIST_DETAILS,
         });
     };
 
@@ -94,7 +98,7 @@ class MainScreen extends React.Component {
         this.subviewDetails.songToDisplay = songToDisplay;
 
         this.setState({
-            currentView: Views.SONG_DETAILS
+            currentView: Views.SONG_DETAILS,
         });
     };
 
@@ -102,7 +106,7 @@ class MainScreen extends React.Component {
         this.subviewDetails.albumToDisplay = albumToDisplay;
 
         this.setState({
-            currentView: Views.ALBUM_DETAILS
+            currentView: Views.ALBUM_DETAILS,
         });
     };
 
@@ -129,11 +133,11 @@ class MainScreen extends React.Component {
     };
 
     updateAudioList = (newAudioList, shouldRerenderPlayer) => {
-        const newState = shouldRerenderPlayer?
+        const newState = shouldRerenderPlayer ?
             {
                 audioList: newAudioList,
-                playerUiid: getUiid()
-            }:
+                playerUiid: getUiid(),
+            } :
             {
                 audioList: newAudioList,
             };
@@ -207,9 +211,10 @@ class MainScreen extends React.Component {
                 listOfAlbumsToPresent={getMockedAlbums()}
                 switchViewToAlbumDetails={this.switchViewToAlbumDetails}
             />,
-            [Views.PLAYLIST_VIEW]: <PlaylistView
+            [Views.PLAYLIST_VIEW]: <ListOfPlaylists
                 goToSongsFeed={this.goToSongsFeed}
-            />
+                listOfPlaylistsToDisplay={getMockedPlaylists()}
+            />,
         };
 
         return (
@@ -224,34 +229,34 @@ class MainScreen extends React.Component {
                     mainScreenRouting[this.state.currentView]
                 }
 
-                {/*{!this.isPlaylistEmpty() && (*/}
-                <ReactJkMusicPlayer
-                    {...JK_MUSIC_PLAYER_DEFAULT_SETTINGS}
-                    audioLists={this.state.audioList}
-                    autoPlay={!isArrayEmpty(this.state.audioList)}
-                    ref={this.musicPlayerRef}
-                    key={this.state.playerUiid}
-                    onAudioPlay={() => {
-                        setTimeout(() => {
+                {!this.isPlaylistEmpty() && (
+                    <ReactJkMusicPlayer
+                        {...JK_MUSIC_PLAYER_DEFAULT_SETTINGS}
+                        audioLists={this.state.audioList}
+                        autoPlay={!isArrayEmpty(this.state.audioList)}
+                        ref={this.musicPlayerRef}
+                        key={this.state.playerUiid}
+                        onAudioPlay={() => {
+                            setTimeout(() => {
+                                this.setState({
+                                    waveformProgressBarWidth: this.calculateProgressBarWidth(),
+                                    songPlaying: true,
+                                });
+                            }, 500);
+                        }}
+                        onAudioPause={() => {
                             this.setState({
                                 waveformProgressBarWidth: this.calculateProgressBarWidth(),
-                                songPlaying: true,
+                                songPlaying: false,
                             });
-                        }, 500);
-                    }}
-                    onAudioPause={() => {
-                        this.setState({
-                            waveformProgressBarWidth: this.calculateProgressBarWidth(),
-                            songPlaying: false,
-                        });
-                    }}
-                    onAudioSeeked={() => {
-                        this.setState({
-                            waveformProgressBarWidth: this.calculateProgressBarWidth(),
-                        });
-                    }}
-                />
-                {/*)}*/}
+                        }}
+                        onAudioSeeked={() => {
+                            this.setState({
+                                waveformProgressBarWidth: this.calculateProgressBarWidth(),
+                            });
+                        }}
+                    />
+                )}
                 <Footer/>
             </div>
         );

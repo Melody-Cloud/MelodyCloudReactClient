@@ -9,3 +9,5 @@ export const INDEX_OF_FIRST_SONG_IN_PLAYLIST = 0;
 export const notyf = new Notyf({
     delay: 2000,
 });
+
+export const HOW_MANY_SONGS_TO_DISPLAY_IN_PLAYLIST_PREVIEW = 2;

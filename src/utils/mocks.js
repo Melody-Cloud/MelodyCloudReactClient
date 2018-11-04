@@ -1,4 +1,5 @@
 import faker from 'faker';
+import _ from 'lodash';
 
 function getBarUrl() {
     return `https://picsum.photos/400/50/?v=${getUiid()}`;
@@ -17,6 +18,10 @@ export function getSongMiniature() {
 }
 
 export function getAlbumMiniature() {
+    return `https://picsum.photos/50/50/?v=${getUiid()}`;
+}
+
+export function getPlaylistMiniature() {
     return `https://picsum.photos/50/50/?v=${getUiid()}`;
 }
 
@@ -165,6 +170,16 @@ export const getMockedAlbums = () => {
             songsInAlbum: jinkieMockSongs,
             albumMiniature: getAlbumMiniature(),
             albumCover: getAlbumCover(),
+        };
+    });
+};
+
+export const getMockedPlaylists = () => {
+    return _.map(_.range(10), () => {
+        return {
+            playlistName: faker.lorem.word(),
+            playlistMiniature: getPlaylistMiniature(),
+            songsInsidePlaylist: jinkieMockSongs,
         };
     });
 };
