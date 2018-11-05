@@ -11,3 +11,16 @@ export const notyf = new Notyf({
 });
 
 export const HOW_MANY_SONGS_TO_DISPLAY_IN_PLAYLIST_PREVIEW = 2;
+
+export const AMPLIFY_CONFIG = {
+    Auth: {
+        identityPoolId: 'eu-west-1:e1dd71be-5ad8-4b70-aee5-57692cfa2ab1', //REQUIRED - Amazon Cognito Identity Pool ID
+        region: 'eu-west-1', // REQUIRED - Amazon Cognito Region
+        userPoolId: 'eu-west-1_KKJMEabDC', //OPTIONAL - Amazon Cognito User Pool ID
+        userPoolWebClientId: '4ji0pe7am9dnq9se5stgtslk5m', //OPTIONAL - Amazon Cognito Web Client ID
+    },
+    Storage: {
+        bucket: 'melody-cloud-songs', //REQUIRED -  Amazon S3 bucket
+        region: 'eu-west-1', //OPTIONAL -  Amazon service region
+    },
+};

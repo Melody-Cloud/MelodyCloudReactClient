@@ -87,8 +87,12 @@ export const APPEND_TO_PLAYLIST_BUTTON_SONG_DETAILS_PROPS = {
     inverted: true,
 };
 
-
 export const PLAY_ALBUM_BUTTON_PROPS = {
     className: 'play-album-button',
     primary: true
+};
+
+export const UPLOAD_BUTTON_PROPS = {
+    color: 'green',
+    className: 'submit-upload-button'
 };

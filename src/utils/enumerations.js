@@ -6,5 +6,13 @@ export const Views = {
     EXPLORE_NEW_ALBUMS: 'EXPLORE_NEW_ALBUMS',
     COLLECTION_OF_PLAYLISTS_VIEW: 'COLLECTION_OF_PLAYLISTS_VIEW',
     SINGLE_PLAYLIST_VIEW: 'SINGLE_PLAYLIST_VIEW',
+    UPLOAD_PAGE: 'UPLOAD_PAGE',
+};
+
+export const NavigationTabs = {
+    MELODY_CLOUD: 'MelodyCloud',
+    EXPLORE_NEW_ALBUMS: 'Explore new albums',
+    GO_TO_MY_PLAYLISTS: 'Go to my playlists',
+    GO_TO_UPLOAD_PAGE: 'Go to upload page',
 };
 

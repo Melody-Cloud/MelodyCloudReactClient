@@ -23,6 +23,7 @@ import Nav from '../pure-functional-components/Nav';
 import SongDetails from '../SongDetails';
 import SongsFeed from '../SongsFeed';
 import SinglePlaylistView from '../SinglePlaylistView';
+import UploadPage from '../UploadPage';
 
 class MainScreen extends React.Component {
     constructor(props) {
@@ -111,6 +112,12 @@ class MainScreen extends React.Component {
 
         this.setState({
             currentView: Views.ALBUM_DETAILS,
+        });
+    };
+
+    goToUploadPage = () => {
+        this.setState({
+            currentView: Views.UPLOAD_PAGE,
         });
     };
 
@@ -231,8 +238,14 @@ class MainScreen extends React.Component {
             />,
             [Views.SINGLE_PLAYLIST_VIEW]: <SinglePlaylistView
                 playlistToDisplay={this.subviewDetails.playlistToDisplay}
+
                 goToSongsFeed={this.goToSongsFeed}
+                switchViewToSongDetails={this.switchViewToSongDetails}
+                replaceAudioList={this.replaceAudioList}
             />,
+            [Views.UPLOAD_PAGE]: <UploadPage
+                goToSongsFeed={this.goToSongsFeed}
+            />
         };
 
         return (
@@ -241,6 +254,7 @@ class MainScreen extends React.Component {
                     goToSongsFeed={this.goToSongsFeed}
                     goToExploreNewAlbums={this.goToExploreNewAlbums}
                     goToMyPlaylists={this.goToMyPlaylists}
+                    goToUploadPage={this.goToUploadPage}
                 />
 
                 {

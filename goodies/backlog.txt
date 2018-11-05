@@ -63,3 +63,12 @@ PRIORITY: New albums feed (Done) -> Playlists -> Database implementation -> Sear
 
 - save current playlist
 - preview songs in list of albums
+
+- saving from player to playlist -> should be easy enough
+
+- generic images / colors when someone doesn't upload image
+
+- upload song details
+- images upload -> for now let placeholders stay
+
+- change navbar to https://codesandbox.io/s/325y47xk36

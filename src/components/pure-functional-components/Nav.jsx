@@ -2,10 +2,11 @@ import 'assets/scss/Nav.scss';
 
 import { Icon, Input, Menu } from 'semantic-ui-react';
 import { NAVIGATION_MENU_PROPS } from '../../config/components-defaults-config';
+import { NavigationTabs } from '../../utils/enumerations';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-const Nav = ({ goToSongsFeed, goToExploreNewAlbums, goToMyPlaylists }) => {
+const Nav = ({ goToSongsFeed, goToExploreNewAlbums, goToMyPlaylists, goToUploadPage }) => {
     return (
         <Menu
             {...NAVIGATION_MENU_PROPS}
@@ -14,19 +15,25 @@ const Nav = ({ goToSongsFeed, goToExploreNewAlbums, goToMyPlaylists }) => {
                 onClick={goToSongsFeed}
                 header
             >
-                <Icon name="cloud"/> MelodyCloud
+                <Icon name="cloud"/> {NavigationTabs.MELODY_CLOUD}
             </Menu.Item>
             <Menu.Item
                 className="explore-new-albums-item"
                 onClick={goToExploreNewAlbums}
             >
-                <Icon name="hotjar"/> Explore new albums
+                <Icon name="hotjar"/> {NavigationTabs.EXPLORE_NEW_ALBUMS}
             </Menu.Item>
             <Menu.Item
                 className="go-to-my-playlists-item"
                 onClick={goToMyPlaylists}
             >
-                <Icon name="list alternate outline"/> Go to my playlists
+                <Icon name="list alternate outline"/> {NavigationTabs.GO_TO_MY_PLAYLISTS}
+            </Menu.Item>
+            <Menu.Item
+                className="go-to-upload-page"
+                onClick={goToUploadPage}
+            >
+                <Icon name="upload"/> {NavigationTabs.GO_TO_UPLOAD_PAGE}
             </Menu.Item>
             <Menu.Item as="a">
                 <Input icon="search" placeholder="Search for songs..."/>
@@ -41,4 +48,5 @@ Nav.propTypes = {
     goToSongsFeed: PropTypes.func,
     goToExploreNewAlbums: PropTypes.func,
     goToMyPlaylists: PropTypes.func,
+    goToUploadPage: PropTypes.func,
 };

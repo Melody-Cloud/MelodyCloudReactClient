@@ -120,3 +120,14 @@
 div.notyf {
   top: 55px;
 }
+
+@media (max-width: 843px) {
+  div.songs-feed-container,
+  div.upload-page,
+  div.song-details-container,
+  div.playlist-view-container,
+  div.albums-feed-container,
+  div.playlist-details-container {
+    margin-top: $top-margin-for-view-containers-mobile;
+  }
+}
