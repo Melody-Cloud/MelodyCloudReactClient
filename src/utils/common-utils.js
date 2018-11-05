@@ -1,3 +1,5 @@
+import { List } from 'semantic-ui-react';
+import React from 'react';
 import isEqual from 'lodash/isEqual';
 import size from 'lodash/size';
 
@@ -10,8 +12,8 @@ export function isArrayEmpty(inputArray) {
 }
 
 function makeid() {
-    let text = "";
-    const possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    let text = '';
+    const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
 
     for (let i = 0; i < 5; i++)
         text += possible.charAt(Math.floor(Math.random() * possible.length));

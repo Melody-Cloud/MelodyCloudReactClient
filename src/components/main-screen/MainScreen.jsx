@@ -22,6 +22,7 @@ import ListOfPlaylists from '../ListOfPlaylists';
 import Nav from '../pure-functional-components/Nav';
 import SongDetails from '../SongDetails';
 import SongsFeed from '../SongsFeed';
+import SinglePlaylistView from '../SinglePlaylistView';
 
 class MainScreen extends React.Component {
     constructor(props) {
@@ -49,6 +50,9 @@ class MainScreen extends React.Component {
 
             //AlbumDetails
             albumToDisplay: {},
+
+            //PlaylistDetails
+            playlistToDisplay: {},
         };
 
         this.musicPlayerRef = React.createRef();
@@ -82,7 +86,7 @@ class MainScreen extends React.Component {
 
     goToMyPlaylists = () => {
         this.setState({
-            currentView: Views.PLAYLIST_VIEW,
+            currentView: Views.COLLECTION_OF_PLAYLISTS_VIEW,
         });
     };
 
@@ -107,6 +111,14 @@ class MainScreen extends React.Component {
 
         this.setState({
             currentView: Views.ALBUM_DETAILS,
+        });
+    };
+
+    switchViewToPlaylist = (playlistToDisplay) => {
+        this.subviewDetails.playlistToDisplay = playlistToDisplay;
+
+        this.setState({
+            currentView: Views.SINGLE_PLAYLIST_VIEW,
         });
     };
 
@@ -211,9 +223,15 @@ class MainScreen extends React.Component {
                 listOfAlbumsToPresent={getMockedAlbums()}
                 switchViewToAlbumDetails={this.switchViewToAlbumDetails}
             />,
-            [Views.PLAYLIST_VIEW]: <ListOfPlaylists
-                goToSongsFeed={this.goToSongsFeed}
+            [Views.COLLECTION_OF_PLAYLISTS_VIEW]: <ListOfPlaylists
                 listOfPlaylistsToDisplay={getMockedPlaylists()}
+
+                switchViewToPlaylist={this.switchViewToPlaylist}
+                goToSongsFeed={this.goToSongsFeed}
+            />,
+            [Views.SINGLE_PLAYLIST_VIEW]: <SinglePlaylistView
+                playlistToDisplay={this.subviewDetails.playlistToDisplay}
+                goToSongsFeed={this.goToSongsFeed}
             />,
         };
 

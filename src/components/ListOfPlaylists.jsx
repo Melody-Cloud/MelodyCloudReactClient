@@ -1,12 +1,12 @@
 import 'assets/scss/ListOfPlaylists.scss';
 
-import { Container, Header, Image, List } from 'semantic-ui-react';
+import { Container, Header, List } from 'semantic-ui-react';
+import { HOW_MANY_SONGS_TO_DISPLAY_IN_PLAYLIST_PREVIEW } from '../config/application-config';
 import GenericBreadcrumbs from './pure-functional-components/GenericBreadcrumbs';
+import Label from 'semantic-ui-react/dist/es/elements/Label/Label';
 import PropTypes from 'prop-types';
 import React from 'react';
 import _ from 'lodash';
-import Label from 'semantic-ui-react/dist/es/elements/Label/Label';
-import { HOW_MANY_SONGS_TO_DISPLAY_IN_PLAYLIST_PREVIEW } from '../config/application-config';
 
 class ListOfPlaylists extends React.Component {
     constructor(props) {
@@ -35,7 +35,7 @@ class ListOfPlaylists extends React.Component {
         const {
             goToSongsFeed,
             listOfPlaylistsToDisplay,
-            switchViewToPlaylist
+            switchViewToPlaylist,
         } = this.props;
 
         return <Container className="playlist-view-container">
@@ -43,7 +43,6 @@ class ListOfPlaylists extends React.Component {
                 activeItemLabel='My playlists'
                 goToSongsFeed={goToSongsFeed}
             />
-
             <Header as='h2' className='my-playlists-header txt-center'>My playlists</Header>
 
             <List
@@ -60,14 +59,16 @@ class ListOfPlaylists extends React.Component {
                         <List.Item
                             className="single-album-item-in-explore-new-albums"
                             onClick={() => {
-                                switchViewToPlaylist(playlistObject)
+                                switchViewToPlaylist(playlistObject);
                             }}
                         >
                             <Label as='a' color={this.listOfColors[index]} ribbon>{playlistObject.playlistName}</Label>
                             {/*<Image avatar src={playlistObject.playlistMiniature}/>*/}
                             <List ordered>
                                 {_.map(songsInsidePlaylistUpTo5, singleSong => {
-                                    return <List.Item>{singleSong.name}</List.Item>;
+                                    return <List.Item>
+                                        {singleSong.name}
+                                    </List.Item>;
                                 })}
                                 <List.Item>...</List.Item>
                             </List>

@@ -3,11 +3,11 @@ import 'assets/scss/AlbumDetails.scss';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import { Breadcrumb, Button, Container, Header, Icon, Image } from 'semantic-ui-react';
+import { Button, Container, Header, Icon, Image } from 'semantic-ui-react';
 import { PLAY_ALBUM_BUTTON_PROPS } from '../config/components-defaults-config';
 import { notyf } from '../config/application-config';
-import ListOfSongsInAlbumDetails from './ListOfSongsInAlbumDetails';
 import GenericBreadcrumbs from './pure-functional-components/GenericBreadcrumbs';
+import ListOfSongsInAlbumDetails from './ListOfSongsInAlbumDetails';
 
 class AlbumDetails extends React.Component {
     constructor(props) {
