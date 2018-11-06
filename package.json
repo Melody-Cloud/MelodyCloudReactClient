@@ -89,6 +89,7 @@
     "react-responsive-music-player": "^0.3.0",
     "react-router-dom": "^4.3.1",
     "react-sortablejs": "^1.4.0",
+    "react-tagsinput": "^3.19.0",
     "react-test-renderer": "^16.5.0",
     "react-wavesurfer": "^0.7.4",
     "semantic-ui-css": "^2.4.0",

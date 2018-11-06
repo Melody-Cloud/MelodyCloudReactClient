@@ -96,3 +96,8 @@ export const UPLOAD_BUTTON_PROPS = {
     color: 'green',
     className: 'submit-upload-button'
 };
+
+export const SONG_DESCRIPTION_PROPS = {
+    label:'Song description',
+    placeholder: 'Write something about this song',
+};

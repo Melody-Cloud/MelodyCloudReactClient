@@ -1,5 +1,9 @@
 @import "./constants";
 
+.upload-container {
+  margin-top: 1rem;
+}
+
 .upload-page {
   margin-top: $top-margin-for-view-containers;
 
@@ -41,5 +45,9 @@
 }
 
 .submit-button-wrapper {
+  margin-top: 1rem;
+}
+
+div.react-tagsinput {
   margin-top: 1rem;
 }

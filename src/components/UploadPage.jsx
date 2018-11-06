@@ -1,4 +1,8 @@
 import 'assets/scss/UploadPage.scss';
+
+import TagsInput from 'react-tagsinput'
+
+import 'react-tagsinput/react-tagsinput.css'
 import {
     Button,
     Container, Form,
@@ -14,7 +18,7 @@ import React from 'react';
 
 import { AMPLIFY_CONFIG } from '../config/application-config';
 import { Link } from 'react-router-dom';
-import { UPLOAD_BUTTON_PROPS } from '../config/components-defaults-config';
+import { SONG_DESCRIPTION_PROPS, UPLOAD_BUTTON_PROPS } from '../config/components-defaults-config';
 import Amplify, { Storage } from 'aws-amplify';
 import Dropzone from 'react-dropzone';
 import GenericBreadcrumbs from './pure-functional-components/GenericBreadcrumbs';
@@ -33,6 +37,10 @@ class UploadPage extends React.Component {
             errorModalOpen: false,
             errorMessageObject: null,
             displayUploadSuccessMessage: false,
+
+            songDescription: '',
+            songName: '',
+            songTags: [],
         };
 
         this.dropzoneRef = null;
@@ -60,6 +68,8 @@ class UploadPage extends React.Component {
             isFileUploading: true,
         });
     };
+
+    handleFormChange = (e, { name, value }) => this.setState({ [name]: value });
 
     render() {
         const {
@@ -100,7 +110,6 @@ class UploadPage extends React.Component {
                     </Modal.Actions>
                 </Modal>
 
-                <Nav/>
                 <Container className="upload-container" fluid>
                     <Segment className="upload-segment">
                         <Header as="h1" className="new-song-header">
@@ -142,27 +151,37 @@ class UploadPage extends React.Component {
                             </List>
                         </div>
 
-                        Name:
-                        <br/>
-                        Description:
-                        <br/>
-                        Tags:
-                        <br/>
-
                         <Form>
                             <Form.Field>
                                 <label>Song Name</label>
-                                <input placeholder='Song Name' />
+                                <input
+                                    placeholder='Song Name'
+                                    name='songName'
+                                    value={this.state.songName}
+                                    onChange={this.handleFormChange}
+                                />
                             </Form.Field>
                             <Form.Field>
-                                <Form.TextArea label='Song description' placeholder='Write something about this song' />
+                                <Form.TextArea
+                                    {...SONG_DESCRIPTION_PROPS}
+                                    name='songDescription'
+                                    value={this.state.songDescription}
+                                    onChange={this.handleFormChange}
+                                />
                             </Form.Field>
                             <Form.Field>
-                                <label>Tags</label>
-                                <input placeholder='Tag...' />
                             </Form.Field>
-                            <Button type='submit'>Submit</Button>
                         </Form>
+
+                        <div className="tags-input-wrapper">
+                            <label>Tags</label>
+                            <TagsInput
+                                value={this.state.songTags}
+                                onChange={(songTags) => {
+                                    this.setState({songTags});
+                                }}
+                            />
+                        </div>
 
                         <div className="submit-button-wrapper">
                             <Button
