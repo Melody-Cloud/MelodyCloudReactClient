@@ -194,7 +194,7 @@ class MainScreen extends React.Component {
                 musicPlayerRef={this.musicPlayerRef}
                 waveformProgressBarWidth={this.state.waveformProgressBarWidth}
                 songPlaying={this.state.songPlaying}
-                songsInFeed={this.state.songsInFeed}
+                // songsInFeed={this.state.songsInFeed}
 
                 switchViewToSongDetails={this.switchViewToSongDetails}
                 switchViewToArtistDetails={this.switchViewToArtistDetails}

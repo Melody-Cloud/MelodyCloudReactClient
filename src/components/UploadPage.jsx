@@ -13,7 +13,6 @@ import {
     Modal,
     Segment,
 } from 'semantic-ui-react';
-import Nav from './pure-functional-components/Nav';
 import React from 'react';
 
 import { AMPLIFY_CONFIG } from '../config/application-config';
@@ -174,7 +173,7 @@ class UploadPage extends React.Component {
                         </Form>
 
                         <div className="tags-input-wrapper">
-                            <label>Tags</label>
+                            <label className="tags-label">Tags</label>
                             <TagsInput
                                 value={this.state.songTags}
                                 onChange={(songTags) => {

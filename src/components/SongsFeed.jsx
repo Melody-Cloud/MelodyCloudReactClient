@@ -5,8 +5,9 @@ import {
     PAUSE_BUTTON_PROPS, PLAY_BUTTON_PROPS, SECOND_COLUMN_PROPS,
     THIRD_COLUMN_PROPS,
 } from '../config/components-defaults-config';
-import { Button, Container, Grid, List } from 'semantic-ui-react';
-import { WAVEFORM_IMAGE_HEIGHT, WAVEFORM_IMAGE_WIDTH, notyf } from '../config/application-config';
+import { Button, Container, Dimmer, Grid, List, Loader } from 'semantic-ui-react';
+import { SONG, getObjectsFromApi, ID, ARTIST, getFullSongObjects } from '../api-fetching/api-fetching';
+import { WAVEFORM_IMAGE_HEIGHT, WAVEFORM_IMAGE_WIDTH } from '../config/application-config';
 import { WaveformProgress } from './WaveformProgress';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -14,12 +15,24 @@ import SongCard from './pure-functional-components/SongCard';
 import SongTags from './pure-functional-components/SongTags';
 import _ from 'lodash';
 
+
 class SongsFeed extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-        }
+            areSongsLoading: true,
+            songsInFeed: []
+        };
+    }
+
+    componentDidMount() {
+        getFullSongObjects().then(updatedSongsResolved => {
+            this.setState({
+                areSongsLoading: false,
+                songsInFeed: updatedSongsResolved
+            });
+        });
     }
 
     isGivenSongFirstInPlaylist = songObject => {
@@ -43,12 +56,20 @@ class SongsFeed extends React.Component {
     };
 
     render() {
-        const {songsInFeed, musicPlayerRef, waveformProgressBarWidth, appendSongToPlaylist} = this.props;
+        const {songsInFeed} = this.state;
+
+        const {musicPlayerRef, waveformProgressBarWidth, appendSongToPlaylist} = this.props;
 
         const flooredSongDuration = Math.floor(_.get(musicPlayerRef, 'current.state.duration'));
         const currentSongTime = Math.ceil(_.get(musicPlayerRef, 'current.state.currentTime'));
 
         return <Container className="songs-feed-container" fluid>
+            <Dimmer active={this.state.areSongsLoading}>
+                <Loader indeterminate size='huge'>
+                    Loading new songs for you.
+                </Loader>
+            </Dimmer>
+
             <List id="songs-feed" celled>
                 {_.map(songsInFeed, songObject => {
                     const isThisSongOnTopOfPlaylist = this.isGivenSongFirstInPlaylist(songObject);
@@ -94,7 +115,7 @@ class SongsFeed extends React.Component {
                                     </Grid.Column>
                                     <Grid.Column {...THIRD_COLUMN_PROPS}>
                                         <WaveformProgress
-                                            waveformImageSource={songObject.waveform}
+                                            waveformImageSource={songObject.waveformImgUrl}
                                             imageWidth={WAVEFORM_IMAGE_WIDTH}
                                             imageHeight={WAVEFORM_IMAGE_HEIGHT}
                                             waveformProgressBarWidth={waveformProgressBarWidth}

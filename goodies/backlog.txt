@@ -72,3 +72,7 @@ PRIORITY: New albums feed (Done) -> Playlists -> Database implementation -> Sear
 - images upload -> for now let placeholders stay
 
 - change navbar to https://codesandbox.io/s/325y47xk36
+
+- CI/CD - serverless
+
+- featuring artists

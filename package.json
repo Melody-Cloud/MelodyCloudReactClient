@@ -71,6 +71,7 @@
   "dependencies": {
     "aws-amplify": "^1.1.5",
     "aws-sdk": "^2.320.0",
+    "axios": "^0.18.0",
     "eslint-plugin-import-order-autofix": "^0.8.3",
     "faker": "^4.1.0",
     "history": "^4.7.2",
@@ -96,8 +97,6 @@
     "semantic-ui-react": "^0.82.5",
     "sortablejs": "^1.7.0",
     "store": "^2.0.12",
-    "styled-components": "^3.4.9",
-    "waveform-react": "^0.2.3",
-    "wavesurfer.js": "^1.4.0"
+    "styled-components": "^3.4.9"
   }
 }

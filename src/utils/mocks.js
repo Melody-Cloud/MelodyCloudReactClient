@@ -1,5 +1,5 @@
-import faker from 'faker';
 import _ from 'lodash';
+import faker from 'faker';
 
 function getBarUrl() {
     return `https://picsum.photos/400/50/?v=${getUiid()}`;
@@ -145,7 +145,7 @@ export const jinkieMockSongs = _.map(songNames, (songName, index) => {
         artist: getMockedAuthor(),
         barImageUrl: getBarUrl(),
         musicSrc: `http://localhost:8081/music/${songName}.mp3`,
-        waveform: `http://localhost:8081/waveforms/${songName}.png`,
+        waveformImgUrl: `http://localhost:8081/waveforms/${songName}.png`,
         amountOfPlays: index*100+100,
         amountOfLikes: index*20+15,
         cover: getCoverUrl(),
