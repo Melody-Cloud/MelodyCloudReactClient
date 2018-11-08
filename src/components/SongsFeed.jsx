@@ -5,10 +5,11 @@ import {
     PAUSE_BUTTON_PROPS, PLAY_BUTTON_PROPS, SECOND_COLUMN_PROPS,
     THIRD_COLUMN_PROPS,
 } from '../config/components-defaults-config';
+import { ARTIST, ID, SONG, getObjectsFromApi, getTagsBySongId } from '../api-fetching/api-fetching';
 import { Button, Container, Dimmer, Grid, List, Loader } from 'semantic-ui-react';
-import { SONG, getObjectsFromApi, ID, ARTIST, getFullSongObjects } from '../api-fetching/api-fetching';
 import { WAVEFORM_IMAGE_HEIGHT, WAVEFORM_IMAGE_WIDTH } from '../config/application-config';
 import { WaveformProgress } from './WaveformProgress';
+import { getBarUrl, getCoverUrl, getSongMiniature } from '../utils/mocks';
 import PropTypes from 'prop-types';
 import React from 'react';
 import SongCard from './pure-functional-components/SongCard';
@@ -22,15 +23,44 @@ class SongsFeed extends React.Component {
 
         this.state = {
             areSongsLoading: true,
-            songsInFeed: []
+            songsInFeed: [],
+            songIdToTagsMapping: {
+
+            },
         };
     }
 
     componentDidMount() {
-        getFullSongObjects().then(updatedSongsResolved => {
+        getObjectsFromApi(SONG).then(retrievedSongs => {
+            let songsUpdatedWithArtists = _.map(retrievedSongs, song => {
+                return getObjectsFromApi(ARTIST, {filterColumn: ID, filterValue: song.artistId}).then(retrievedArtist => {
+                    return {
+                        ...song,
+                        artist: retrievedArtist[0],
+
+                        cover: getCoverUrl(), // TODO: remove this mocks
+                        barImageUrl: getBarUrl(),
+                        songMiniature: getSongMiniature(),
+                    };
+                });
+            });
+
+            return Promise.all(songsUpdatedWithArtists);
+        }).then(songsUpdatedWithArtists => {
+            let songsUpdatedWithTags = _.map(songsUpdatedWithArtists, song => {
+                return getTagsBySongId(song.id).then(retrievedTags => {
+                    return {
+                        ...song,
+                        tags: retrievedTags,
+                    };
+                });
+            });
+
+            return Promise.all(songsUpdatedWithTags);
+        }).then(songsUpdatedWithArtistsAndTags => {
             this.setState({
                 areSongsLoading: false,
-                songsInFeed: updatedSongsResolved
+                songsInFeed: songsUpdatedWithArtistsAndTags
             });
         });
     }
@@ -56,7 +86,7 @@ class SongsFeed extends React.Component {
     };
 
     render() {
-        const {songsInFeed} = this.state;
+        const {songsInFeed, songIdToTagsMapping} = this.state;
 
         const {musicPlayerRef, waveformProgressBarWidth, appendSongToPlaylist} = this.props;
 
@@ -128,6 +158,7 @@ class SongsFeed extends React.Component {
                                         <div className="song-tags-wrapper">
                                             <SongTags
                                                 songTags={songObject.tags}
+                                                // songTags={songIdToTagsMapping[songObject.id]}
                                             />
                                         </div>
                                     </Grid.Column>

@@ -1,11 +1,11 @@
 import _ from 'lodash';
 import faker from 'faker';
 
-function getBarUrl() {
+export function getBarUrl() {
     return `https://picsum.photos/400/50/?v=${getUiid()}`;
 }
 
-function getCoverUrl() {
+export function getCoverUrl() {
     return `https://picsum.photos/340/340/?v=${getUiid()}`;
 }
 

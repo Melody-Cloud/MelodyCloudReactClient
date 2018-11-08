@@ -9,7 +9,7 @@ const SongTags = ({ songTags }) => {
         return (
             <Label color="green">
                 <Icon name="music" />
-                {tag}
+                {tag.songTag}
             </Label>
         );
     });

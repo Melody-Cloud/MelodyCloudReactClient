@@ -31,7 +31,9 @@ class ArtistDetails extends React.Component {
 
             <Image
                 className='artist-avatar'
-                src={artistToDisplay.avatar}
+                src={artistToDisplay.artistImageUrl}
+                size={'large'}
+                circular
             />
 
             <Header as='h3' className='artist-about'>About {artistToDisplay.name}</Header>

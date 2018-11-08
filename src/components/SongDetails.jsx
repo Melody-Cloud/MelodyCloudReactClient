@@ -16,6 +16,12 @@ class SongDetails extends React.Component {
         super(props);
     }
 
+    convertNewlinesToBreaks(text) {
+        return text.split('\n').map((item, key) => {
+            return <span key={key}>{item}<br/></span>
+        });
+    }
+
     render() {
         const {songToDisplay, goToSongsFeed, switchViewToArtistDetails, appendSongToPlaylist, playSongInPlayer} = this.props;
 
@@ -61,9 +67,12 @@ class SongDetails extends React.Component {
 
                 <Header as='h4' className='lyrics-header'>Lyrics</Header>
 
-                <pre className='song-lyrics'>
-                    {faker.lorem.lines(16)}
-                </pre>
+                <div className='song-lyrics'>
+                    {
+                        this.convertNewlinesToBreaks(songToDisplay.lyrics)
+                    }
+                    {/*{faker.lorem.lines(16)}*/}
+                </div>
 
                 <Header as='h4' className='tags-header'>Tags</Header>
 
