@@ -1,4 +1,5 @@
 import { DEFAULT_PLAYER_VOLUME } from './application-config';
+import { Segment } from 'semantic-ui-react';
 
 export const NAVIGATION_MENU_PROPS = {
     className: 'top-sticked-menu',
@@ -100,4 +101,15 @@ export const UPLOAD_BUTTON_PROPS = {
 export const SONG_DESCRIPTION_PROPS = {
     label:'Song description',
     placeholder: 'Write something about this song',
+};
+
+export const DEFAULT_DIMMABLE = {
+    as: Segment,
+    blurring: true,
+};
+
+export const DEFAULT_AVATAR = {
+    className: 'artist-avatar',
+    size: 'large',
+    circular: true,
 };

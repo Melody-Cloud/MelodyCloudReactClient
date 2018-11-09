@@ -5,11 +5,9 @@ import {
     PAUSE_BUTTON_PROPS, PLAY_BUTTON_PROPS, SECOND_COLUMN_PROPS,
     THIRD_COLUMN_PROPS,
 } from '../config/components-defaults-config';
-import { ARTIST, ID, SONG, getObjectsFromApi, getTagsBySongId } from '../api-fetching/api-fetching';
 import { Button, Container, Dimmer, Grid, List, Loader } from 'semantic-ui-react';
 import { WAVEFORM_IMAGE_HEIGHT, WAVEFORM_IMAGE_WIDTH } from '../config/application-config';
 import { WaveformProgress } from './WaveformProgress';
-import { getBarUrl, getCoverUrl, getSongMiniature } from '../utils/mocks';
 import PropTypes from 'prop-types';
 import React from 'react';
 import SongCard from './pure-functional-components/SongCard';
@@ -22,47 +20,7 @@ class SongsFeed extends React.Component {
         super(props);
 
         this.state = {
-            areSongsLoading: true,
-            songsInFeed: [],
-            songIdToTagsMapping: {
-
-            },
         };
-    }
-
-    componentDidMount() {
-        getObjectsFromApi(SONG).then(retrievedSongs => {
-            let songsUpdatedWithArtists = _.map(retrievedSongs, song => {
-                return getObjectsFromApi(ARTIST, {filterColumn: ID, filterValue: song.artistId}).then(retrievedArtist => {
-                    return {
-                        ...song,
-                        artist: retrievedArtist[0],
-
-                        cover: getCoverUrl(), // TODO: remove this mocks
-                        barImageUrl: getBarUrl(),
-                        songMiniature: getSongMiniature(),
-                    };
-                });
-            });
-
-            return Promise.all(songsUpdatedWithArtists);
-        }).then(songsUpdatedWithArtists => {
-            let songsUpdatedWithTags = _.map(songsUpdatedWithArtists, song => {
-                return getTagsBySongId(song.id).then(retrievedTags => {
-                    return {
-                        ...song,
-                        tags: retrievedTags,
-                    };
-                });
-            });
-
-            return Promise.all(songsUpdatedWithTags);
-        }).then(songsUpdatedWithArtistsAndTags => {
-            this.setState({
-                areSongsLoading: false,
-                songsInFeed: songsUpdatedWithArtistsAndTags
-            });
-        });
     }
 
     isGivenSongFirstInPlaylist = songObject => {
@@ -86,15 +44,13 @@ class SongsFeed extends React.Component {
     };
 
     render() {
-        const {songsInFeed, songIdToTagsMapping} = this.state;
-
-        const {musicPlayerRef, waveformProgressBarWidth, appendSongToPlaylist} = this.props;
+        const {songsInFeed, musicPlayerRef, waveformProgressBarWidth, appendSongToPlaylist, areSongsLoadingFromApi} = this.props;
 
         const flooredSongDuration = Math.floor(_.get(musicPlayerRef, 'current.state.duration'));
         const currentSongTime = Math.ceil(_.get(musicPlayerRef, 'current.state.currentTime'));
 
         return <Container className="songs-feed-container" fluid>
-            <Dimmer active={this.state.areSongsLoading}>
+            <Dimmer active={areSongsLoadingFromApi}>
                 <Loader indeterminate size='huge'>
                     Loading new songs for you.
                 </Loader>
@@ -176,6 +132,7 @@ export default SongsFeed;
 
 SongsFeed.propTypes = {
     musicPlayerRef: PropTypes.object,
+    areSongsLoadingFromApi: PropTypes.bool,
     songsInFeed: PropTypes.array,
     waveformProgressBarWidth: PropTypes.number,
     switchViewToSongDetails: PropTypes.func,

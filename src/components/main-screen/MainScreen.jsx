@@ -7,12 +7,28 @@ import React from 'react';
 
 import ReactJkMusicPlayer from 'react-jinke-music-player';
 
+import {
+    ARTIST,
+    COMMENT,
+    ID,
+    SONG,
+    TAG,
+    getObjectsFromApi,
+    getRelatedModelBySongId,
+} from '../../api-fetching/api-fetching';
 import { INDEX_OF_FIRST_SONG_IN_PLAYLIST, WAVEFORM_IMAGE_WIDTH, notyf } from '../../config/application-config';
 import {
     JK_MUSIC_PLAYER_DEFAULT_SETTINGS,
 } from '../../config/components-defaults-config';
 import { Views } from '../../utils/enumerations';
-import { getMockedAlbums, getMockedPlaylists, getUiid, jinkieMockSongs } from '../../utils/mocks';
+import {
+    getBarUrl,
+    getCoverUrl,
+    getMockedAlbums,
+    getMockedPlaylists, getSongMiniature,
+    getUiid,
+    jinkieMockSongs,
+} from '../../utils/mocks';
 import { isArrayEmpty } from '../../utils/common-utils';
 import AlbumDetails from '../AlbumDetails';
 import ArtistDetails from '../ArtistDetails';
@@ -20,9 +36,9 @@ import ExploreNewAlbums from '../ExploreNewAlbums';
 import Footer from '../pure-functional-components/Footer';
 import ListOfPlaylists from '../ListOfPlaylists';
 import Nav from '../pure-functional-components/Nav';
+import SinglePlaylistView from '../SinglePlaylistView';
 import SongDetails from '../SongDetails';
 import SongsFeed from '../SongsFeed';
-import SinglePlaylistView from '../SinglePlaylistView';
 import UploadPage from '../UploadPage';
 
 class MainScreen extends React.Component {
@@ -37,9 +53,10 @@ class MainScreen extends React.Component {
             waveformProgressBarWidth: 0,
             audioList: [],
             songPlaying: false,
-            songsInFeed: jinkieMockSongs,
+            songsInFeed: [],
 
             playerUiid: '',
+            areSongsLoadingFromApi: true,
         };
 
         this.subviewDetails = {
@@ -56,7 +73,56 @@ class MainScreen extends React.Component {
             playlistToDisplay: {},
         };
 
+        this.areSongsLoadingFromApi = true;
+
         this.musicPlayerRef = React.createRef();
+    }
+
+    componentDidMount() {
+        getObjectsFromApi(SONG).then(retrievedSongs => {
+            let songsUpdatedWithArtists = _.map(retrievedSongs, song => {
+                return getObjectsFromApi(ARTIST, {filterColumn: ID, filterValue: song.artistId}).then(retrievedArtist => {
+                    return {
+                        ...song,
+                        artist: retrievedArtist[0],
+                        singer: retrievedArtist[0].name,
+
+                        cover: getCoverUrl(), // TODO: remove this mocks
+                        barImageUrl: getBarUrl(),
+                        songMiniature: getSongMiniature(),
+                    };
+                });
+            });
+
+            return Promise.all(songsUpdatedWithArtists);
+        }).then(songsUpdatedWithArtists => {
+            let songsUpdatedWithTags = _.map(songsUpdatedWithArtists, song => {
+                return getRelatedModelBySongId(song.id, TAG).then(retrievedTags => {
+                    return {
+                        ...song,
+                        tags: retrievedTags,
+                    };
+                });
+            });
+
+            return Promise.all(songsUpdatedWithTags);
+        }).then(songsUpdatedWithTags => {
+            let songsUpdatedWithComments = _.map(songsUpdatedWithTags, song => {
+                return getRelatedModelBySongId(song.id, COMMENT).then(retrievedComments => {
+                    return {
+                        ...song,
+                        comments: retrievedComments,
+                    };
+                });
+            });
+
+            return Promise.all(songsUpdatedWithComments);
+        }).then(songsUpdatedWithComments => {
+            this.setState({
+                areSongsLoadingFromApi: false,
+                songsInFeed: songsUpdatedWithComments,
+            });
+        });
     }
 
     isPlaylistEmpty = () => {
@@ -194,7 +260,8 @@ class MainScreen extends React.Component {
                 musicPlayerRef={this.musicPlayerRef}
                 waveformProgressBarWidth={this.state.waveformProgressBarWidth}
                 songPlaying={this.state.songPlaying}
-                // songsInFeed={this.state.songsInFeed}
+                songsInFeed={this.state.songsInFeed}
+                areSongsLoadingFromApi={this.state.areSongsLoadingFromApi}
 
                 switchViewToSongDetails={this.switchViewToSongDetails}
                 switchViewToArtistDetails={this.switchViewToArtistDetails}

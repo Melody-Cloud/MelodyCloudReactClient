@@ -3,6 +3,7 @@ import React from 'react';
 import _ from 'lodash';
 
 import { Comment, Header } from 'semantic-ui-react';
+import { userAvatars } from '../utils/mocks';
 import PropTypes from 'prop-types';
 
 
@@ -22,15 +23,17 @@ class CommentSection extends React.Component {
             {
                 _.map(comments, comment => {
                     return <Comment>
-                        <Comment.Avatar src={comment.author.avatarImageUrl} />
+                        <Comment.Avatar src={
+                            _.sample(userAvatars)
+                        } />
                         <Comment.Content>
                             <Comment.Author>
-                                {comment.author.name}
+                                {comment.commentAuthorName}
                             </Comment.Author>
                             <Comment.Metadata>
-                                <div>{comment.datetime}</div>
+                                <div>{comment.createdDate}</div>
                             </Comment.Metadata>
-                            <Comment.Text>{comment.content}</Comment.Text>
+                            <Comment.Text>{comment.commentContent}</Comment.Text>
                             {/*<Comment.Actions>*/}
                                 {/*<Comment.Action>Reply</Comment.Action>*/}
                             {/*</Comment.Actions>*/}

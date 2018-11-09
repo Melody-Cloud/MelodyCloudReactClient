@@ -1,11 +1,12 @@
+import { getBarUrl, getCoverUrl, getSongMiniature } from '../utils/mocks';
 import _ from 'lodash';
 import axios from 'axios';
-import { getBarUrl, getCoverUrl, getSongMiniature } from '../utils/mocks';
 
 export const SONG = 'song';
 export const ARTIST = 'artist';
 export const ID = 'id';
 export const TAG = 'tag';
+export const COMMENT = 'comment';
 // TODO: aggregate under model obj
 
 const API_BASE_URL = 'http://localhost:5000/api/';
@@ -57,8 +58,24 @@ export function getFullSongObjects() {
     });
 }
 
-export function getTagsBySongId(songId) {
-    const requestUrl = `${API_BASE_URL}${TAG}/?songId__id=${songId}`;
+// export function getTagsBySongId(songId) {
+//     const requestUrl = `${API_BASE_URL}${TAG}/?songId__id=${songId}`;
+//
+//     return getWithCors(requestUrl).then(response => {
+//         return response.data.objects;
+//     });
+// }
+//
+// export function getCommentsBySongId(songId) {
+//     const requestUrl = `${API_BASE_URL}${TAG}/?songId__id=${songId}`;
+//
+//     return getWithCors(requestUrl).then(response => {
+//         return response.data.objects;
+//     });
+// }
+
+export function getRelatedModelBySongId(songId, modelName) {
+    const requestUrl = `${API_BASE_URL}${modelName}/?songId__id=${songId}`;
 
     return getWithCors(requestUrl).then(response => {
         return response.data.objects;

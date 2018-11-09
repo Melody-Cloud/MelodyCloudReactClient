@@ -76,3 +76,5 @@ PRIORITY: New albums feed (Done) -> Playlists -> Database implementation -> Sear
 - CI/CD - serverless
 
 - featuring artists
+
+- ajax scrolling

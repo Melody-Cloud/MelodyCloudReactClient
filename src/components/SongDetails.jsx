@@ -1,19 +1,29 @@
 import 'assets/scss/SongDetails.scss';
+import { AESTHETICS_TIMEOUT } from '../config/application-config';
 import {
-     APPEND_TO_PLAYLIST_BUTTON_SONG_DETAILS_PROPS, MEDIUM_PLAY_BUTTON_PROPS,
+    APPEND_TO_PLAYLIST_BUTTON_SONG_DETAILS_PROPS, DEFAULT_DIMMABLE, MEDIUM_PLAY_BUTTON_PROPS,
 } from '../config/components-defaults-config';
-import { Button, Container, Header, Image } from 'semantic-ui-react';
+import { Button, Container, Header, Image, Loader } from 'semantic-ui-react';
 import CommentSection from './CommentSection';
 import GenericBreadcrumbs from './pure-functional-components/GenericBreadcrumbs';
 import PropTypes from 'prop-types';
 import React from 'react';
 import SongTags from './pure-functional-components/SongTags';
-import _ from 'lodash';
-import faker from 'faker';
+import Dimmer from 'semantic-ui-react/dist/es/modules/Dimmer/Dimmer';
 
 class SongDetails extends React.Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            isSongPageLoading: true,
+        };
+
+        setTimeout(() => {
+            this.setState({
+                isSongPageLoading: false,
+            });
+        }, AESTHETICS_TIMEOUT);
     }
 
     convertNewlinesToBreaks(text) {
@@ -23,9 +33,21 @@ class SongDetails extends React.Component {
     }
 
     render() {
+        const {
+            isSongPageLoading
+        } = this.state;
+
         const {songToDisplay, goToSongsFeed, switchViewToArtistDetails, appendSongToPlaylist, playSongInPlayer} = this.props;
 
         return <div className="song-details-page">
+            <Dimmer active={isSongPageLoading}>
+                <Loader indeterminate size='huge'>
+                    Loading song page.
+                </Loader>
+            </Dimmer>
+
+            <Dimmer.Dimmable  {...DEFAULT_DIMMABLE} dimmed={isSongPageLoading}>
+
             <Container className='song-details-container'>
                 <GenericBreadcrumbs
                     goToSongsFeed={goToSongsFeed}
@@ -71,7 +93,6 @@ class SongDetails extends React.Component {
                     {
                         this.convertNewlinesToBreaks(songToDisplay.lyrics)
                     }
-                    {/*{faker.lorem.lines(16)}*/}
                 </div>
 
                 <Header as='h4' className='tags-header'>Tags</Header>
@@ -87,6 +108,7 @@ class SongDetails extends React.Component {
                     comments={songToDisplay.comments}
                 />
             </Container>
+            </Dimmer.Dimmable>
         </div>;
     }
 }

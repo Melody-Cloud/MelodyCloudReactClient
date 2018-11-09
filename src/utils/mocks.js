@@ -101,20 +101,27 @@ export const songNames = [
 export const mockedUsers = [
     {
         name: 'Matt',
-        avatarImageUrl: 'https://react.semantic-ui.com/images/avatar/small/matt.jpg',
+        avatarImgUrl: 'https://react.semantic-ui.com/images/avatar/small/matt.jpg',
     },
     {
         name: 'Elliot',
-        avatarImageUrl: 'https://react.semantic-ui.com/images/avatar/small/elliot.jpg',
+        avatarImgUrl: 'https://react.semantic-ui.com/images/avatar/small/elliot.jpg',
     },
     {
         name: 'Jenny',
-        avatarImageUrl: 'https://react.semantic-ui.com/images/avatar/small/jenny.jpg',
+        avatarImgUrl: 'https://react.semantic-ui.com/images/avatar/small/jenny.jpg',
     },
     {
         name: 'Joe',
-        avatarImageUrl: 'https://react.semantic-ui.com/images/avatar/small/joe.jpg',
+        avatarImgUrl: 'https://react.semantic-ui.com/images/avatar/small/joe.jpg',
     }
+];
+
+export const userAvatars = [
+    'https://react.semantic-ui.com/images/avatar/small/matt.jpg',
+    'https://react.semantic-ui.com/images/avatar/small/elliot.jpg',
+    'https://react.semantic-ui.com/images/avatar/small/jenny.jpg',
+    'https://react.semantic-ui.com/images/avatar/small/joe.jpg'
 ];
 
 export const mockedComments = [
