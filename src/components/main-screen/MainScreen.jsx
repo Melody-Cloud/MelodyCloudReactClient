@@ -324,34 +324,32 @@ class MainScreen extends React.Component {
                     mainScreenRouting[this.state.currentView]
                 }
 
-                {!this.isPlaylistEmpty() && (
-                    <ReactJkMusicPlayer
-                        {...JK_MUSIC_PLAYER_DEFAULT_SETTINGS}
-                        audioLists={this.state.audioList}
-                        autoPlay={!isArrayEmpty(this.state.audioList)}
-                        ref={this.musicPlayerRef}
-                        key={this.state.playerUiid}
-                        onAudioPlay={() => {
-                            setTimeout(() => {
-                                this.setState({
-                                    waveformProgressBarWidth: this.calculateProgressBarWidth(),
-                                    songPlaying: true,
-                                });
-                            }, 500);
-                        }}
-                        onAudioPause={() => {
+                <ReactJkMusicPlayer
+                    {...JK_MUSIC_PLAYER_DEFAULT_SETTINGS}
+                    audioLists={this.state.audioList}
+                    autoPlay={!isArrayEmpty(this.state.audioList)}
+                    ref={this.musicPlayerRef}
+                    key={this.state.playerUiid}
+                    onAudioPlay={() => {
+                        setTimeout(() => {
                             this.setState({
                                 waveformProgressBarWidth: this.calculateProgressBarWidth(),
-                                songPlaying: false,
+                                songPlaying: true,
                             });
-                        }}
-                        onAudioSeeked={() => {
-                            this.setState({
-                                waveformProgressBarWidth: this.calculateProgressBarWidth(),
-                            });
-                        }}
-                    />
-                )}
+                        }, 500);
+                    }}
+                    onAudioPause={() => {
+                        this.setState({
+                            waveformProgressBarWidth: this.calculateProgressBarWidth(),
+                            songPlaying: false,
+                        });
+                    }}
+                    onAudioSeeked={() => {
+                        this.setState({
+                            waveformProgressBarWidth: this.calculateProgressBarWidth(),
+                        });
+                    }}
+                />
                 <Footer/>
             </div>
         );

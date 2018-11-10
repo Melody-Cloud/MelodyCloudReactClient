@@ -13,6 +13,7 @@ export const PLAYLISTS = 'playlists';
 export const PLAYLIST = 'playlist';
 export const PLAYLIST_NAME = 'playlistName';
 export const ID_IN = 'id__in';
+export const ARTIST_ID = 'artistId';
 // TODO: aggregate under model obj
 
 export const Models = {
@@ -31,6 +32,7 @@ export const Columns = {
     ALBUM_ID,
     ID_IN,
     PLAYLIST_NAME,
+    ARTIST_ID,
 };
 
 const API_BASE_URL = 'http://localhost:5000/api/';

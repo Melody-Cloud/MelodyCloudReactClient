@@ -1,10 +1,10 @@
 import 'assets/scss/ExploreNewAlbums.scss';
 
 import { AESTHETICS_TIMEOUT } from '../config/application-config';
+import { Columns, Models, getModelObjectsFromApi, getRelatedModelBySongId } from '../api-fetching/api-fetching';
 import { Container, Dimmer, Header, Image, List, Loader } from 'semantic-ui-react';
 import { DEFAULT_DIMMABLE } from '../config/components-defaults-config';
-import { Models, getModelObjectsFromApi, Columns, getRelatedModelBySongId } from '../api-fetching/api-fetching';
-import { getAlbumMiniature, getBarUrl, getCoverUrl, getSongMiniature } from '../utils/mocks';
+import { getAlbumMiniature } from '../utils/mocks';
 import GenericBreadcrumbs from './pure-functional-components/GenericBreadcrumbs';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -20,8 +20,6 @@ class ExploreNewAlbums extends React.Component {
             isExploreNewAlbumsPageLoading: true,
             listOfAlbumsToPresent: [],
         };
-
-
     }
 
     componentDidMount() {
