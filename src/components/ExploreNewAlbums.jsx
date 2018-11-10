@@ -1,27 +1,57 @@
 import 'assets/scss/ExploreNewAlbums.scss';
 
-import { Breadcrumb, Button, Container, Header, Icon, Image, List } from 'semantic-ui-react';
+import { Container, Dimmer, Header, Image, List, Loader } from 'semantic-ui-react';
+import { DEFAULT_DIMMABLE } from '../config/components-defaults-config';
+import { Models, getModelObjectsFromApi } from '../api-fetching/api-fetching';
+import GenericBreadcrumbs from './pure-functional-components/GenericBreadcrumbs';
 import PropTypes from 'prop-types';
 import React from 'react';
 import _ from 'lodash';
-import GenericBreadcrumbs from './pure-functional-components/GenericBreadcrumbs';
+import { getAlbumMiniature } from '../utils/mocks';
 
 class ExploreNewAlbums extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {};
+        this.state = {
+            isExploreNewAlbumsPageLoading: true,
+            listOfAlbumsToPresent: []
+        };
+
+
+    }
+
+    componentDidMount() {
+        getModelObjectsFromApi(Models.ALBUM).then(retrievedAlbums => {
+            this.setState({
+                isExploreNewAlbumsPageLoading: false,
+                listOfAlbumsToPresent: retrievedAlbums,
+            });
+        });
     }
 
     render() {
         const {
             listOfAlbumsToPresent,
+            isExploreNewAlbumsPageLoading
+        } = this.state;
+
+        const {
+            // listOfAlbumsToPresent,
 
             goToSongsFeed,
             switchViewToAlbumDetails,
         } = this.props;
 
         return <Container className="albums-feed-container">
+            <Dimmer active={isExploreNewAlbumsPageLoading}>
+                <Loader indeterminate size='huge'>
+                    Loading song page.
+                </Loader>
+            </Dimmer>
+
+            <Dimmer.Dimmable  {...DEFAULT_DIMMABLE} dimmed={isExploreNewAlbumsPageLoading}>
+
             <GenericBreadcrumbs
                 goToSongsFeed={goToSongsFeed}
                 activeItemLabel={'Explore new albums'}
@@ -42,15 +72,21 @@ class ExploreNewAlbums extends React.Component {
                                 switchViewToAlbumDetails(albumObject)
                             }}
                         >
-                            <Image avatar src={albumObject.albumMiniature}/>
-                            <List.Content>
+                            <Image size={'tiny'} avatar src={getAlbumMiniature()}/>
+                            <List.Content className='explore-new-album-content'>
                                 <List.Header>{albumObject.albumName}</List.Header>
-                                <span>An excellent companion</span>
+                                <List.Description>
+                                    {/*ancv*/}
+                                    {albumObject.albumDescription}
+                                </List.Description>
+                                {/*<span>{albumObject.albumDescription}</span>*/}
                             </List.Content>
                         </List.Item>
                     );
                 })}
             </List>
+
+            </Dimmer.Dimmable>
         </Container>;
     }
 }

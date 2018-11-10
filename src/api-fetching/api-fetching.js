@@ -7,7 +7,21 @@ export const ARTIST = 'artist';
 export const ID = 'id';
 export const TAG = 'tag';
 export const COMMENT = 'comment';
+export const ALBUM = 'album';
 // TODO: aggregate under model obj
+
+export const Models = {
+    SONG,
+    ARTIST,
+    ID,
+    TAG,
+    COMMENT,
+    ALBUM
+};
+
+export const Columns = {
+    ID,
+};
 
 const API_BASE_URL = 'http://localhost:5000/api/';
 // const API_BASE_URL = 'https://sm2qnqfpr4.execute-api.eu-west-1.amazonaws.com/dev/api/';
@@ -27,7 +41,7 @@ export function fetchSongs() {
     });
 }
 
-export function getObjectsFromApi(modelName, filter) {
+export function getModelObjectsFromApi(modelName, filter) {
     let requestUrl = `${API_BASE_URL}${modelName}/`;
 
     if (filter) {
@@ -40,10 +54,10 @@ export function getObjectsFromApi(modelName, filter) {
 }
 
 export function getFullSongObjects() {
-    return getObjectsFromApi(SONG).then(retrievedSongs => {
+    return getModelObjectsFromApi(SONG).then(retrievedSongs => {
         let updatedSongs = _.map(retrievedSongs, song => {
             //{...song, artist: }
-            return getObjectsFromApi(ARTIST, {filterColumn: ID, filterValue: song.artistId}).then(retrievedArtist => {
+            return getModelObjectsFromApi(ARTIST, {filterColumn: Columns.ID, filterValue: song.artistId}).then(retrievedArtist => {
                 return {
                     ...song,
                     artist: retrievedArtist[0],
@@ -57,22 +71,6 @@ export function getFullSongObjects() {
         return Promise.all(updatedSongs);
     });
 }
-
-// export function getTagsBySongId(songId) {
-//     const requestUrl = `${API_BASE_URL}${TAG}/?songId__id=${songId}`;
-//
-//     return getWithCors(requestUrl).then(response => {
-//         return response.data.objects;
-//     });
-// }
-//
-// export function getCommentsBySongId(songId) {
-//     const requestUrl = `${API_BASE_URL}${TAG}/?songId__id=${songId}`;
-//
-//     return getWithCors(requestUrl).then(response => {
-//         return response.data.objects;
-//     });
-// }
 
 export function getRelatedModelBySongId(songId, modelName) {
     const requestUrl = `${API_BASE_URL}${modelName}/?songId__id=${songId}`;

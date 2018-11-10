@@ -8,13 +8,8 @@ import React from 'react';
 import ReactJkMusicPlayer from 'react-jinke-music-player';
 
 import {
-    ARTIST,
-    COMMENT,
-    ID,
-    SONG,
-    TAG,
-    getObjectsFromApi,
-    getRelatedModelBySongId,
+    Columns,
+    getModelObjectsFromApi, getRelatedModelBySongId, Models,
 } from '../../api-fetching/api-fetching';
 import { INDEX_OF_FIRST_SONG_IN_PLAYLIST, WAVEFORM_IMAGE_WIDTH, notyf } from '../../config/application-config';
 import {
@@ -79,9 +74,10 @@ class MainScreen extends React.Component {
     }
 
     componentDidMount() {
-        getObjectsFromApi(SONG).then(retrievedSongs => {
+        // EAGER LOADING
+        getModelObjectsFromApi(Models.SONG).then(retrievedSongs => {
             let songsUpdatedWithArtists = _.map(retrievedSongs, song => {
-                return getObjectsFromApi(ARTIST, {filterColumn: ID, filterValue: song.artistId}).then(retrievedArtist => {
+                return getModelObjectsFromApi(Models.ARTIST, {filterColumn: Columns.ID, filterValue: song.artistId}).then(retrievedArtist => {
                     return {
                         ...song,
                         artist: retrievedArtist[0],
@@ -97,7 +93,7 @@ class MainScreen extends React.Component {
             return Promise.all(songsUpdatedWithArtists);
         }).then(songsUpdatedWithArtists => {
             let songsUpdatedWithTags = _.map(songsUpdatedWithArtists, song => {
-                return getRelatedModelBySongId(song.id, TAG).then(retrievedTags => {
+                return getRelatedModelBySongId(song.id, Models.TAG).then(retrievedTags => {
                     return {
                         ...song,
                         tags: retrievedTags,
@@ -108,7 +104,7 @@ class MainScreen extends React.Component {
             return Promise.all(songsUpdatedWithTags);
         }).then(songsUpdatedWithTags => {
             let songsUpdatedWithComments = _.map(songsUpdatedWithTags, song => {
-                return getRelatedModelBySongId(song.id, COMMENT).then(retrievedComments => {
+                return getRelatedModelBySongId(song.id, Models.COMMENT).then(retrievedComments => {
                     return {
                         ...song,
                         comments: retrievedComments,

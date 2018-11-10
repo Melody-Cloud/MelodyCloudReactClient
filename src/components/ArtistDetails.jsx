@@ -1,12 +1,12 @@
 import 'assets/scss/ArtistDetails.scss';
 import { AESTHETICS_TIMEOUT } from '../config/application-config';
-import { Container, Dimmer, Header, Image, Loader, Segment } from 'semantic-ui-react';
+import { Container, Dimmer, Header, Image, Loader } from 'semantic-ui-react';
+import { DEFAULT_AVATAR, DEFAULT_DIMMABLE } from '../config/components-defaults-config';
 import GenericBreadcrumbs from './pure-functional-components/GenericBreadcrumbs';
 import ListOfAlbumsInArtistDetails from './ListOfAlbumsInArtistDetails';
 import ListOfSongsInArtistDetails from './ListOfSongsInArtistDetails';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { DEFAULT_AVATAR, DEFAULT_DIMMABLE } from '../config/components-defaults-config';
 
 class ArtistDetails extends React.Component {
     constructor(props) {
@@ -16,6 +16,7 @@ class ArtistDetails extends React.Component {
             isArtistPageLoading: true,
         };
 
+        // Little bit of loading for purpose of loading up images -> maybe could be resolved better
         setTimeout(() => {
             this.setState({
                 isArtistPageLoading: false,

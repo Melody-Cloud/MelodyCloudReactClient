@@ -18,7 +18,7 @@ export function getSongMiniature() {
 }
 
 export function getAlbumMiniature() {
-    return `https://picsum.photos/50/50/?v=${getUiid()}`;
+    return `https://picsum.photos/100/100/?v=${getUiid()}`;
 }
 
 export function getPlaylistMiniature() {
