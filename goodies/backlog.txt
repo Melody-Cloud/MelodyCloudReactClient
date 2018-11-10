@@ -78,3 +78,5 @@ PRIORITY: New albums feed (Done) -> Playlists -> Database implementation -> Sear
 - featuring artists
 
 - ajax scrolling
+
+- rewrite api communication to stateless & routing

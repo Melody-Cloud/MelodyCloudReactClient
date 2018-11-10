@@ -4,12 +4,13 @@ import { Card, Icon, Image } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 
 import 'assets/scss/SongCard.scss';
+import { getBarUrl } from '../../utils/mocks';
 
 const SongCard = ({ songObject, switchViewToSongDetails, switchViewToArtistDetails }) => {
     return (
         <Card color="green">
             <Image
-                src={songObject.barImageUrl}
+                src={getBarUrl()}
                 onClick={switchViewToSongDetails}
                 className='song-card-bar-image'
             />

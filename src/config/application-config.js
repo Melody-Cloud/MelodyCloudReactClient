@@ -25,3 +25,19 @@ export const AMPLIFY_CONFIG = {
         region: 'eu-west-1', //OPTIONAL -  Amazon service region
     },
 };
+
+export const availableColors = [
+    'red',
+    'orange',
+    'yellow',
+    'olive',
+    'green',
+    'teal',
+    'blue',
+    'violet',
+    'purple',
+    'pink',
+    'brown',
+    'grey',
+    'black',
+];

@@ -5,9 +5,14 @@ import axios from 'axios';
 export const SONG = 'song';
 export const ARTIST = 'artist';
 export const ID = 'id';
+export const ALBUM_ID = 'albumId';
 export const TAG = 'tag';
 export const COMMENT = 'comment';
 export const ALBUM = 'album';
+export const PLAYLISTS = 'playlists';
+export const PLAYLIST = 'playlist';
+export const PLAYLIST_NAME = 'playlistName';
+export const ID_IN = 'id__in';
 // TODO: aggregate under model obj
 
 export const Models = {
@@ -16,11 +21,16 @@ export const Models = {
     ID,
     TAG,
     COMMENT,
-    ALBUM
+    ALBUM,
+    PLAYLISTS,
+    PLAYLIST,
 };
 
 export const Columns = {
     ID,
+    ALBUM_ID,
+    ID_IN,
+    PLAYLIST_NAME,
 };
 
 const API_BASE_URL = 'http://localhost:5000/api/';
@@ -47,6 +57,8 @@ export function getModelObjectsFromApi(modelName, filter) {
     if (filter) {
         requestUrl += `?${filter.filterColumn}=${filter.filterValue}`;
     }
+
+    console.dir(requestUrl);
 
     return getWithCors(requestUrl).then(response => {
         return response.data.objects;

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import 'assets/scss/ListOfSongsInAlbumDetails.scss';
+import { getSongMiniature } from '../utils/mocks';
 
 class ListOfSongsInAlbumDetails extends React.Component {
     constructor(props) {
@@ -17,16 +18,17 @@ class ListOfSongsInAlbumDetails extends React.Component {
 
         return (<List celled>
             {
-                _.map(songsInThisAlbum, mockedSong => {
+                _.map(songsInThisAlbum, song => {
+                    console.dir(song);
                     return (<List.Item
                         onClick={() => {
-                            switchViewToSongDetails(mockedSong);
+                            switchViewToSongDetails(song);
                         }}
                         className="song-item-in-album-details"
                     >
-                        <Image avatar src={mockedSong.songMiniature}/>
+                        <Image avatar src={getSongMiniature()}/>
                         <List.Content>
-                            <List.Header>{mockedSong.name}</List.Header>
+                            <List.Header>{song.name}</List.Header>
                             <span>An excellent companion</span>
                         </List.Content>
                     </List.Item>);

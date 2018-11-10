@@ -5,11 +5,12 @@ import {
 } from '../config/components-defaults-config';
 import { Button, Container, Header, Image, Loader } from 'semantic-ui-react';
 import CommentSection from './CommentSection';
+import Dimmer from 'semantic-ui-react/dist/es/modules/Dimmer/Dimmer';
 import GenericBreadcrumbs from './pure-functional-components/GenericBreadcrumbs';
 import PropTypes from 'prop-types';
 import React from 'react';
 import SongTags from './pure-functional-components/SongTags';
-import Dimmer from 'semantic-ui-react/dist/es/modules/Dimmer/Dimmer';
+import { getCoverUrl } from '../utils/mocks';
 
 class SongDetails extends React.Component {
     constructor(props) {
@@ -80,7 +81,7 @@ class SongDetails extends React.Component {
                 </div>
                 <Image
                     className='song-cover'
-                    src={songToDisplay.cover}
+                    src={getCoverUrl()}
                 />
 
                 <Header as='h4' className='description-header'>Description</Header>

@@ -9,7 +9,7 @@ import ReactJkMusicPlayer from 'react-jinke-music-player';
 
 import {
     Columns,
-    getModelObjectsFromApi, getRelatedModelBySongId, Models,
+    Models, getModelObjectsFromApi, getRelatedModelBySongId,
 } from '../../api-fetching/api-fetching';
 import { INDEX_OF_FIRST_SONG_IN_PLAYLIST, WAVEFORM_IMAGE_WIDTH, notyf } from '../../config/application-config';
 import {
@@ -17,10 +17,9 @@ import {
 } from '../../config/components-defaults-config';
 import { Views } from '../../utils/enumerations';
 import {
-    getBarUrl,
     getCoverUrl,
     getMockedAlbums,
-    getMockedPlaylists, getSongMiniature,
+    getMockedPlaylists,
     getUiid,
     jinkieMockSongs,
 } from '../../utils/mocks';
@@ -77,15 +76,16 @@ class MainScreen extends React.Component {
         // EAGER LOADING
         getModelObjectsFromApi(Models.SONG).then(retrievedSongs => {
             let songsUpdatedWithArtists = _.map(retrievedSongs, song => {
-                return getModelObjectsFromApi(Models.ARTIST, {filterColumn: Columns.ID, filterValue: song.artistId}).then(retrievedArtist => {
+                return getModelObjectsFromApi(Models.ARTIST, {
+                    filterColumn: Columns.ID,
+                    filterValue: song.artistId,
+                }).then(retrievedArtist => {
                     return {
                         ...song,
                         artist: retrievedArtist[0],
                         singer: retrievedArtist[0].name,
 
                         cover: getCoverUrl(), // TODO: remove this mocks
-                        barImageUrl: getBarUrl(),
-                        songMiniature: getSongMiniature(),
                     };
                 });
             });
@@ -284,7 +284,7 @@ class MainScreen extends React.Component {
                 goToSongsFeed={this.goToSongsFeed}
                 switchViewToSongDetails={this.switchViewToSongDetails}
                 albumToDisplay={this.subviewDetails.albumToDisplay}
-                songsInThisAlbum={this.getSongsToDisplayByAlbum(this.subviewDetails.albumToDisplay)}
+                songsInThisAlbum={this.subviewDetails.albumToDisplay.songsInsideThisAlbum}
                 switchViewToArtistDetails={this.switchViewToArtistDetails}
                 replaceAudioList={this.replaceAudioList}
             />,
@@ -308,7 +308,7 @@ class MainScreen extends React.Component {
             />,
             [Views.UPLOAD_PAGE]: <UploadPage
                 goToSongsFeed={this.goToSongsFeed}
-            />
+            />,
         };
 
         return (

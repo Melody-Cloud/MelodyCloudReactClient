@@ -3,18 +3,31 @@ import 'assets/scss/AlbumDetails.scss';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import { Button, Container, Header, Icon, Image } from 'semantic-ui-react';
-import { PLAY_ALBUM_BUTTON_PROPS } from '../config/components-defaults-config';
-import { notyf } from '../config/application-config';
+import { AESTHETICS_TIMEOUT, notyf } from '../config/application-config';
+import { Button, Container, Dimmer, Header, Icon, Image, Loader } from 'semantic-ui-react';
+import { DEFAULT_DIMMABLE, PLAY_ALBUM_BUTTON_PROPS } from '../config/components-defaults-config';
+import { getAlbumCover } from '../utils/mocks';
 import GenericBreadcrumbs from './pure-functional-components/GenericBreadcrumbs';
 import ListOfSongsInAlbumDetails from './ListOfSongsInAlbumDetails';
 
 class AlbumDetails extends React.Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            isAlbumPageLoading: true,
+        };
     }
 
-    renderPlayAlbumButton = (size='huge') => {
+    componentDidMount() {
+        setTimeout(() => {
+            this.setState({
+                isAlbumPageLoading: false,
+            });
+        }, AESTHETICS_TIMEOUT);
+    }
+
+    renderPlayAlbumButton = (size = 'huge') => {
         const {
             albumToDisplay,
             songsInThisAlbum,
@@ -27,15 +40,19 @@ class AlbumDetails extends React.Component {
             onClick={
                 () => {
                     notyf.confirm(`Playing album ${albumToDisplay.albumName}`);
-                    replaceAudioList(songsInThisAlbum)
+                    replaceAudioList(songsInThisAlbum);
                 }
             }
         >
-            <Icon name='play' /> Play album
+            <Icon name='play'/> Play album
         </Button>;
     };
 
     render() {
+        const {
+            isAlbumPageLoading,
+        } = this.state;
+
         const {
             albumToDisplay,
             songsInThisAlbum,
@@ -46,50 +63,58 @@ class AlbumDetails extends React.Component {
         } = this.props;
 
         return (<Container className='album-details-container'>
-            <GenericBreadcrumbs
-                goToSongsFeed={goToSongsFeed}
-                activeItemLabel={'Album Details'}
-                detailedName={albumToDisplay.albumName}
-            />
+            <Dimmer active={isAlbumPageLoading}>
+                <Loader indeterminate size='huge'>
+                    Loading album page.
+                </Loader>
+            </Dimmer>
 
-            <Header as='h3' className='album-author-header txt-center'>
-                by&nbsp;
-                <span
-                    onClick={() => {
-                        switchViewToArtistDetails(albumToDisplay.author)
-                    }}
-                    className='go-to-singer-page'
-                >
-                        {albumToDisplay.author.name}
+            <Dimmer.Dimmable  {...DEFAULT_DIMMABLE} dimmed={isAlbumPageLoading}>
+
+                <GenericBreadcrumbs
+                    goToSongsFeed={goToSongsFeed}
+                    activeItemLabel={'Album Details'}
+                    detailedName={albumToDisplay.albumName}
+                />
+
+                <Header as='h3' className='album-author-header txt-center'>
+                    by&nbsp;
+                    <span
+                        onClick={() => {
+                            switchViewToArtistDetails(albumToDisplay.artist);
+                        }}
+                        className='go-to-singer-page'
+                    >
+                        {albumToDisplay.artist.name}
                     </span>
-            </Header>
+                </Header>
 
-            <Header as='h2' className='album-title-header txt-center'>{albumToDisplay.albumName}</Header>
+                <Header as='h2' className='album-title-header txt-center'>{albumToDisplay.albumName}</Header>
 
-            <div className="txt-center play-album-button-wrapper">
-                {this.renderPlayAlbumButton('large')}
-            </div>
+                <div className="txt-center play-album-button-wrapper">
+                    {this.renderPlayAlbumButton('large')}
+                </div>
 
-            <Image
-                className='album-cover'
-                src={albumToDisplay.albumCover}
-            />
+                <Image
+                    className='album-cover'
+                    src={getAlbumCover()}
+                />
 
-            <Header as='h3' className='album-description'>Description</Header>
+                <Header as='h2' className='album-description'>Description</Header>
 
-            <p className='album-description'>Here goes description</p>
+                <p className='album-description'>{albumToDisplay.albumDescription}</p>
 
-            <Header as='h3' className='songs-header'>List of songs</Header>
+                <Header as='h3' className='songs-header'>List of songs</Header>
 
-            <ListOfSongsInAlbumDetails
-                songsInThisAlbum={songsInThisAlbum}
-                switchViewToSongDetails={switchViewToSongDetails}
-                // songsCreatedByThisArtist={songsCreatedByThisArtist}
-            />
+                <ListOfSongsInAlbumDetails
+                    songsInThisAlbum={songsInThisAlbum}
+                    switchViewToSongDetails={switchViewToSongDetails}
+                    // songsCreatedByThisArtist={songsCreatedByThisArtist}
+                />
 
-            {/*<Header as='h3' className='play-album-head'>Play album</Header>*/}
+                {this.renderPlayAlbumButton()}
 
-            {this.renderPlayAlbumButton()}
+            </Dimmer.Dimmable>
         </Container>);
     }
 }
