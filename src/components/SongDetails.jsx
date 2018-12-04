@@ -40,7 +40,7 @@ class SongDetails extends React.Component {
 
         const {songToDisplay, goToSongsFeed, switchViewToArtistDetails, appendSongToPlaylist, playSongInPlayer} = this.props;
 
-        return <div className="song-details-page">
+        return <Container className="song-details-page">
             <Dimmer active={isSongPageLoading}>
                 <Loader indeterminate size='huge'>
                     Loading song page.
@@ -110,7 +110,7 @@ class SongDetails extends React.Component {
                 />
             </Container>
             </Dimmer.Dimmable>
-        </div>;
+        </Container>;
     }
 }
 

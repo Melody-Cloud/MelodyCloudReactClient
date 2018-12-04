@@ -55,7 +55,7 @@ export const PLAY_BUTTON_PROPS = {
     size: 'huge',
     color: 'green',
     circular: true,
-    inverted: true,
+    // inverted: true,
 };
 
 export const MEDIUM_PLAY_BUTTON_PROPS = {
@@ -70,7 +70,7 @@ export const PAUSE_BUTTON_PROPS = {
     size: 'huge',
     color: 'green',
     circular: true,
-    inverted: true,
+    // inverted: true,
 };
 
 export const APPEND_TO_PLAYLIST_BUTTON_PROPS = {
@@ -78,7 +78,7 @@ export const APPEND_TO_PLAYLIST_BUTTON_PROPS = {
     icon: 'plus',
     color: 'green',
     circular: true,
-    inverted: true,
+    // inverted: true,
 };
 
 export const APPEND_TO_PLAYLIST_BUTTON_SONG_DETAILS_PROPS = {
@@ -86,7 +86,7 @@ export const APPEND_TO_PLAYLIST_BUTTON_SONG_DETAILS_PROPS = {
     icon: 'plus',
     color: 'green',
     circular: true,
-    inverted: true,
+    // inverted: true,
 };
 
 export const PLAY_ALBUM_BUTTON_PROPS = {
