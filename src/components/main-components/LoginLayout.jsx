@@ -1,8 +1,8 @@
-import React from "react";
 import 'assets/scss/LoginLayout.scss';
-import {Button, Form, Grid, Header, Icon, Image, Modal, Segment} from "semantic-ui-react";
-import {Redirect} from "react-router-dom";
-import {cognitoConfig} from "../config/cognito-config";
+import {Button, Form, Grid, Header, Icon, Image, Modal, Segment} from 'semantic-ui-react';
+import {Redirect} from 'react-router-dom';
+import {cognitoConfig} from '../../config/cognito-config';
+import React from 'react';
 import _ from 'lodash';
 import store from 'store';
 

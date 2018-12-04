@@ -1,5 +1,9 @@
 @import "./constants";
 
+body {
+  background: url("https://www.toptal.com/designers/subtlepatterns/patterns/memphis-colorful.png");
+}
+
 .top-sticked-menu {
   background-color: #fff;
   border: 1px solid #ddd;
@@ -120,6 +124,13 @@
 div.notyf {
   top: 55px;
 }
+
+div.react-jinke-music-player-main {
+  div.music-player-panel{
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+}
+
 
 @media (max-width: 843px) {
   div.songs-feed-container,

@@ -15,12 +15,12 @@ import {
 } from 'semantic-ui-react';
 import React from 'react';
 
-import { AMPLIFY_CONFIG } from '../config/application-config';
+import { AMPLIFY_CONFIG } from '../../config/application-config';
 import { Link } from 'react-router-dom';
-import { SONG_DESCRIPTION_PROPS, UPLOAD_BUTTON_PROPS } from '../config/components-defaults-config';
+import { SONG_DESCRIPTION_PROPS, UPLOAD_BUTTON_PROPS } from '../../config/components-defaults-config';
 import Amplify, { Storage } from 'aws-amplify';
 import Dropzone from 'react-dropzone';
-import GenericBreadcrumbs from './pure-functional-components/GenericBreadcrumbs';
+import GenericBreadcrumbs from '../pure-functional-components/GenericBreadcrumbs';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 

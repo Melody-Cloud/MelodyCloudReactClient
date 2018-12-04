@@ -1,5 +1,3 @@
-import { List } from 'semantic-ui-react';
-import React from 'react';
 import isEqual from 'lodash/isEqual';
 import size from 'lodash/size';
 

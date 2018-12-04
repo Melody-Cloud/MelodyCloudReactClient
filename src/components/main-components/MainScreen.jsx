@@ -33,7 +33,7 @@ import Nav from '../pure-functional-components/Nav';
 import SinglePlaylistView from '../SinglePlaylistView';
 import SongDetails from '../SongDetails';
 import SongsFeed from '../SongsFeed';
-import UploadPage from '../UploadPage';
+import UploadPage from './UploadPage';
 
 class MainScreen extends React.Component {
     constructor(props) {

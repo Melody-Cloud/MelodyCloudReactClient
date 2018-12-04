@@ -46,6 +46,7 @@ export const JK_MUSIC_PLAYER_DEFAULT_SETTINGS = {
     preload: true,
     mode: 'full',
     defaultVolume: DEFAULT_PLAYER_VOLUME,
+    glassBg: true
 };
 
 export const PLAY_BUTTON_PROPS = {

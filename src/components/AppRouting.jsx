@@ -1,16 +1,16 @@
 import 'assets/scss/App.scss';
 import {HashRouter, Route, Switch} from 'react-router-dom';
-import LoginLayout from './LoginLayout';
-import MainScreen from './main-screen/MainScreen';
+import LoginLayout from './main-components/LoginLayout';
+import MainScreen from './main-components/MainScreen';
 import React from 'react';
-import RegisterLayout from './RegisterLayout';
-import TestScreen from './TestScreen';
-import UploadPage from './UploadPage';
+import RegisterLayout from './main-components/RegisterLayout';
+import TestScreen from './main-components/TestScreen';
+import UploadPage from './main-components/UploadPage';
 
 class AppRouting extends React.PureComponent {
     render() {
         return (
-            <HashRouter >
+            <HashRouter>
                 <Switch>
                     <Route exact path="/register" component={RegisterLayout} />
                     <Route exact path="/" component={MainScreen} />
@@ -18,7 +18,7 @@ class AppRouting extends React.PureComponent {
                     <Route exact path="/login" component={LoginLayout} />
                     <Route exact path="/upload" component={UploadPage} />
                 </Switch>
-            </HashRouter >
+            </HashRouter>
         );
     }
 }

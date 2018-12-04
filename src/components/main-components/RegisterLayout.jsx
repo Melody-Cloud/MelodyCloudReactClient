@@ -1,31 +1,31 @@
-import React from 'react'
 import {
     Button,
+    Dimmer,
+    Divider,
     Form,
     Grid,
     Header,
+    Icon,
     Image,
+    Input,
+    Loader,
     Message,
     Modal,
-    Segment,
-    Icon,
-    Step,
-    Input,
-    Dimmer,
-    Loader, Divider
+    Segment, Step
 } from 'semantic-ui-react'
-import {cognitoConfig} from "../config/cognito-config";
+import {cognitoConfig} from '../../config/cognito-config';
+import React from 'react'
 
 import 'assets/scss/RegisterLayout.scss';
-import {isStringEmpty} from "../utils/common-utils";
-import isEqual from 'lodash/isEqual';
-import get from 'lodash/get';
-import split from 'lodash/split';
-import map from 'lodash/map';
+import {Redirect} from 'react-router-dom';
+import {isStringEmpty} from '../../utils/common-utils';
+import Transition from 'semantic-ui-react/dist/es/modules/Transition/Transition';
 import concat from 'lodash/concat';
 import drop from 'lodash/drop';
-import {Redirect} from "react-router-dom";
-import Transition from "semantic-ui-react/dist/es/modules/Transition/Transition";
+import get from 'lodash/get';
+import isEqual from 'lodash/isEqual';
+import map from 'lodash/map';
+import split from 'lodash/split';
 
 class RegisterLayout extends React.Component {
     constructor(props) {
@@ -324,7 +324,7 @@ class RegisterLayout extends React.Component {
     }
 
     createEntriesFromAmazonRegisterServiceResponse(errorObject) {
-        const message = get(errorObject, "message");
+        const message = get(errorObject, 'message');
         const messageSplitted = split(message, ':');
 
         const firstEntry = get(messageSplitted, 0);
