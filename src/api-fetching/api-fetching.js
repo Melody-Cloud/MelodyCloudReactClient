@@ -44,14 +44,14 @@ export function getWithCors(requestUrl) {
     return axios.get(requestUrl, { crossdomain: true });
 }
 
-export function fetchSongs() {
-    // const requestUrl = `${API_BASE_URL}song`;
-    const requestUrl = 'https://sm2qnqfpr4.execute-api.eu-west-1.amazonaws.com/dev/api/tag/';
-
-    getWithCors(requestUrl).then(response => {
-        console.dir(response);
-    });
-}
+// export function fetchSongs() {
+//     // const requestUrl = `${API_BASE_URL}song`;
+//     const requestUrl = 'https://sm2qnqfpr4.execute-api.eu-west-1.amazonaws.com/dev/api/tag/';
+//
+//     getWithCors(requestUrl).then(response => {
+//         console.dir(response);
+//     });
+// }
 
 export function getModelObjectsFromApi(modelName, filter) {
     let requestUrl = `${API_BASE_URL}${modelName}/`;
@@ -59,8 +59,6 @@ export function getModelObjectsFromApi(modelName, filter) {
     if (filter) {
         requestUrl += `?${filter.filterColumn}=${filter.filterValue}`;
     }
-
-    console.dir(requestUrl);
 
     return getWithCors(requestUrl).then(response => {
         return response.data.objects;
