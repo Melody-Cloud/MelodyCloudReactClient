@@ -58,6 +58,7 @@
     "identity-obj-proxy": "^3.0.0",
     "image-webpack-loader": "^4.3.1",
     "jest": "^23.6.0",
+    "jest-transform-css": "^2.0.0",
     "node-sass": "^4.9.3",
     "prettier": "^1.14.2",
     "sass-loader": "^7.1.0",
@@ -98,5 +99,11 @@
     "sortablejs": "^1.7.0",
     "store": "^2.0.12",
     "styled-components": "^3.4.9"
+  },
+  "jest":{
+    "moduleNameMapper":{
+      "\\.(css|less|sass|scss)$": "C:\\Users\\szymon\\WebstormProjects\\MelodyCloudReactClient\\tests\\__mocks__\\styleMock.js",
+      "\\.(gif|ttf|eot|svg)$": "C:\\Users\\szymon\\WebstormProjects\\MelodyCloudReactClient\\tests\\__mocks__\\fileMock.js"
+    }
   }
 }

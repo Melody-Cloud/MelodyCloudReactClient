@@ -1,5 +1,5 @@
-import 'assets/scss/LoginLayout.scss';
 import {Button, Form, Grid, Header, Icon, Image, Modal, Segment} from 'semantic-ui-react';
+import 'assets/scss/LoginLayout.scss';
 import {Redirect} from 'react-router-dom';
 import {cognitoConfig} from '../../config/cognito-config';
 import React from 'react';

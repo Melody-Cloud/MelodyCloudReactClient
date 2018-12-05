@@ -5,11 +5,10 @@ import {
     Models,
     getModelObjectsFromApi,
 } from '../api-fetching/api-fetching';
-import { Container, Dimmer, Header, List, Loader } from 'semantic-ui-react';
+import { Container, Dimmer, Header, Label, List, Loader } from 'semantic-ui-react';
 import { DEFAULT_DIMMABLE } from '../config/components-defaults-config';
-import { availableColors, HOW_MANY_SONGS_TO_DISPLAY_IN_PLAYLIST_PREVIEW } from '../config/application-config';
+import { HOW_MANY_SONGS_TO_DISPLAY_IN_PLAYLIST_PREVIEW, availableColors } from '../config/application-config';
 import GenericBreadcrumbs from './pure-functional-components/GenericBreadcrumbs';
-import Label from 'semantic-ui-react/dist/es/elements/Label/Label';
 import PropTypes from 'prop-types';
 import React from 'react';
 import _ from 'lodash';

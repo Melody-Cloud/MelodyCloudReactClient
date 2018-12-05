@@ -11,15 +11,14 @@ import {
     Loader,
     Message,
     Modal,
-    Segment, Step
-} from 'semantic-ui-react'
+    Segment, Step, Transition,
+} from 'semantic-ui-react';
 import {cognitoConfig} from '../../config/cognito-config';
 import React from 'react'
 
 import 'assets/scss/RegisterLayout.scss';
 import {Redirect} from 'react-router-dom';
 import {isStringEmpty} from '../../utils/common-utils';
-import Transition from 'semantic-ui-react/dist/es/modules/Transition/Transition';
 import concat from 'lodash/concat';
 import drop from 'lodash/drop';
 import get from 'lodash/get';

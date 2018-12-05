@@ -3,9 +3,8 @@ import { AESTHETICS_TIMEOUT } from '../config/application-config';
 import {
     APPEND_TO_PLAYLIST_BUTTON_SONG_DETAILS_PROPS, DEFAULT_DIMMABLE, MEDIUM_PLAY_BUTTON_PROPS,
 } from '../config/components-defaults-config';
-import { Button, Container, Header, Image, Loader } from 'semantic-ui-react';
+import { Button, Container, Dimmer, Header, Image, Loader } from 'semantic-ui-react';
 import CommentSection from './CommentSection';
-import Dimmer from 'semantic-ui-react/dist/es/modules/Dimmer/Dimmer';
 import GenericBreadcrumbs from './pure-functional-components/GenericBreadcrumbs';
 import PropTypes from 'prop-types';
 import React from 'react';

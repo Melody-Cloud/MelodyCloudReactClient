@@ -53,6 +53,7 @@ export const PLAY_BUTTON_PROPS = {
     className: 'play-button',
     icon: 'play',
     size: 'huge',
+    // color: 'green',
     color: 'green',
     circular: true,
     // inverted: true,
