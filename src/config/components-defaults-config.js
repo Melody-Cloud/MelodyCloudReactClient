@@ -61,7 +61,7 @@ export const PLAY_BUTTON_PROPS = {
 
 export const MEDIUM_PLAY_BUTTON_PROPS = {
     ...PLAY_BUTTON_PROPS,
-    className: '',
+    className: 'play-button-in-song-details',
     size: 'medium',
 };
 
@@ -83,7 +83,7 @@ export const APPEND_TO_PLAYLIST_BUTTON_PROPS = {
 };
 
 export const APPEND_TO_PLAYLIST_BUTTON_SONG_DETAILS_PROPS = {
-    className: 'add-to-playlist-button-in-song-details',
+    className: 'append-button-in-song-details',
     icon: 'plus',
     color: 'green',
     circular: true,

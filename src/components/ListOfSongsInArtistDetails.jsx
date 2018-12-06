@@ -4,6 +4,7 @@ import React from 'react';
 
 import 'assets/scss/ListOfSongsInArtistDetails.scss';
 import { getSongMiniature } from '../utils/mocks';
+import _ from 'lodash';
 
 class ListOfSongsInArtistDetails extends React.Component {
     constructor(props) {

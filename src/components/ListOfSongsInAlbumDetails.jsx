@@ -4,6 +4,7 @@ import React from 'react';
 
 import 'assets/scss/ListOfSongsInAlbumDetails.scss';
 import { getSongMiniature } from '../utils/mocks';
+import _ from 'lodash';
 
 class ListOfSongsInAlbumDetails extends React.Component {
     constructor(props) {
@@ -19,7 +20,6 @@ class ListOfSongsInAlbumDetails extends React.Component {
         return (<List celled>
             {
                 _.map(songsInThisAlbum, song => {
-                    console.dir(song);
                     return (<List.Item
                         onClick={() => {
                             switchViewToSongDetails(song);

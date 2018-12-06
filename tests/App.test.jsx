@@ -1,10 +1,15 @@
 import {
     Button, Dimmer,
 } from 'semantic-ui-react';
+import { commonSelectors } from './common/common-selectors';
+import { mockAlbum } from './mock-data/mock-albums';
+import { mockArtist } from './mock-data/mock-artists';
 import { mockListOfSongs, mockSong } from './mock-data/mock-songs';
 import { mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
+import AlbumDetails from '../src/components/AlbumDetails';
 import AppRouting from '../src/components/AppRouting';
+import ArtistDetails from '../src/components/ArtistDetails';
 import Enzyme from 'enzyme';
 import Footer from '../src/components/pure-functional-components/Footer';
 import MainScreen from '../src/components/main-components/MainScreen';
@@ -181,11 +186,15 @@ describe('Songs Feed', () => {
 
 
 describe('Song details', () => {
-    it('Should display song details correctly', () => {
-        const selectors = {
-            appendToPlaylistButton: '.add-to-playlist-button',
-        };
+    it('Should always have a breadcrumbs navigation', () => {
+        const songsFeedComponent = mount(<SongDetails songToDisplay={mockSong}/>);
 
+        expect(songsFeedComponent.find(commonSelectors.breadcrumb).length).toEqual(1);
+
+        songsFeedComponent.unmount();
+    });
+
+    it('Should display song details correctly', () => {
         const songsDetailsComponent = mount(<SongDetails songToDisplay={mockSong}/>);
 
         const thingsToBeShowed = [
@@ -206,5 +215,99 @@ describe('Song details', () => {
         });
 
         songsDetailsComponent.unmount();
+    });
+
+    it('Should play song after clicking on play button', () => {
+        const selectors = {
+            playButtonInSongDetails: '.play-button-in-song-details',
+        };
+
+        const mockPlaySongInPlayer = jest.fn();
+
+        const songsFeedComponent = mount(<SongDetails playSongInPlayer={mockPlaySongInPlayer}
+                                                      songToDisplay={mockSong}/>);
+
+        songsFeedComponent.find(selectors.playButtonInSongDetails).first().simulate('click');
+        expect(mockPlaySongInPlayer).toHaveBeenCalled();
+
+        songsFeedComponent.unmount();
+    });
+
+    it('Should append song to playlist after clicking on append button', () => {
+        const selectors = {
+            appendButtonInSongDetails: '.append-button-in-song-details',
+        };
+
+        const mockAppendSongToPlaylist = jest.fn();
+
+        const songsFeedComponent = mount(<SongDetails appendSongToPlaylist={mockAppendSongToPlaylist}
+                                                    songToDisplay={mockSong}/>);
+
+        songsFeedComponent.find(selectors.appendButtonInSongDetails).first().simulate('click');
+        expect(mockAppendSongToPlaylist).toHaveBeenCalled();
+
+        songsFeedComponent.unmount();
+    });
+});
+
+
+describe('Artist details', () => {
+    it('Should always have a breadcrumbs navigation', () => {
+        const songsFeedComponent = mount(<ArtistDetails artistToDisplay={mockArtist}/>);
+
+        expect(songsFeedComponent.find(commonSelectors.breadcrumb).length).toEqual(1);
+
+        songsFeedComponent.unmount();
+    });
+
+    it('Should display artist details correctly', () => {
+        const artistDetailsComponent = mount(<ArtistDetails artistToDisplay={mockArtist}/>);
+        artistDetailsComponent.setState({
+            songsCreatedByThisArtist: mockListOfSongs,
+        });
+
+        const thingsToBeShowed = [
+            mockArtist.name,
+            mockArtist.artistDescription,
+            ...mockListOfSongs.map(mockSingleSong => {
+                return mockSingleSong.name;
+            }),
+        ];
+
+        thingsToBeShowed.forEach(thing => {
+            expect(artistDetailsComponent.text()).toContain(thing);
+        });
+
+        artistDetailsComponent.unmount();
+    });
+});
+
+
+describe('Album details', () => {
+    it('Should always have a breadcrumbs navigation', () => {
+        const songsFeedComponent = mount(<AlbumDetails albumToDisplay={mockAlbum} songsInThisAlbum={mockListOfSongs}/>);
+
+        expect(songsFeedComponent.find(commonSelectors.breadcrumb).length).toEqual(1);
+
+        songsFeedComponent.unmount();
+    });
+
+    it('Should display album details correctly', () => {
+        const artistDetailsComponent = mount(<AlbumDetails albumToDisplay={mockAlbum} songsInThisAlbum={mockListOfSongs}/>);
+
+        const thingsToBeShowed = [
+            mockAlbum.albumName,
+            mockAlbum.albumDescription,
+            mockAlbum.artist.name,
+            ...mockAlbum.songsInsideThisAlbum.map(mockSingleSong => {
+                return mockSingleSong.name;
+            }),
+        ];
+
+        thingsToBeShowed.forEach(thing => {
+            expect(artistDetailsComponent.text()).toContain(thing);
+        });
+
+        artistDetailsComponent.unmount();
     });
 });
