@@ -19,6 +19,7 @@ import ReactJkMusicPlayer from 'react-jinke-music-player';
 import SongDetails from '../src/components/SongDetails';
 import SongsFeed from '../src/components/SongsFeed';
 import _ from 'lodash';
+import ExploreNewAlbums from '../src/components/ExploreNewAlbums';
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -309,5 +310,67 @@ describe('Album details', () => {
         });
 
         artistDetailsComponent.unmount();
+    });
+
+    it('Should play whole album after clicking on "play button"', () => {
+        const selectors = {
+            playAlbumButton: '.play-album-button',
+        };
+
+        const mockReplaceAudioList = jest.fn();
+
+        const artistDetailsComponent = mount(<AlbumDetails
+            albumToDisplay={mockAlbum}
+            songsInThisAlbum={mockListOfSongs}
+            replaceAudioList={mockReplaceAudioList}
+        />);
+
+        artistDetailsComponent.find(selectors.playAlbumButton).first().simulate('click');
+        expect(mockReplaceAudioList).toHaveBeenCalled();
+
+        artistDetailsComponent.unmount();
+    });
+});
+
+
+describe('ExploreNewAlbums', () => {
+    it('Should always have a breadcrumbs navigation', () => {
+        const songsFeedComponent = mount(<ExploreNewAlbums/>);
+
+        expect(songsFeedComponent.find(commonSelectors.breadcrumb).length).toEqual(1);
+
+        songsFeedComponent.unmount();
+    });
+
+    it('Should present all albums passed in properties', () => {
+        const selectors = {
+            singleAlbum: 'div.single-album-item-in-explore-new-albums',
+        };
+
+        const listOfAlbumsToPresent = [mockAlbum];
+        const exploreNewAlbumsComponent = mount(<ExploreNewAlbums/>);
+        exploreNewAlbumsComponent.setState({
+            listOfAlbumsToPresent: listOfAlbumsToPresent,
+            isExploreNewAlbumsPageLoading: false,
+        });
+
+        expect(exploreNewAlbumsComponent.find(commonSelectors.singleAlbum).length).toEqual(listOfAlbumsToPresent.length);
+
+        exploreNewAlbumsComponent.unmount();
+    });
+
+    it('Should start loading an album after clicking on some item in list of albums', () => {
+        const listOfAlbumsToPresent = [mockAlbum];
+
+        const exploreNewAlbumsComponent = mount(<ExploreNewAlbums/>);
+        exploreNewAlbumsComponent.setState({
+            listOfAlbumsToPresent: listOfAlbumsToPresent,
+            isExploreNewAlbumsPageLoading: false,
+        });
+
+        exploreNewAlbumsComponent.find(commonSelectors.singleAlbum).first().simulate('click');
+        expect(exploreNewAlbumsComponent.state('isExploreNewAlbumsPageLoading')).toEqual(true);
+
+        exploreNewAlbumsComponent.unmount();
     });
 });
