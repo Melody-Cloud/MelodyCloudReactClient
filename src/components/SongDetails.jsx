@@ -4,12 +4,12 @@ import {
     APPEND_TO_PLAYLIST_BUTTON_SONG_DETAILS_PROPS, DEFAULT_DIMMABLE, MEDIUM_PLAY_BUTTON_PROPS,
 } from '../config/components-defaults-config';
 import { Button, Container, Dimmer, Header, Image, Loader } from 'semantic-ui-react';
+import { getCoverUrl } from '../utils/mocks';
 import CommentSection from './CommentSection';
 import GenericBreadcrumbs from './pure-functional-components/GenericBreadcrumbs';
 import PropTypes from 'prop-types';
 import React from 'react';
 import SongTags from './pure-functional-components/SongTags';
-import { getCoverUrl } from '../utils/mocks';
 
 class SongDetails extends React.Component {
     constructor(props) {
