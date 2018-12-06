@@ -66,7 +66,7 @@ export const MEDIUM_PLAY_BUTTON_PROPS = {
 };
 
 export const PAUSE_BUTTON_PROPS = {
-    className: 'play-button',
+    className: 'play-button pause',
     icon: 'pause',
     size: 'huge',
     color: 'green',

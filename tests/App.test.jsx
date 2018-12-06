@@ -8,6 +8,10 @@ import MainScreen from '../src/components/main-components/MainScreen';
 import Nav from '../src/components/pure-functional-components/Nav';
 import React from 'react';
 import SongsFeed from '../src/components/SongsFeed';
+import ReactJkMusicPlayer from 'react-jinke-music-player';
+import {
+    Button,
+} from 'semantic-ui-react';
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -30,7 +34,7 @@ describe('App', () => {
 describe('MainScreen', () => {
     it('Should render music player', () => {
         const app = mount(<MainScreen/>);
-        expect(app.find('div.react-jinke-music-player-main').length).toEqual(1);
+        expect(app.find(ReactJkMusicPlayer).length).toEqual(1);
     });
 
     it('Should always contain a navigation element', () => {
@@ -46,6 +50,11 @@ describe('MainScreen', () => {
 
 describe('Play button', () => {
     it('It should turn into pause button after click', () => {
+        const classes = {
+            play: 'play',
+            pause: 'pause'
+        };
+
         const app = mount(<SongsFeed songsInFeed={[testSong]} playSongInPlayer={() => {
             app.setProps({
                 musicPlayerRef: {current: {state: {audioLists: [testSong]}}},
@@ -53,10 +62,13 @@ describe('Play button', () => {
             });
             app.update();
         }}/>);
-        const playButton = app.find('.play-button').first();
-        expect(playButton.prop('icon')).toEqual('play');
+
+        const playButton = app.find(Button).first();
+        expect(playButton.prop('icon')).toEqual(classes.play);
+
         playButton.simulate('click');
-        app.update();
-        expect(playButton.prop('icon')).toEqual('pause');
+
+        const rerenderedButton = app.find(Button).first();
+        expect(rerenderedButton.prop('icon')).toEqual(classes.pause);
     });
 });
