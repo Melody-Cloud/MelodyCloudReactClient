@@ -218,7 +218,7 @@ class RegisterLayout extends React.Component {
                             <Form.Input
                                 fluid icon='user'
                                 iconPosition='left'
-                                placeholder='E-mail address'
+                                placeholder='E-mail'
                                 value={this.state.formEmail}
                                 onChange={
                                     (e) => this.setState({
@@ -244,7 +244,7 @@ class RegisterLayout extends React.Component {
                                 fluid
                                 icon='check'
                                 iconPosition='left'
-                                placeholder='Confirm your password'
+                                placeholder='Confirm password'
                                 type='password'
                                 value={this.state.formPasswordConfirmation}
                                 onChange={
@@ -297,11 +297,11 @@ class RegisterLayout extends React.Component {
     _renderMessageIfPasswordAreMatching(areMatching) {
         return areMatching ?
             <Message positive>
-                <Message.Header>Password are matching</Message.Header>
+                <Message.Header>Passwords are matching</Message.Header>
                 <p>You can now go ahead and register.</p>
             </Message> :
             <Message negative>
-                <Message.Header>Password are not matching</Message.Header>
+                <Message.Header>Passwords are not matching</Message.Header>
                 <p>Please check if you typed in your password correctly in both inputs</p>
             </Message>;
     }

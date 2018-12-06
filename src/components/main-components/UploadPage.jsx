@@ -153,7 +153,7 @@ class UploadPage extends React.Component {
                         <Form>
                             <Form.Field>
                                 <label>Song Name</label>
-                                <input
+                                <Form.Input
                                     placeholder='Song Name'
                                     name='songName'
                                     value={this.state.songName}

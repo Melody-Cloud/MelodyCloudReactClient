@@ -16,5 +16,5 @@ const HugeCelledList = ({children}) => {
 export default HugeCelledList;
 
 HugeCelledList.propTypes = {
-    children: PropTypes.object,
+    children: PropTypes.array,
 };

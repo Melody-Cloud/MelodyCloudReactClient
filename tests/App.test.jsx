@@ -5,32 +5,32 @@ import { commonSelectors } from './common/common-selectors';
 import { mockAlbum } from './mock-data/mock-albums';
 import { mockArtist } from './mock-data/mock-artists';
 import { mockListOfSongs, mockSong } from './mock-data/mock-songs';
+import { mockPlaylist } from './mock-data/mock-playlists';
+import { mockWatchMedia, setUserNotLogged } from './mock-data/mock-global-state';
 import { mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import AlbumDetails from '../src/components/AlbumDetails';
 import AppRouting from '../src/components/AppRouting';
 import ArtistDetails from '../src/components/ArtistDetails';
 import Enzyme from 'enzyme';
+import ExploreNewAlbums from '../src/components/ExploreNewAlbums';
 import Footer from '../src/components/pure-functional-components/Footer';
+import ListOfPlaylists from '../src/components/ListOfPlaylists';
 import MainScreen from '../src/components/main-components/MainScreen';
 import Nav from '../src/components/pure-functional-components/Nav';
 import React from 'react';
 import ReactJkMusicPlayer from 'react-jinke-music-player';
+import SinglePlaylistView from '../src/components/SinglePlaylistView';
 import SongDetails from '../src/components/SongDetails';
 import SongsFeed from '../src/components/SongsFeed';
+import UploadPage from '../src/components/main-components/UploadPage';
 import _ from 'lodash';
-import ExploreNewAlbums from '../src/components/ExploreNewAlbums';
+import RegisterLayout from '../src/components/main-components/RegisterLayout';
 
 Enzyme.configure({ adapter: new Adapter() });
 
 // MOCK
-window.matchMedia = window.matchMedia || function() {
-    return {
-        matches : false,
-        addListener : function() {},
-        removeListener: function() {}
-    };
-};
+mockWatchMedia();
 
 describe('App', () => {
     it('Should render without crashing', () => {
@@ -372,5 +372,76 @@ describe('ExploreNewAlbums', () => {
         expect(exploreNewAlbumsComponent.state('isExploreNewAlbumsPageLoading')).toEqual(true);
 
         exploreNewAlbumsComponent.unmount();
+    });
+});
+
+
+describe('ListOfPlaylists', () => {
+    it('Should always have a breadcrumbs navigation', () => {
+        const songsFeedComponent = mount(<ListOfPlaylists/>);
+
+        expect(songsFeedComponent.find(commonSelectors.breadcrumb).length).toEqual(1);
+
+        songsFeedComponent.unmount();
+    });
+});
+
+describe('SinglePlaylistView', () => {
+    it('Should always have a breadcrumbs navigation', () => {
+        const songsFeedComponent = mount(<SinglePlaylistView playlistToDisplay={mockPlaylist}/>);
+
+        expect(songsFeedComponent.find(commonSelectors.breadcrumb).length).toEqual(1);
+
+        songsFeedComponent.unmount();
+    });
+});
+
+describe('UploadPage', () => {
+    it('Should always have a breadcrumbs navigation', () => {
+        const songsFeedComponent = mount(<UploadPage/>);
+
+        expect(songsFeedComponent.find(commonSelectors.breadcrumb).length).toEqual(1);
+
+        songsFeedComponent.unmount();
+    });
+
+    it('Should allow to add tags', () => {
+        const selectors  = {
+            tagsWrapper: 'div.tags-input-wrapper',
+            tagsInput: 'input.react-tagsinput-input',
+        };
+
+        const uploadPageComponent = mount(<UploadPage/>);
+
+        const tagsInput = uploadPageComponent.find(selectors.tagsInput);
+        tagsInput.simulate('change', {target: {value: 'abc\n'}});
+
+        expect(tagsInput.instance().value).toEqual('abc');
+
+        uploadPageComponent.unmount();
+    });
+});
+
+
+describe('RegisterLayout', () => {
+    it('Should display error message when passwords are not matching', () => {
+        setUserNotLogged();
+
+        const registerLayout = mount(
+                <RegisterLayout />);
+
+        const emailInput = registerLayout.find('input[placeholder="E-mail"]');
+        const passwordInput = registerLayout.find('input[placeholder="Password"]');
+        const confirmPasswordInput = registerLayout.find('input[placeholder="Confirm password"]');
+
+        emailInput.simulate('change', {target: {value: 'example@email.com'}});
+        passwordInput.simulate('change', {target: {value: 'abc'}});
+        confirmPasswordInput.simulate('change', {target: {value: 'ddd'}});
+
+        registerLayout.update();
+
+        expect(registerLayout.text()).toContain('Passwords are not matching');
+
+        registerLayout.unmount();
     });
 });
