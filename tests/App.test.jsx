@@ -1,7 +1,6 @@
 import {
     Button, Dimmer,
 } from 'semantic-ui-react';
-import { HashRouter } from 'react-router-dom';
 import { mockListOfSongs, mockSong } from './mock-data/mock-songs';
 import { mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
@@ -12,6 +11,7 @@ import MainScreen from '../src/components/main-components/MainScreen';
 import Nav from '../src/components/pure-functional-components/Nav';
 import React from 'react';
 import ReactJkMusicPlayer from 'react-jinke-music-player';
+import SongDetails from '../src/components/SongDetails';
 import SongsFeed from '../src/components/SongsFeed';
 import _ from 'lodash';
 
@@ -90,16 +90,30 @@ describe('Play button', () => {
     });
 });
 
+describe('Append button', () => {
+    it('Should append song to playlist after it is clicked', () => {
+        const selectors = {
+            appendToPlaylistButton: '.add-to-playlist-button',
+        };
+
+        const mockAppendSongToPlaylist = jest.fn();
+
+        const songsFeedComponent = mount(<SongsFeed appendSongToPlaylist={mockAppendSongToPlaylist}
+                                                    songsInFeed={[mockSong]}/>);
+
+        songsFeedComponent.find(selectors.appendToPlaylistButton).first().simulate('click');
+        expect(mockAppendSongToPlaylist).toHaveBeenCalled();
+
+        songsFeedComponent.unmount();
+    });
+});
+
 describe('Songs Feed', () => {
     it('Should inform user when songs are being loaded from API', () => {
+        const songsFeedComponent = mount(<SongsFeed areSongsLoadingFromApi={true}/>);
 
-        const songsFeedWrapped = mount(
-            <HashRouter>
-                <SongsFeed areSongsLoadingFromApi={true}/>
-            </HashRouter>);
-
-        expect(songsFeedWrapped.find(Dimmer).prop('active')).toEqual(true);
-        expect(songsFeedWrapped.text()).toContain('Loading new songs for you.');
+        expect(songsFeedComponent.find(Dimmer).prop('active')).toEqual(true);
+        expect(songsFeedComponent.text()).toContain('Loading new songs for you.');
     });
 
     it('Should close loading window and display all songs, once it received them from API', () => {
@@ -162,5 +176,35 @@ describe('Songs Feed', () => {
         thingsToBeShowed.forEach(thing => {
             expect(songsFeedComponent.text()).toContain(thing);
         });
+    });
+});
+
+
+describe('Song details', () => {
+    it('Should display song details correctly', () => {
+        const selectors = {
+            appendToPlaylistButton: '.add-to-playlist-button',
+        };
+
+        const songsDetailsComponent = mount(<SongDetails songToDisplay={mockSong}/>);
+
+        const thingsToBeShowed = [
+            mockSong.description,
+            mockSong.artist.name,
+            mockSong.name,
+            mockSong.lyrics.replace(/\n/g, ''),
+            ...mockSong.tags.map(tagObj => {
+                return tagObj.songTag;
+            }),
+            ...mockSong.comments.map(tagObj => {
+                return tagObj.commentContent;
+            }),
+        ];
+
+        thingsToBeShowed.forEach(thing => {
+            expect(songsDetailsComponent.text()).toContain(thing);
+        });
+
+        songsDetailsComponent.unmount();
     });
 });
