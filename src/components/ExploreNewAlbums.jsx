@@ -119,7 +119,6 @@ class ExploreNewAlbums extends React.Component {
                                             }
                                         });
                                     }).then(albumWithSongs => {
-                                        console.dir(albumWithSongs);
                                         switchViewToAlbumDetails(albumWithSongs);
                                     });
                                 }}

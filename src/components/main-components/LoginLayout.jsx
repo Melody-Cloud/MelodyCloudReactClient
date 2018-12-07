@@ -133,7 +133,6 @@ class LoginLayout extends React.Component {
                 });
             },
             (err) => {
-                console.dir(err);
                 this.setState({
                     loginErrorObject: err,
                     errorModalOpen: true
@@ -149,7 +148,6 @@ class LoginLayout extends React.Component {
             if (cognitoUser) {
                 cognitoUser.getSession((err, session) => {
                     if (err) {
-                        console.dir(err);
                         reject(err);
                     } else if (!session.isValid()) {
                         resolve(null);

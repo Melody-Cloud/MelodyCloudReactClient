@@ -174,7 +174,6 @@ class RegisterLayout extends React.Component {
                                             this.state.formEmail,
                                             this.state.verificationCode,
                                             (result) => {
-                                                console.dir(result);
                                                 this.setState({
                                                     redirectInProgress: true,
                                                 });
@@ -184,8 +183,6 @@ class RegisterLayout extends React.Component {
                                                 }, 4000); // SET TIMEOUT FOR AESTHETICS :D
                                             },
                                             (err) => {
-                                                console.dir(err);
-
                                                 setTimeout(() => {
                                                     this.setState({
                                                         verificationErrorOccurred: true,
@@ -264,7 +261,6 @@ class RegisterLayout extends React.Component {
                                             this.state.formEmail,
                                             this.state.formPassword,
                                             (e) => {
-                                                console.dir(e);
                                                 this.setState({
                                                     registrationCompleteModalOpen: true
                                                 });
