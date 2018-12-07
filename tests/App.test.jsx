@@ -20,12 +20,12 @@ import MainScreen from '../src/components/main-components/MainScreen';
 import Nav from '../src/components/pure-functional-components/Nav';
 import React from 'react';
 import ReactJkMusicPlayer from 'react-jinke-music-player';
+import RegisterLayout from '../src/components/main-components/RegisterLayout';
 import SinglePlaylistView from '../src/components/SinglePlaylistView';
 import SongDetails from '../src/components/SongDetails';
 import SongsFeed from '../src/components/SongsFeed';
 import UploadPage from '../src/components/main-components/UploadPage';
 import _ from 'lodash';
-import RegisterLayout from '../src/components/main-components/RegisterLayout';
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -161,13 +161,6 @@ describe('Songs Feed', () => {
     });
 
     it('Should display basic information about song in SongsFeed', () => {
-        const selectors = {
-            listOfSongs: '#songs-feed',
-            singleSongInList: 'div.single-song-item',
-            tagsWrapper: 'div.song-tags-wrapper',
-            singleTag: 'div.single-tag',
-        };
-
         const songsFeedComponent = mount(
             <SongsFeed areSongsLoadingFromApi={false} songsInFeed={[mockSong]}/>);
 
@@ -343,10 +336,6 @@ describe('ExploreNewAlbums', () => {
     });
 
     it('Should present all albums passed in properties', () => {
-        const selectors = {
-            singleAlbum: 'div.single-album-item-in-explore-new-albums',
-        };
-
         const listOfAlbumsToPresent = [mockAlbum];
         const exploreNewAlbumsComponent = mount(<ExploreNewAlbums/>);
         exploreNewAlbumsComponent.setState({

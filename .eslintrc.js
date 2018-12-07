@@ -14,5 +14,8 @@ module.exports = {
             "ignoreMemberSort": false,
             "memberSyntaxSortOrder": ["none", "all", "multiple", "single"]
         }]
+    },
+    "env": {
+        "jest": true
     }
 };

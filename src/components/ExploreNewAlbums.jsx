@@ -125,7 +125,7 @@ class ExploreNewAlbums extends React.Component {
                                 }}
                             >
                                 <Image size={'tiny'} avatar src={getAlbumMiniature()}/>
-                                <List.Content className='explore-new-album-content'>
+                                <List.Content className='ui container explore-new-album-content'>
                                     <List.Header>{albumObject.albumName}</List.Header>
                                     <List.Description>
                                         {albumObject.albumDescription}
