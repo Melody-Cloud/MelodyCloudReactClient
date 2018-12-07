@@ -127,7 +127,7 @@ class LoginLayout extends React.Component {
 
     handleSignin(email, password) {
         this.signin(email, password,
-            (result) => {
+            () => {
                 this.setState({
                     redirectToApplication: true
                 });
@@ -142,30 +142,25 @@ class LoginLayout extends React.Component {
 
         const component = this;
 
-        new Promise(function fetchCurrentAuthToken(resolve, reject) {
+        const redirectToMainPage = () => {
             let cognitoUser = component.userPool.getCurrentUser();
 
             if (cognitoUser) {
                 cognitoUser.getSession((err, session) => {
-                    if (err) {
-                        reject(err);
-                    } else if (!session.isValid()) {
-                        resolve(null);
-                    } else {
+                    if (!err && session.isValid()) {
                         const jwtToken = session.getIdToken().getJwtToken();
 
                         store.set('jwtToken', jwtToken);
-                        resolve(jwtToken);
 
                         component.setState({
                             isRedirecting: true
                         });
                     }
                 });
-            } else {
-                resolve(null);
             }
-        });
+        };
+
+        redirectToMainPage();
     }
 
     _renderErrorMessageFromAmazonService(errorObject) {

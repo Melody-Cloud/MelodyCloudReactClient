@@ -65,25 +65,6 @@ export function getModelObjectsFromApi(modelName, filter) {
     });
 }
 
-export function getFullSongObjects() {
-    return getModelObjectsFromApi(SONG).then(retrievedSongs => {
-        let updatedSongs = _.map(retrievedSongs, song => {
-            //{...song, artist: }
-            return getModelObjectsFromApi(ARTIST, {filterColumn: Columns.ID, filterValue: song.artistId}).then(retrievedArtist => {
-                return {
-                    ...song,
-                    artist: retrievedArtist[0],
-                    cover: getCoverUrl(), // TODO: remove this mock
-                    barImageUrl: getBarUrl(),
-                    songMiniature: getSongMiniature(),
-                };
-            });
-        });
-
-        return Promise.all(updatedSongs);
-    });
-}
-
 export function getRelatedModelBySongId(songId, modelName) {
     const requestUrl = `${API_BASE_URL}${modelName}/?songId__id=${songId}`;
 

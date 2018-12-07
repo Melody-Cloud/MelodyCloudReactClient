@@ -53,27 +53,6 @@ class RegisterLayout extends React.Component {
         };
 
         this.userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
-        this.authToken = new Promise((resolve, reject) => {
-            const cognitoUser = this.userPool.getCurrentUser();
-
-            if (cognitoUser) {
-                cognitoUser.getSession((err, session) => {
-                    if (err) {
-                        reject(err);
-                    } else if (!session.isValid()) {
-                        resolve(null);
-                    } else {
-                        resolve(session.getIdToken().getJwtToken());
-                    }
-                });
-            } else {
-                resolve(null);
-            }
-        });
-    }
-
-    signOut() {
-        this.userPool.getCurrentUser().signOut();
     }
 
     register(email, password, onSuccess, onFailure) {
@@ -173,7 +152,7 @@ class RegisterLayout extends React.Component {
                                         this.verifyUser(
                                             this.state.formEmail,
                                             this.state.verificationCode,
-                                            (result) => {
+                                            () => {
                                                 this.setState({
                                                     redirectInProgress: true,
                                                 });
@@ -260,7 +239,7 @@ class RegisterLayout extends React.Component {
                                         this.register(
                                             this.state.formEmail,
                                             this.state.formPassword,
-                                            (e) => {
+                                            () => {
                                                 this.setState({
                                                     registrationCompleteModalOpen: true
                                                 });

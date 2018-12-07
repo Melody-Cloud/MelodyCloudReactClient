@@ -82,7 +82,7 @@ export const song5 = {
     comments: comments
 };
 
-export const mockedPlaylist = [song1, song2, song3, song4, song5];
+// export const mockedPlaylist = [song1, song2, song3, song4, song5];
 
 export const getMockedAuthor = () => {
     return {

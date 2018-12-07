@@ -67,8 +67,6 @@ class MainScreen extends React.Component {
             playlistToDisplay: {},
         };
 
-        this.areSongsLoadingFromApi = true;
-
         this.musicPlayerRef = React.createRef();
     }
 
@@ -120,10 +118,6 @@ class MainScreen extends React.Component {
             });
         });
     }
-
-    isPlaylistEmpty = () => {
-        return _.isEqual(_.size(this.state.audioList), 0);
-    };
 
     calculateProgressBarWidth = () => {
         if (!this.musicPlayerRef.current || !this.musicPlayerRef.current.state || _.isEqual(this.musicPlayerRef.current.state.currentTime, 0)) {
@@ -191,11 +185,7 @@ class MainScreen extends React.Component {
         });
     };
 
-    getSongsToDisplayByArtist = (artistToDisplay) => {
-        return jinkieMockSongs;
-    };
-
-    getSongsToDisplayByAlbum = (albumToDisplay) => {
+    getSongsToDisplayByArtist = () => {
         return jinkieMockSongs;
     };
 

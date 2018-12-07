@@ -8,13 +8,3 @@ export function isStringEmpty(inputString) {
 export function isArrayEmpty(inputArray) {
     return isEqual(size(inputArray), 0);
 }
-
-function makeid() {
-    let text = '';
-    const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-
-    for (let i = 0; i < 5; i++)
-        text += possible.charAt(Math.floor(Math.random() * possible.length));
-
-    return text;
-}

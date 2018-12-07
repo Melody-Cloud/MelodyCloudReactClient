@@ -1,6 +1,6 @@
 const injectStyle = (style) => {
     const styleElement = document.createElement('style');
-    let styleSheet = null;
+    let styleSheet;
 
     document.head.appendChild(styleElement);
 

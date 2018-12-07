@@ -124,7 +124,7 @@ class SinglePlaylistView extends React.Component {
                 <div className="sortable-wrapper">
                     <Sortable
                         tag={HugeCelledList}
-                        onChange={(order, sortable, evt) => {
+                        onChange={(order) => {
                             const songsInPlaylist = this.state.songsInPlaylist;
 
                             const resortedPlaylist = _.map(order, orderId => {

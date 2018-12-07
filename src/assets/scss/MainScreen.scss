@@ -103,23 +103,23 @@ body {
   text-align: center;
 }
 
-@media (max-width: 1000px) {
-  .ui.button {
-    &.play-button {
-      height: 70px;
-      width: 70px;
-    }
-  }
-}
+   @media (max-width: 1000px) {
+     .ui.button {
+       &.play-button {
+         height: 70px;
+         width: 70px;
+       }
+     }
+   }
 
-@media (max-width: 1440px) {
-  .ui.button {
-    &.add-to-playlist-button {
-      margin-top: .5rem;
-      margin-right: 3%;
+    @media (max-width: 1440px) {
+      .ui.button {
+        &.add-to-playlist-button {
+          margin-top: .5rem;
+          margin-right: 3%;
+        }
+      }
     }
-  }
-}
 
 div.notyf {
   top: 55px;

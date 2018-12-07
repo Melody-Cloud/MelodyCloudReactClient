@@ -48,7 +48,7 @@ class UploadPage extends React.Component {
     onSubmitUpload = () => {
         !this.state.isFileUploading &&
         Storage.put(this.state.files[0].name, this.state.files[0])
-            .then(result => {
+            .then(() => {
                 this.setState({
                     isFileUploading: false,
                     displayUploadSuccessMessage: true,

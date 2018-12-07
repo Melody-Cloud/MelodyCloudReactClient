@@ -50,8 +50,6 @@ class ListOfPlaylists extends React.Component {
 
             return Promise.all(playlistsWithSongIds);
         }).then(playlistsWithSongs => {
-            console.log('over');
-
             this.setState({
                 listOfPlaylistsToDisplay: playlistsWithSongs,
                 arePlaylistsLoadingFromApi: false,
