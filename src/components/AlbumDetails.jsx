@@ -121,11 +121,12 @@ class AlbumDetails extends React.Component {
 
 export default AlbumDetails;
 
-AlbumDetails.propTypes = {
-    albumToDisplay: PropTypes.object,
-    songsInThisAlbum: PropTypes.array,
-    goToSongsFeed: PropTypes.func,
-    switchViewToSongDetails: PropTypes.func,
-    switchViewToArtistDetails: PropTypes.func,
-    replaceAudioList: PropTypes.func,
-};
+    AlbumDetails.propTypes = {
+        albumToDisplay: PropTypes.object,
+        songsInThisAlbum: PropTypes.array,
+        goToSongsFeed: PropTypes.func,
+        switchViewToSongDetails: PropTypes.func,
+        switchViewToArtistDetails: PropTypes.func,
+        replaceAudioList: PropTypes.func,
+    };
+

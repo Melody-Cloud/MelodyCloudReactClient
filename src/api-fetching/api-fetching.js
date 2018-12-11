@@ -1,5 +1,3 @@
-import { getBarUrl, getCoverUrl, getSongMiniature } from '../utils/mocks';
-import _ from 'lodash';
 import axios from 'axios';
 
 export const SONG = 'song';

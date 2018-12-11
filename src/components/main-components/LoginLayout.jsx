@@ -1,5 +1,6 @@
-import {Button, Form, Grid, Header, Icon, Image, Modal, Segment} from 'semantic-ui-react';
+/* global AmazonCognitoIdentity */
 import 'assets/scss/LoginLayout.scss';
+import {Button, Form, Grid, Header, Icon, Image, Modal, Segment} from 'semantic-ui-react';
 import {Redirect} from 'react-router-dom';
 import {cognitoConfig} from '../../config/cognito-config';
 import React from 'react';
@@ -40,7 +41,7 @@ class LoginLayout extends React.Component {
                 >
                     <Modal.Header>Login went wrong <Icon name='frown'/></Modal.Header>
                     <Modal.Content>
-                        {this._renderErrorMessageFromAmazonService(this.state.loginErrorObject)}
+                        {LoginLayout._renderErrorMessageFromAmazonService(this.state.loginErrorObject)}
                     </Modal.Content>
                     <Modal.Actions>
                         <Button color='green' onClick={() => this.setState({errorModalOpen: false})} inverted>
@@ -163,7 +164,7 @@ class LoginLayout extends React.Component {
         redirectToMainPage();
     }
 
-    _renderErrorMessageFromAmazonService(errorObject) {
+    static _renderErrorMessageFromAmazonService(errorObject) {
         return <Segment>
             {_.get(errorObject, 'message')}
         </Segment>;

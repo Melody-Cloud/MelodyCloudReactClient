@@ -1,3 +1,4 @@
+/* global AmazonCognitoIdentity */
 import {
     Button,
     Dimmer,
@@ -259,7 +260,7 @@ class RegisterLayout extends React.Component {
                         </Segment>
                         {
                             !isStringEmpty(this.state.formPassword) &&
-                            this._renderMessageIfPasswordAreMatching(
+                            RegisterLayout._renderMessageIfPasswordAreMatching(
                                 isEqual(this.state.formPassword, this.state.formPasswordConfirmation)
                             )
                         }
@@ -269,7 +270,7 @@ class RegisterLayout extends React.Component {
         </div>;
     }
 
-    _renderMessageIfPasswordAreMatching(areMatching) {
+    static _renderMessageIfPasswordAreMatching(areMatching) {
         return areMatching ?
             <Message positive>
                 <Message.Header>Passwords are matching</Message.Header>
@@ -282,7 +283,7 @@ class RegisterLayout extends React.Component {
     }
 
     _renderErrorMessageFromAmazonService(errorObject) {
-        const entries = this.createEntriesFromAmazonRegisterServiceResponse(errorObject);
+        const entries = RegisterLayout.createEntriesFromAmazonRegisterServiceResponse(errorObject);
 
         return <Step.Group vertical>
             {
@@ -297,7 +298,7 @@ class RegisterLayout extends React.Component {
         </Step.Group>
     }
 
-    createEntriesFromAmazonRegisterServiceResponse(errorObject) {
+    static createEntriesFromAmazonRegisterServiceResponse(errorObject) {
         const message = get(errorObject, 'message');
         const messageSplitted = split(message, ':');
 

@@ -75,7 +75,7 @@ class UploadPage extends React.Component {
             goToSongsFeed
         } = this.props;
 
-        const errorMessage = this._renderErrorMessage(
+        const errorMessage = UploadPage._renderErrorMessage(
             this.state.errorMessageObject,
         );
 
@@ -203,7 +203,7 @@ class UploadPage extends React.Component {
         );
     }
 
-    _renderErrorMessage(errorMessageObject) {
+    static _renderErrorMessage(errorMessageObject) {
         return JSON.stringify(errorMessageObject);
     }
 }

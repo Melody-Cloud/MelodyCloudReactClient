@@ -1,5 +1,6 @@
 import 'assets/scss/App.scss';
 import {HashRouter, Route, Switch} from 'react-router-dom';
+import EditorPage from './EditorPage';
 import LoginLayout from './main-components/LoginLayout';
 import MainScreen from './main-components/MainScreen';
 import React from 'react';
@@ -17,6 +18,7 @@ class AppRouting extends React.PureComponent {
                     <Route exact path="/test" component={TestScreen} />
                     <Route exact path="/login" component={LoginLayout} />
                     <Route exact path="/upload" component={UploadPage} />
+                    <Route exact path="/editor" component={EditorPage} />
                 </Switch>
             </HashRouter>
         );

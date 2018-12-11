@@ -1,3 +1,4 @@
+/* global jest */
 import {
     Button, Dimmer,
 } from 'semantic-ui-react';

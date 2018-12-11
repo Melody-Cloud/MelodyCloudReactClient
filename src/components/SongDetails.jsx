@@ -26,7 +26,7 @@ class SongDetails extends React.Component {
         }, AESTHETICS_TIMEOUT);
     }
 
-    convertNewlinesToBreaks(text) {
+    static convertNewlinesToBreaks(text) {
         return text.split('\n').map((item, key) => {
             return <span key={key}>{item}<br/></span>
         });
@@ -91,7 +91,7 @@ class SongDetails extends React.Component {
 
                 <div className='song-lyrics'>
                     {
-                        this.convertNewlinesToBreaks(songToDisplay.lyrics)
+                        SongDetails.convertNewlinesToBreaks(songToDisplay.lyrics)
                     }
                 </div>
 

@@ -34,6 +34,7 @@ import SinglePlaylistView from '../SinglePlaylistView';
 import SongDetails from '../SongDetails';
 import SongsFeed from '../SongsFeed';
 import UploadPage from './UploadPage';
+import EditorPage from '../EditorPage';
 
 class MainScreen extends React.Component {
     constructor(props) {
@@ -177,6 +178,12 @@ class MainScreen extends React.Component {
         });
     };
 
+    goToEditorPage = () => {
+        this.setState({
+            currentView: Views.EDITOR_PAGE,
+        });
+    };
+
     switchViewToPlaylist = (playlistToDisplay) => {
         this.subviewDetails.playlistToDisplay = playlistToDisplay;
 
@@ -299,6 +306,9 @@ class MainScreen extends React.Component {
             [Views.UPLOAD_PAGE]: <UploadPage
                 goToSongsFeed={this.goToSongsFeed}
             />,
+            [Views.EDITOR_PAGE]: <EditorPage
+                goToSongsFeed={this.goToSongsFeed}
+            />,
         };
 
         return (
@@ -308,6 +318,7 @@ class MainScreen extends React.Component {
                     goToExploreNewAlbums={this.goToExploreNewAlbums}
                     goToMyPlaylists={this.goToMyPlaylists}
                     goToUploadPage={this.goToUploadPage}
+                    goToEditorPage={this.goToEditorPage}
                 />
 
                 {

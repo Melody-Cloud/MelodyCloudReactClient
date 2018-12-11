@@ -43,7 +43,7 @@ export const NAVIGATION_MENU_PROPS = {
     };
 
 export const JK_MUSIC_PLAYER_DEFAULT_SETTINGS = {
-    preload: true,
+    preload: false,
     mode: 'full',
     defaultVolume: DEFAULT_PLAYER_VOLUME,
     glassBg: true

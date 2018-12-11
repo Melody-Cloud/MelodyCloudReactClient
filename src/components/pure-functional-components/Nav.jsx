@@ -6,7 +6,7 @@ import { NavigationTabs } from '../../utils/enumerations';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-const Nav = ({ goToSongsFeed, goToExploreNewAlbums, goToMyPlaylists, goToUploadPage }) => {
+const Nav = ({ goToSongsFeed, goToExploreNewAlbums, goToMyPlaylists, goToUploadPage, goToEditorPage }) => {
     return (
         <Menu
             {...NAVIGATION_MENU_PROPS}
@@ -35,6 +35,12 @@ const Nav = ({ goToSongsFeed, goToExploreNewAlbums, goToMyPlaylists, goToUploadP
             >
                 <Icon name="upload"/> {NavigationTabs.GO_TO_UPLOAD_PAGE}
             </Menu.Item>
+            <Menu.Item
+                className="go-to-editor-page"
+                onClick={goToEditorPage}
+            >
+                <Icon name="edit"/> {NavigationTabs.GO_TO_EDITOR_PAGE}
+            </Menu.Item>
             <Menu.Item as="a">
                 <Input icon="search" placeholder="Search for songs..."/>
             </Menu.Item>
@@ -49,4 +55,5 @@ Nav.propTypes = {
     goToExploreNewAlbums: PropTypes.func,
     goToMyPlaylists: PropTypes.func,
     goToUploadPage: PropTypes.func,
+    goToEditorPage: PropTypes.func,
 };

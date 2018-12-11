@@ -7,6 +7,7 @@ export const Views = {
     COLLECTION_OF_PLAYLISTS_VIEW: 'COLLECTION_OF_PLAYLISTS_VIEW',
     SINGLE_PLAYLIST_VIEW: 'SINGLE_PLAYLIST_VIEW',
     UPLOAD_PAGE: 'UPLOAD_PAGE',
+    EDITOR_PAGE: 'EDITOR_PAGE',
 };
 
 export const NavigationTabs = {
@@ -14,5 +15,6 @@ export const NavigationTabs = {
     EXPLORE_NEW_ALBUMS: 'Explore new albums',
     GO_TO_MY_PLAYLISTS: 'Go to my playlists',
     GO_TO_UPLOAD_PAGE: 'Go to upload page',
+    GO_TO_EDITOR_PAGE: 'Go to editor page',
 };
 
