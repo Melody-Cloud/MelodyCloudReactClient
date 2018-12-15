@@ -3,8 +3,12 @@ import { AESTHETICS_TIMEOUT } from '../config/application-config';
 import {
     APPEND_TO_PLAYLIST_BUTTON_SONG_DETAILS_PROPS, DEFAULT_DIMMABLE, MEDIUM_PLAY_BUTTON_PROPS,
 } from '../config/components-defaults-config';
-import { Button, Container, Dimmer, Header, Image, Loader } from 'semantic-ui-react';
+import { Button, Container, Dimmer, Form, Header, Image, Loader, TextArea } from 'semantic-ui-react';
+import { addComment } from '../api-fetching/api-fetching';
 import { getCoverUrl } from '../utils/mocks';
+import { getCurrentCognitoUser } from '../utils/cognito-utils';
+import { getGuid } from '../utils/common-utils';
+import { notyf } from '../config/application-config';
 import CommentSection from './CommentSection';
 import GenericBreadcrumbs from './pure-functional-components/GenericBreadcrumbs';
 import PropTypes from 'prop-types';
@@ -17,6 +21,9 @@ class SongDetails extends React.Component {
 
         this.state = {
             isSongPageLoading: true,
+            guid: 0,
+
+            commentContent: '',
         };
 
         setTimeout(() => {
@@ -106,7 +113,35 @@ class SongDetails extends React.Component {
                 <hr className='divider'/>
                 <CommentSection
                     comments={songToDisplay.comments}
+                    guid={this.state.guid}
                 />
+
+
+                <hr className='divider'/>
+                <Header as='h4' className='add-comment-header'>Add comment</Header>
+
+                <Form onSubmit={() => {
+                    const currentCognitoUser = getCurrentCognitoUser();
+                    if(currentCognitoUser === null) {
+                        alert('User not logged in! Cannot post comment...');
+                    } else {
+                        const cognitoUsernameToDisplay = _.get(currentCognitoUser, 'username');
+                        addComment(songToDisplay.id, this.state.commentContent, cognitoUsernameToDisplay).then(response => {
+                            songToDisplay.comments.unshift(response.data);
+                            notyf.confirm('Comment added!');
+                            this.setState({
+                                guid: getGuid()
+                            });
+                        });
+                    }
+                }}>
+                    <Form.Field control={TextArea}
+                                label='Comment'
+                                placeholder='Comment content...'
+                                onChange={(e, { value }) => this.setState({ commentContent: value })}
+                    />
+                    <Form.Field control={Button}>Submit</Form.Field>
+                </Form>
             </Container>
             </Dimmer.Dimmable>
         </Container>;

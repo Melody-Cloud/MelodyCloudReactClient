@@ -9,7 +9,6 @@ import React from 'react';
 
 const Nav = ({ goToSongsFeed, goToExploreNewAlbums, goToMyPlaylists, goToUploadPage, goToEditorPage }) => {
     const currentCognitoUser = getCurrentCognitoUser();
-    console.dir(currentCognitoUser);
     const cognitoUsernameToDisplay = _.get(currentCognitoUser, 'username', 'Not logged in');
 
     return (
