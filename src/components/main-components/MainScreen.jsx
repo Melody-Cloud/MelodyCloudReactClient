@@ -73,49 +73,60 @@ class MainScreen extends React.Component {
 
     componentDidMount() {
         // EAGER LOADING
-        getModelObjectsFromApi(Models.SONG).then(retrievedSongs => {
-            let songsUpdatedWithArtists = _.map(retrievedSongs, song => {
-                return getModelObjectsFromApi(Models.ARTIST, {
-                    filterColumn: Columns.ID,
-                    filterValue: song.artistId,
-                }).then(retrievedArtist => {
-                    return {
-                        ...song,
-                        artist: retrievedArtist[0],
-                        singer: retrievedArtist[0].name,
+        // getModelObjectsFromApi(Models.SONG).then(retrievedSongs => {
+        //     let songsUpdatedWithArtists = _.map(retrievedSongs, song => {
+        //         return getModelObjectsFromApi(Models.ARTIST, {
+        //             filterColumn: Columns.ID,
+        //             filterValue: song.artistId,
+        //         }).then(retrievedArtist => {
+        //             return {
+        //                 ...song,
+        //                 artist: retrievedArtist[0],
+        //                 singer: retrievedArtist[0].name,
+        //
+        //                 cover: getCoverUrl(), // TODO: remove this mocks
+        //             };
+        //         });
+        //     });
+        //
+        //     return Promise.all(songsUpdatedWithArtists);
+        // }).then(songsUpdatedWithArtists => {
+        //     let songsUpdatedWithTags = _.map(songsUpdatedWithArtists, song => {
+        //         return getRelatedModelBySongId(song.id, Models.TAG).then(retrievedTags => {
+        //             return {
+        //                 ...song,
+        //                 tags: retrievedTags,
+        //             };
+        //         });
+        //     });
+        //
+        //     return Promise.all(songsUpdatedWithTags);
+        // }).then(songsUpdatedWithTags => {
+        //     let songsUpdatedWithComments = _.map(songsUpdatedWithTags, song => {
+        //         return getRelatedModelBySongId(song.id, Models.COMMENT).then(retrievedComments => {
+        //             return {
+        //                 ...song,
+        //                 comments: retrievedComments,
+        //             };
+        //         });
+        //     });
+        //
+        //     return Promise.all(songsUpdatedWithComments);
+        // }).then(songsUpdatedWithComments => {
+        //     console.dir(songsUpdatedWithComments);
+        //
+        //     this.setState({
+        //         areSongsLoadingFromApi: false,
+        //         songsInFeed: songsUpdatedWithComments,
+        //     });
+        // });
 
-                        cover: getCoverUrl(), // TODO: remove this mocks
-                    };
-                });
-            });
+        getModelObjectsFromApi('songs-feed').then(retrievedSongs => {
+            console.dir(retrievedSongs);
 
-            return Promise.all(songsUpdatedWithArtists);
-        }).then(songsUpdatedWithArtists => {
-            let songsUpdatedWithTags = _.map(songsUpdatedWithArtists, song => {
-                return getRelatedModelBySongId(song.id, Models.TAG).then(retrievedTags => {
-                    return {
-                        ...song,
-                        tags: retrievedTags,
-                    };
-                });
-            });
-
-            return Promise.all(songsUpdatedWithTags);
-        }).then(songsUpdatedWithTags => {
-            let songsUpdatedWithComments = _.map(songsUpdatedWithTags, song => {
-                return getRelatedModelBySongId(song.id, Models.COMMENT).then(retrievedComments => {
-                    return {
-                        ...song,
-                        comments: retrievedComments,
-                    };
-                });
-            });
-
-            return Promise.all(songsUpdatedWithComments);
-        }).then(songsUpdatedWithComments => {
             this.setState({
                 areSongsLoadingFromApi: false,
-                songsInFeed: songsUpdatedWithComments,
+                songsInFeed: retrievedSongs,
             });
         });
     }

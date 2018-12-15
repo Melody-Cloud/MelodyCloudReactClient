@@ -71,6 +71,8 @@ class ArtistDetails extends React.Component {
 
             return Promise.all(songsUpdatedWithComments);
         }).then(songsUpdatedWithComments => {
+            console.dir(songsUpdatedWithComments);
+
             this.setState({
                 songsCreatedByThisArtist: songsUpdatedWithComments,
             });

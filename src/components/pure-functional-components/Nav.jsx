@@ -3,10 +3,15 @@ import 'assets/scss/Nav.scss';
 import { Icon, Input, Menu } from 'semantic-ui-react';
 import { NAVIGATION_MENU_PROPS } from '../../config/components-defaults-config';
 import { NavigationTabs } from '../../utils/enumerations';
+import { getCurrentCognitoUser } from '../../utils/cognito-utils';
 import PropTypes from 'prop-types';
 import React from 'react';
 
 const Nav = ({ goToSongsFeed, goToExploreNewAlbums, goToMyPlaylists, goToUploadPage, goToEditorPage }) => {
+    const currentCognitoUser = getCurrentCognitoUser();
+    console.dir(currentCognitoUser);
+    const cognitoUsernameToDisplay = _.get(currentCognitoUser, 'username', 'Not logged in');
+
     return (
         <Menu
             {...NAVIGATION_MENU_PROPS}
@@ -44,6 +49,12 @@ const Nav = ({ goToSongsFeed, goToExploreNewAlbums, goToMyPlaylists, goToUploadP
             <Menu.Item as="a">
                 <Input icon="search" placeholder="Search for songs..."/>
             </Menu.Item>
+
+            <Menu.Menu position='right'>
+                <Menu.Item name='user-panel' disabled={currentCognitoUser === null}>
+                    <Icon name="user"/> {cognitoUsernameToDisplay}
+                </Menu.Item>
+            </Menu.Menu>
         </Menu>
     );
 };
