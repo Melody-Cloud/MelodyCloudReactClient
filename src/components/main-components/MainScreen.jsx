@@ -52,6 +52,9 @@ class MainScreen extends React.Component {
 
             playerUiid: '',
             areSongsLoadingFromApi: true,
+
+            //search
+            songsFilter: '',
         };
 
         this.subviewDetails = {
@@ -271,6 +274,7 @@ class MainScreen extends React.Component {
                 switchViewToArtistDetails={this.switchViewToArtistDetails}
                 appendSongToPlaylist={this.appendSongToPlaylist}
                 playSongInPlayer={this.playSongInPlayer}
+                songsFilter={this.state.songsFilter}
             />,
             [Views.SONG_DETAILS]: <SongDetails
                 songToDisplay={this.subviewDetails.songToDisplay}
@@ -330,6 +334,8 @@ class MainScreen extends React.Component {
                     goToMyPlaylists={this.goToMyPlaylists}
                     goToUploadPage={this.goToUploadPage}
                     goToEditorPage={this.goToEditorPage}
+                    onSearchChange={(e)=>{this.setState({songsFilter: e.target.value})}}
+                    searchInputValue={this.state.songsFilter}
                 />
 
                 {

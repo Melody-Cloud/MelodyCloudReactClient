@@ -44,10 +44,14 @@ class SongsFeed extends React.Component {
     };
 
     render() {
-        const {songsInFeed, musicPlayerRef, waveformProgressBarWidth, appendSongToPlaylist, areSongsLoadingFromApi} = this.props;
+        const {songsInFeed, musicPlayerRef, waveformProgressBarWidth, appendSongToPlaylist, areSongsLoadingFromApi, songsFilter} = this.props;
 
         const flooredSongDuration = Math.floor(_.get(musicPlayerRef, 'current.state.duration'));
         const currentSongTime = Math.ceil(_.get(musicPlayerRef, 'current.state.currentTime'));
+
+        const filteredSongs = _.filter(songsInFeed, song => {
+            return _.includes(_.lowerCase(song.name), _.lowerCase(songsFilter));
+        });
 
         return <Container className="songs-feed-container" fluid>
             <Dimmer active={areSongsLoadingFromApi}>
@@ -57,7 +61,7 @@ class SongsFeed extends React.Component {
             </Dimmer>
 
             <List id="songs-feed" celled>
-                {_.map(songsInFeed, songObject => {
+                {_.map(filteredSongs, songObject => {
                     const isThisSongOnTopOfPlaylist = this.isGivenSongFirstInPlaylist(songObject);
 
                     const isAnySongPlaying = this.props.songPlaying;
@@ -133,6 +137,7 @@ export default SongsFeed;
 SongsFeed.propTypes = {
     musicPlayerRef: PropTypes.object,
     areSongsLoadingFromApi: PropTypes.bool,
+    songsFilter: PropTypes.string,
     songsInFeed: PropTypes.array,
     waveformProgressBarWidth: PropTypes.number,
     switchViewToSongDetails: PropTypes.func,
