@@ -5,6 +5,7 @@ import LoginLayout from './main-components/LoginLayout';
 import MainScreen from './main-components/MainScreen';
 import React from 'react';
 import RegisterLayout from './main-components/RegisterLayout';
+import RtmpPoc from './RtmpPoc';
 import TestScreen from './main-components/TestScreen';
 import UploadPage from './main-components/UploadPage';
 
@@ -19,6 +20,7 @@ class AppRouting extends React.PureComponent {
                     <Route exact path="/login" component={LoginLayout} />
                     <Route exact path="/upload" component={UploadPage} />
                     <Route exact path="/editor" component={EditorPage} />
+                    <Route exact path="/rtmp" component={RtmpPoc} />
                 </Switch>
             </HashRouter>
         );

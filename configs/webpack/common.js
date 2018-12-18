@@ -36,6 +36,7 @@ module.exports = {
           'image-webpack-loader?bypassOnDebug&optipng.optimizationLevel=7&gifsicle.interlaced=false',
         ],
       },
+        { test: /\.swf$/, loader: "file-loader?name=[path][name].[ext]" }
     ],
   },
   plugins: [

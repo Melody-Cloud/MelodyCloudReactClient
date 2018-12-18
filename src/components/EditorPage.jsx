@@ -7,7 +7,6 @@ import React from 'react';
 
 import GenericBreadcrumbs from './pure-functional-components/GenericBreadcrumbs';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
 
 class EditorPage extends React.Component {
     constructor(props) {
