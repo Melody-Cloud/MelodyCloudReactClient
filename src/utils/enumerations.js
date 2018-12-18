@@ -8,6 +8,7 @@ export const Views = {
     SINGLE_PLAYLIST_VIEW: 'SINGLE_PLAYLIST_VIEW',
     UPLOAD_PAGE: 'UPLOAD_PAGE',
     EDITOR_PAGE: 'EDITOR_PAGE',
+    RTMP_POC: 'RTMP_POC',
 };
 
 export const NavigationTabs = {
@@ -16,5 +17,6 @@ export const NavigationTabs = {
     GO_TO_MY_PLAYLISTS: 'Go to my playlists',
     GO_TO_UPLOAD_PAGE: 'Go to upload page',
     GO_TO_EDITOR_PAGE: 'Go to editor page',
+    GO_TO_RTMP_PAGE: 'Go to RTMP page',
 };
 

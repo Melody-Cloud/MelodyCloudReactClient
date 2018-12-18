@@ -1,3 +1,5 @@
+@import "./constants";
+
 /* Accessibility: hide screen reader texts (and prefer "top" for RTL languages).
 Reference: http://blog.rrwd.nl/2015/04/04/the-screen-reader-text-class-why-and-how/ */
 .mejs__offscreen {
@@ -772,3 +774,11 @@ Reference: http://blog.rrwd.nl/2015/04/04/the-screen-reader-text-class-why-and-h
   width: 100%;
 }
 /* End: Error */
+
+.rtmp-poc-page-container {
+  margin-top: $top-margin-for-view-containers;
+}
+
+.rtmp-songs-container {
+  margin-top: 2em;
+}

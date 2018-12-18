@@ -26,6 +26,7 @@ import {
 import { isArrayEmpty } from '../../utils/common-utils';
 import AlbumDetails from '../AlbumDetails';
 import ArtistDetails from '../ArtistDetails';
+import EditorPage from '../EditorPage';
 import ExploreNewAlbums from '../ExploreNewAlbums';
 import Footer from '../pure-functional-components/Footer';
 import ListOfPlaylists from '../ListOfPlaylists';
@@ -34,7 +35,7 @@ import SinglePlaylistView from '../SinglePlaylistView';
 import SongDetails from '../SongDetails';
 import SongsFeed from '../SongsFeed';
 import UploadPage from './UploadPage';
-import EditorPage from '../EditorPage';
+import RtmpPoc from '../RtmpPoc';
 
 class MainScreen extends React.Component {
     constructor(props) {
@@ -198,6 +199,12 @@ class MainScreen extends React.Component {
         });
     };
 
+    goToRtmpPocPage = () => {
+        this.setState({
+            currentView: Views.RTMP_POC,
+        });
+    };
+
     switchViewToPlaylist = (playlistToDisplay) => {
         this.subviewDetails.playlistToDisplay = playlistToDisplay;
 
@@ -324,6 +331,9 @@ class MainScreen extends React.Component {
             [Views.EDITOR_PAGE]: <EditorPage
                 goToSongsFeed={this.goToSongsFeed}
             />,
+            [Views.RTMP_POC]: <RtmpPoc
+                goToSongsFeed={this.goToSongsFeed}
+            />,
         };
 
         return (
@@ -334,6 +344,7 @@ class MainScreen extends React.Component {
                     goToMyPlaylists={this.goToMyPlaylists}
                     goToUploadPage={this.goToUploadPage}
                     goToEditorPage={this.goToEditorPage}
+                    goToRtmpPocPage={this.goToRtmpPocPage}
                     onSearchChange={(e)=>{this.setState({songsFilter: e.target.value})}}
                     searchInputValue={this.state.songsFilter}
                 />

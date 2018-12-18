@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 const Nav = withRouter(({ goToSongsFeed, goToExploreNewAlbums, goToMyPlaylists, goToUploadPage, goToEditorPage,
-                            history, onSearchChange, searchInputValue }) => {
+                            history, onSearchChange, searchInputValue, goToRtmpPocPage }) => {
 
     const currentCognitoUser = getCurrentCognitoUser();
     const cognitoUsernameToDisplay = _.get(currentCognitoUser, 'username', 'Not logged in');
@@ -48,6 +48,12 @@ const Nav = withRouter(({ goToSongsFeed, goToExploreNewAlbums, goToMyPlaylists, 
             >
                 <Icon name="edit"/> {NavigationTabs.GO_TO_EDITOR_PAGE}
             </Menu.Item>
+            <Menu.Item
+                className="rtmp-poc-page"
+                onClick={goToRtmpPocPage}
+            >
+                <Icon name="music"/> {NavigationTabs.GO_TO_RTMP_PAGE}
+            </Menu.Item>
             <Menu.Item as="a">
                 <Input
                     icon={{ name: 'search', circular: true, link: true }}
@@ -81,6 +87,7 @@ Nav.propTypes = {
     goToMyPlaylists: PropTypes.func,
     goToUploadPage: PropTypes.func,
     goToEditorPage: PropTypes.func,
+    goToRtmpPocPage: PropTypes.func,
     onSearchChange: PropTypes.func,
     searchInputValue: PropTypes.string,
 };

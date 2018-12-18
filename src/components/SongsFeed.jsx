@@ -118,7 +118,6 @@ class SongsFeed extends React.Component {
                                         <div className="song-tags-wrapper">
                                             <SongTags
                                                 songTags={songObject.tags}
-                                                // songTags={songIdToTagsMapping[songObject.id]}
                                             />
                                         </div>
                                     </Grid.Column>
