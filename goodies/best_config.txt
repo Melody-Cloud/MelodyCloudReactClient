@@ -1,3 +1,0 @@
-BARS = 300
-    BAR_HEIGHT = 200
-    LINE_WIDTH = 4

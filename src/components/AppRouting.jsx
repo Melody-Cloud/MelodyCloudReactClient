@@ -1,11 +1,11 @@
 import 'assets/scss/App.scss';
 import {HashRouter, Route, Switch} from 'react-router-dom';
-import EditorPage from './EditorPage';
+import EditorPage from './main-components/EditorPage';
 import LoginLayout from './main-components/LoginLayout';
-import MainScreen from './main-components/MainScreen';
+import MainScreen from './MainScreen';
 import React from 'react';
 import RegisterLayout from './main-components/RegisterLayout';
-import RtmpPoc from './RtmpPoc';
+import RtmpPoc from './main-components/RtmpPoc';
 import TestScreen from './main-components/TestScreen';
 import UploadPage from './main-components/UploadPage';
 

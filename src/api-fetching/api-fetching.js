@@ -12,6 +12,7 @@ export const PLAYLIST = 'playlist';
 export const PLAYLIST_NAME = 'playlistName';
 export const ID_IN = 'id__in';
 export const ARTIST_ID = 'artistId';
+export const SONGS_FEED = 'songs-feed';
 // TODO: aggregate under model obj
 
 export const Models = {

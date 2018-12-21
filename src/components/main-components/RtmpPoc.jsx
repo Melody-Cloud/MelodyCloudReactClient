@@ -5,11 +5,11 @@ import {
 } from 'semantic-ui-react';
 import React from 'react';
 
-import { getModelObjectsFromApi } from '../api-fetching/api-fetching';
-import GenericBreadcrumbs from './pure-functional-components/GenericBreadcrumbs';
-import MediaElement from './MediaElement';
+import { getModelObjectsFromApi } from '../../api-fetching/api-fetching';
+import GenericBreadcrumbs from '../pure-functional-components/GenericBreadcrumbs';
+import MediaElement from '../external/MediaElement';
 import PropTypes from 'prop-types';
-import SongCard from './pure-functional-components/SongCard';
+import SongCard from '../pure-functional-components/SongCard';
 
 class RtmpPoc extends React.Component {
     constructor(props) {

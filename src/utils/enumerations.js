@@ -17,6 +17,6 @@ export const NavigationTabs = {
     GO_TO_MY_PLAYLISTS: 'Go to my playlists',
     GO_TO_UPLOAD_PAGE: 'Go to upload page',
     GO_TO_EDITOR_PAGE: 'Go to editor page',
-    GO_TO_RTMP_PAGE: 'Go to RTMP page',
+    GO_TO_RTMP_PAGE: 'Use RTMP',
 };
 
