@@ -29,7 +29,7 @@
     "start": "npm run start-dev",
     "start-dev": "webpack-dev-server --host 0.0.0.0 --port 8089 --config=configs/webpack/dev",
     "start-prod": "yarn run build && node express.js",
-    "test": "jest --watch --coverage --config=configs/jest.json --collectCoverageFrom=src/**/*.{js,jsx}"
+    "test": "jest --testPathPattern=App.test.jsx"
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0",
