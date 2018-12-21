@@ -1,0 +1,22 @@
+export const Views = {
+    SONGS_FEED: 'SONGS_FEED',
+    SONG_DETAILS: 'SONG_DETAILS',
+    ARTIST_DETAILS: 'ARTIST_DETAILS',
+    ALBUM_DETAILS: 'ALBUM_DETAILS',
+    EXPLORE_NEW_ALBUMS: 'EXPLORE_NEW_ALBUMS',
+    COLLECTION_OF_PLAYLISTS_VIEW: 'COLLECTION_OF_PLAYLISTS_VIEW',
+    SINGLE_PLAYLIST_VIEW: 'SINGLE_PLAYLIST_VIEW',
+    UPLOAD_PAGE: 'UPLOAD_PAGE',
+    EDITOR_PAGE: 'EDITOR_PAGE',
+    RTMP_POC: 'RTMP_POC',
+};
+
+export const NavigationTabs = {
+    MELODY_CLOUD: 'MelodyCloud',
+    EXPLORE_NEW_ALBUMS: 'Explore new albums',
+    GO_TO_MY_PLAYLISTS: 'Go to my playlists',
+    GO_TO_UPLOAD_PAGE: 'Go to upload page',
+    GO_TO_EDITOR_PAGE: 'Go to editor page',
+    GO_TO_RTMP_PAGE: 'Use RTMP',
+};
+

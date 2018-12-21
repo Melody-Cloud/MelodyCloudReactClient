@@ -1,0 +1,23 @@
+@import "./constants";
+
+.albums-feed-container {
+  margin-top: $top-margin-for-view-containers;
+}
+
+.ui.celled.list>.item, .ui.celled.list>.list {
+  &.single-album-item-in-explore-new-albums {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+  }
+}
+
+.single-album-item-in-explore-new-albums {
+  &:hover {
+    cursor: pointer;
+    background-color: #e2ecf4;
+  }
+}
+
+.explore-new-album-content {
+  width: 900px;
+}

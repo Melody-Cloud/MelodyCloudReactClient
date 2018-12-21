@@ -29,7 +29,7 @@
     "start": "npm run start-dev",
     "start-dev": "webpack-dev-server --host 0.0.0.0 --port 8089 --config=configs/webpack/dev",
     "start-prod": "yarn run build && node express.js",
-    "test": "jest --watch --coverage --config=configs/jest.json"
+    "test": "jest --watch --coverage --config=configs/jest.json --collectCoverageFrom=src/**/*.{js,jsx}"
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0",
@@ -41,11 +41,16 @@
     "babel-loader": "^8.0.2",
     "babel-plugin-module-resolver": "^3.1.1",
     "babel-plugin-transform-class-properties": "^6.24.1",
-    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
+    "babel-plugin-transform-es2015-modules-transform-class-propertiescommonjs": "^6.26.2",
     "css-loader": "^1.0.0",
     "enzyme": "^3.6.0",
     "enzyme-adapter-react-16": "^1.5.0",
-    "error-overlay-webpack-plugin": "^0.1.5",
+    "eslint": "^5.6.1",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.10.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.11.1",
+    "eslint-plugin-sort-imports-es6-autofix": "^0.3.0",
     "express": "^4.16.3",
     "file-loader": "^2.0.0",
     "friendly-errors-webpack-plugin": "^1.7.0",
@@ -53,13 +58,10 @@
     "identity-obj-proxy": "^3.0.0",
     "image-webpack-loader": "^4.3.1",
     "jest": "^23.6.0",
+    "jest-html-reporter": "^2.4.2",
+    "jest-transform-css": "^2.0.0",
     "node-sass": "^4.9.3",
     "prettier": "^1.14.2",
-    "react": "^16.5.0",
-    "react-dom": "^16.5.0",
-    "react-hot-loader": "^4.3.6",
-    "react-router-dom": "^4.3.1",
-    "react-test-renderer": "^16.5.0",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.0",
     "webpack": "^4.18.0",
@@ -69,10 +71,56 @@
     "webpack-merge": "^4.1.4"
   },
   "dependencies": {
+    "aws-amplify": "^1.1.5",
     "aws-sdk": "^2.320.0",
+    "axios": "^0.18.0",
+    "eslint-plugin-import-order-autofix": "^0.8.3",
+    "faker": "^4.1.0",
+    "flv.js": "^1.5.0",
+    "history": "^4.7.2",
+    "hls.js": "^0.12.1",
+    "jquery": "^3.3.1",
     "lodash": "^4.17.11",
+    "mediaelement": "^4.2.9",
+    "notyf": "^2.0.1",
+    "prop-types": "^15.6.2",
+    "query-string": "^6.2.0",
+    "react": "^16.5.0",
     "react-audioplayer": "^0.3.1",
+    "react-dom": "^16.5.0",
+    "react-dropzone": "^6.0.2",
+    "react-hot-loader": "^4.3.6",
+    "react-image-overlay": "^1.0.3",
+    "react-jinke-music-player": "^4.0.4",
+    "react-responsive-audio-player": "^1.4.0",
+    "react-responsive-music-player": "^0.3.0",
+    "react-router-dom": "^4.3.1",
+    "react-sortablejs": "^1.4.0",
+    "react-tagsinput": "^3.19.0",
+    "react-test-renderer": "^16.5.0",
+    "react-wavesurfer": "^0.7.4",
     "semantic-ui-css": "^2.4.0",
-    "semantic-ui-react": "^0.82.5"
+    "semantic-ui-react": "^0.82.5",
+    "sortablejs": "^1.7.0",
+    "store": "^2.0.12",
+    "styled-components": "^3.4.9",
+    "waveform-playlist": "^3.0.4"
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "\\.(css|less|sass|scss|swf)$": "C:\\Users\\szymon\\WebstormProjects\\MelodyCloudReactClient\\tests\\__mocks__\\styleMock.js",
+      "\\.(gif|ttf|eot|svg)$": "C:\\Users\\szymon\\WebstormProjects\\MelodyCloudReactClient\\tests\\__mocks__\\fileMock.js"
+    },
+    "collectCoverage": true,
+    "coverageReporters": [
+      "json",
+      "html"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.{ts,js,jsx}"
+    ],
+    "setupFiles": [
+      "C:\\Users\\szymon\\WebstormProjects\\MelodyCloudReactClient\\tests\\__mocks__\\setup.js"
+    ]
   }
 }

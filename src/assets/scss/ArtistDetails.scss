@@ -1,0 +1,21 @@
+$text-blocks-padding: 16px;
+
+.artist-avatar {
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 3rem;
+}
+
+.artist-about {
+  margin-top: 1rem;
+}
+
+.artist-description {
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+
+  background-color: #ededfd;
+  padding: 1rem;
+  border-radius: $text-blocks-padding;
+}

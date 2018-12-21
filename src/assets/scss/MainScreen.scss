@@ -1,7 +1,14 @@
+@import "./constants";
+
+body {
+  background: url("https://www.toptal.com/designers/subtlepatterns/patterns/memphis-colorful.png");
+}
+
 .top-sticked-menu {
   background-color: #fff;
   border: 1px solid #ddd;
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+  padding-left: 5rem;
 }
 
 .fixed-side-menu {
@@ -11,8 +18,8 @@
   left: 0;
 }
 
-.feed-container {
-  margin-top: 7rem;
+.songs-feed-container {
+  margin-top: $top-margin-for-view-containers;
   padding-left: 2rem;
   padding-right: 2rem;
 }
@@ -52,4 +59,86 @@
 
 .player-wrapper-unsticked {
   transition: position 0.5s ease;
+}
+
+.ui.grid > .column:not(.row), .ui.grid > .row > .column {
+  &.play-button-column {
+    text-align: center;
+    //display: inline-flex;
+  }
+}
+
+.ui.button {
+  &.play-button {
+    height: 84px;
+    width: 84px;
+  }
+}
+
+.bars-wrapper {
+  width: 82px;
+  height: 82px;
+  background: #ffffff;
+  border: 2px #22be34 solid;
+  border-radius: 50%;
+  margin-left: -5px;
+
+  display: inline-block;
+
+  &:hover {
+    cursor: pointer;
+    background-color: #22be34;
+
+    .bar {
+      background-color: #ffffff;
+    }
+  }
+}
+
+.ui.label, .ui.labels .label {
+  margin-top: .5rem;
+}
+
+.author-badge-content {
+  text-align: center;
+}
+
+   @media (max-width: 1000px) {
+     .ui.button {
+       &.play-button {
+         height: 70px;
+         width: 70px;
+       }
+     }
+   }
+
+    @media (max-width: 1440px) {
+      .ui.button {
+        &.add-to-playlist-button {
+          margin-top: .5rem;
+          margin-right: 3%;
+        }
+      }
+    }
+
+div.notyf {
+  top: 55px;
+}
+
+div.react-jinke-music-player-main {
+  div.music-player-panel{
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+}
+
+
+@media (max-width: 843px) {
+  div.songs-feed-container,
+  div.upload-page,
+  div.song-details-container,
+  div.playlist-view-container,
+  div.albums-feed-container,
+  div.playlist-details-container {
+    margin-top: $top-margin-for-view-containers-mobile;
+  }
 }

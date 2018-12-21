@@ -1,0 +1,41 @@
+div [class*="right floated"] {
+  float: right;
+  margin-right: 0.25em;
+}
+
+.footer-segment {
+  &.ui.vertical.segment {
+    margin: 5em 0 0;
+    padding: 2em 0 8em 0;
+
+    background: #0F2027;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #2C5364, #203A43, #0F2027);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #2C5364, #203A43, #0F2027); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+    background: #2c3e50;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #3498db, #2c3e50);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #3498db, #2c3e50); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+    background: #67B26F;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #4ca2cd, #67B26F);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #4ca2cd, #67B26F); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+
+
+  }
+}
+
+.brand-name-wrapper {
+  display: inline-block;
+  padding-top: 1em;
+
+  a {
+    color: white;
+  }
+}
+
+.social-media-icons-wrapper {
+  .ui.button {
+    margin-right: 1rem;
+  }
+}

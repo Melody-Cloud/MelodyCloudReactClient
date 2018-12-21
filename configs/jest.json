@@ -23,5 +23,11 @@
   "globals": {
     "DEVELOPMENT": false,
     "FAKE_SERVER": false
-  }
+  },
+  "reporters": [
+    "default",
+    ["./node_modules/jest-html-reporter", {
+      "pageTitle": "Test Report"
+    }]
+  ]
 }
