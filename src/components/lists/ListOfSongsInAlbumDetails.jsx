@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import 'assets/scss/ListOfSongsInAlbumDetails.scss';
-import { getSongMiniature } from '../utils/mocks';
+import { getSongMiniature } from '../../utils/mocks';
 import _ from 'lodash';
 
 class ListOfSongsInAlbumDetails extends React.Component {

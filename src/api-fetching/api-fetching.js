@@ -37,8 +37,6 @@ export const Columns = {
 const API_BASE_URL = 'http://localhost:5000/api/';
 // const API_BASE_URL = 'https://sm2qnqfpr4.execute-api.eu-west-1.amazonaws.com/dev/api/';
 
-// const options = ;
-
 export function getWithCors(requestUrl) {
     return axios.get(requestUrl, { crossdomain: true });
 }
@@ -46,15 +44,6 @@ export function getWithCors(requestUrl) {
 export function postWithCors(requestUrl, dataToPost) {
     return axios.post(requestUrl, dataToPost);
 }
-
-// export function fetchSongs() {
-//     // const requestUrl = `${API_BASE_URL}song`;
-//     const requestUrl = 'https://sm2qnqfpr4.execute-api.eu-west-1.amazonaws.com/dev/api/tag/';
-//
-//     getWithCors(requestUrl).then(response => {
-//         console.dir(response);
-//     });
-// }
 
 export function getModelObjectsFromApi(modelName, filter) {
     let requestUrl = `${API_BASE_URL}${modelName}/`;

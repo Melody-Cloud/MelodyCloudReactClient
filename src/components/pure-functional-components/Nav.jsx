@@ -7,6 +7,7 @@ import { getCurrentCognitoUser } from '../../utils/cognito-utils';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import React from 'react';
+import _ from 'lodash';
 
 const Nav = withRouter(({ goToSongsFeed, goToExploreNewAlbums, goToMyPlaylists, goToUploadPage, goToEditorPage,
                             history, onSearchChange, searchInputValue, goToRtmpPocPage }) => {

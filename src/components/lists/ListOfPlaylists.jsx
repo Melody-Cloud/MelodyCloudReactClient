@@ -4,11 +4,11 @@ import {
     Columns,
     Models,
     getModelObjectsFromApi,
-} from '../api-fetching/api-fetching';
+} from '../../api-fetching/api-fetching';
 import { Container, Dimmer, Header, Label, List, Loader } from 'semantic-ui-react';
-import { DEFAULT_DIMMABLE } from '../config/components-defaults-config';
-import { HOW_MANY_SONGS_TO_DISPLAY_IN_PLAYLIST_PREVIEW, availableColors } from '../config/application-config';
-import GenericBreadcrumbs from './pure-functional-components/GenericBreadcrumbs';
+import { DEFAULT_DIMMABLE } from '../../config/components-defaults-config';
+import { HOW_MANY_SONGS_TO_DISPLAY_IN_PLAYLIST_PREVIEW, availableColors } from '../../config/application-config';
+import GenericBreadcrumbs from '../pure-functional-components/GenericBreadcrumbs';
 import PropTypes from 'prop-types';
 import React from 'react';
 import _ from 'lodash';

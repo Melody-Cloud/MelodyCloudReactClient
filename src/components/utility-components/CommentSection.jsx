@@ -3,7 +3,7 @@ import React from 'react';
 import _ from 'lodash';
 
 import { Comment, Header } from 'semantic-ui-react';
-import { userAvatars } from '../utils/mocks';
+import { userAvatars } from '../../utils/mocks';
 import PropTypes from 'prop-types';
 
 

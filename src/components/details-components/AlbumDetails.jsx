@@ -3,12 +3,12 @@ import 'assets/scss/AlbumDetails.scss';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import { AESTHETICS_TIMEOUT, notyf } from '../config/application-config';
+import { AESTHETICS_TIMEOUT, notyf } from '../../config/application-config';
 import { Button, Container, Dimmer, Header, Icon, Image, Loader } from 'semantic-ui-react';
-import { DEFAULT_DIMMABLE, PLAY_ALBUM_BUTTON_PROPS } from '../config/components-defaults-config';
-import { getAlbumCover } from '../utils/mocks';
-import GenericBreadcrumbs from './pure-functional-components/GenericBreadcrumbs';
-import ListOfSongsInAlbumDetails from './ListOfSongsInAlbumDetails';
+import { DEFAULT_DIMMABLE, PLAY_ALBUM_BUTTON_PROPS } from '../../config/components-defaults-config';
+import { getAlbumCover } from '../../utils/mocks';
+import GenericBreadcrumbs from '../pure-functional-components/GenericBreadcrumbs';
+import ListOfSongsInAlbumDetails from '../lists/ListOfSongsInAlbumDetails';
 
 class AlbumDetails extends React.Component {
     constructor(props) {

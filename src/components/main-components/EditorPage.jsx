@@ -5,7 +5,7 @@ import {
 } from 'semantic-ui-react';
 import React from 'react';
 
-import GenericBreadcrumbs from './pure-functional-components/GenericBreadcrumbs';
+import GenericBreadcrumbs from '../pure-functional-components/GenericBreadcrumbs';
 import PropTypes from 'prop-types';
 
 class EditorPage extends React.Component {

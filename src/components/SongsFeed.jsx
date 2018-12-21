@@ -7,7 +7,7 @@ import {
 } from '../config/components-defaults-config';
 import { Button, Container, Dimmer, Grid, List, Loader } from 'semantic-ui-react';
 import { WAVEFORM_IMAGE_HEIGHT, WAVEFORM_IMAGE_WIDTH } from '../config/application-config';
-import { WaveformProgress } from './WaveformProgress';
+import { WaveformProgress } from './utility-components/WaveformProgress';
 import PropTypes from 'prop-types';
 import React from 'react';
 import SongCard from './pure-functional-components/SongCard';

@@ -1,7 +1,7 @@
 import 'assets/scss/ListOfAlbumsInArtistDetails.scss';
 
 import { Image, List } from 'semantic-ui-react';
-import { getAlbumMiniature } from '../utils/mocks';
+import { getAlbumMiniature } from '../../utils/mocks';
 import PropTypes from 'prop-types';
 import React from 'react';
 import _ from 'lodash';

@@ -20,3 +20,15 @@ export function setUserNotLogged() {
         },
     };
 }
+
+export function setUserLoggedIn() {
+    global.AmazonCognitoIdentity = {
+        CognitoUserPool: function() {
+            return {
+                getCurrentUser: () => {
+                    return { user: true };
+                },
+            };
+        },
+    };
+}

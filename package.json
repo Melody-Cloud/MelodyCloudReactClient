@@ -108,7 +108,7 @@
   },
   "jest": {
     "moduleNameMapper": {
-      "\\.(css|less|sass|scss)$": "C:\\Users\\szymon\\WebstormProjects\\MelodyCloudReactClient\\tests\\__mocks__\\styleMock.js",
+      "\\.(css|less|sass|scss|swf)$": "C:\\Users\\szymon\\WebstormProjects\\MelodyCloudReactClient\\tests\\__mocks__\\styleMock.js",
       "\\.(gif|ttf|eot|svg)$": "C:\\Users\\szymon\\WebstormProjects\\MelodyCloudReactClient\\tests\\__mocks__\\fileMock.js"
     },
     "collectCoverage": true,
@@ -118,6 +118,9 @@
     ],
     "collectCoverageFrom": [
       "src/**/*.{ts,js,jsx}"
+    ],
+    "setupFiles": [
+      "C:\\Users\\szymon\\WebstormProjects\\MelodyCloudReactClient\\tests\\__mocks__\\setup.js"
     ]
   }
 }

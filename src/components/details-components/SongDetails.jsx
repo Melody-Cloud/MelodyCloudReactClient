@@ -1,19 +1,19 @@
 import 'assets/scss/SongDetails.scss';
-import { AESTHETICS_TIMEOUT } from '../config/application-config';
+import { AESTHETICS_TIMEOUT } from '../../config/application-config';
 import {
     APPEND_TO_PLAYLIST_BUTTON_SONG_DETAILS_PROPS, DEFAULT_DIMMABLE, MEDIUM_PLAY_BUTTON_PROPS,
-} from '../config/components-defaults-config';
+} from '../../config/components-defaults-config';
 import { Button, Container, Dimmer, Form, Header, Image, Loader, TextArea } from 'semantic-ui-react';
-import { addComment } from '../api-fetching/api-fetching';
-import { getCoverUrl } from '../utils/mocks';
-import { getCurrentCognitoUser } from '../utils/cognito-utils';
-import { getGuid } from '../utils/common-utils';
-import { notyf } from '../config/application-config';
-import CommentSection from './CommentSection';
-import GenericBreadcrumbs from './pure-functional-components/GenericBreadcrumbs';
+import { addComment } from '../../api-fetching/api-fetching';
+import { getCoverUrl } from '../../utils/mocks';
+import { getCurrentCognitoUser } from '../../utils/cognito-utils';
+import { getGuid } from '../../utils/common-utils';
+import { notyf } from '../../config/application-config';
+import CommentSection from '../utility-components/CommentSection';
+import GenericBreadcrumbs from '../pure-functional-components/GenericBreadcrumbs';
 import PropTypes from 'prop-types';
 import React from 'react';
-import SongTags from './pure-functional-components/SongTags';
+import SongTags from '../pure-functional-components/SongTags';
 
 class SongDetails extends React.Component {
     constructor(props) {

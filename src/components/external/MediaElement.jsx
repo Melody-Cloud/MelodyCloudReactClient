@@ -1,11 +1,11 @@
 import 'mediaelement';
 import React, { Component } from 'react';
 import flvjs from 'flv.js';
-import hlsjs from 'hls.js';
+import hlsjs from '../../../node_modules/hls.js/dist/hls';
 
 // Import stylesheet and shims
-import '../../static/build/mediaelement-flash-video.swf';
-import '../../static/build/mediaelementplayer.min.css';
+import '../../../static/build/mediaelement-flash-video.swf';
+import '../../../static/build/mediaelementplayer.min.css';
 
 export default class MediaElement extends Component {
 

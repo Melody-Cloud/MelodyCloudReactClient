@@ -1,37 +1,80 @@
 /* global jest */
+
+import { mockWatchMedia, setUserLoggedIn, setUserNotLogged } from './mock-data/mock-global-state';
+
 import {
     Button, Dimmer,
 } from 'semantic-ui-react';
+import {HashRouter} from 'react-router-dom';
 import { commonSelectors } from './common/common-selectors';
 import { mockAlbum } from './mock-data/mock-albums';
 import { mockArtist } from './mock-data/mock-artists';
 import { mockListOfSongs, mockSong } from './mock-data/mock-songs';
 import { mockPlaylist } from './mock-data/mock-playlists';
-import { mockWatchMedia, setUserNotLogged } from './mock-data/mock-global-state';
 import { mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import AlbumDetails from '../src/components/AlbumDetails';
+import AlbumDetails from '../src/components/details-components/AlbumDetails';
 import AppRouting from '../src/components/AppRouting';
-import ArtistDetails from '../src/components/ArtistDetails';
+import ArtistDetails from '../src/components/details-components/ArtistDetails';
 import Enzyme from 'enzyme';
-import ExploreNewAlbums from '../src/components/ExploreNewAlbums';
+import ExploreNewAlbums from '../src/components/main-components/ExploreNewAlbums';
 import Footer from '../src/components/pure-functional-components/Footer';
-import ListOfPlaylists from '../src/components/ListOfPlaylists';
-import MainScreen from '../src/components/main-components/MainScreen';
+import ListOfPlaylists from '../src/components/lists/ListOfPlaylists';
+import MainScreen from '../src/components/MainScreen';
 import Nav from '../src/components/pure-functional-components/Nav';
 import React from 'react';
 import ReactJkMusicPlayer from 'react-jinke-music-player';
 import RegisterLayout from '../src/components/main-components/RegisterLayout';
-import SinglePlaylistView from '../src/components/SinglePlaylistView';
-import SongDetails from '../src/components/SongDetails';
+import SinglePlaylistView from '../src/components/details-components/SinglePlaylistView';
+import SongDetails from '../src/components/details-components/SongDetails';
 import SongsFeed from '../src/components/SongsFeed';
 import UploadPage from '../src/components/main-components/UploadPage';
 import _ from 'lodash';
 
 Enzyme.configure({ adapter: new Adapter() });
 
+
+global.AmazonCognitoIdentity = {
+    CognitoUserPool: function() {
+        return {
+            getCurrentUser: () => {
+                return { user: true };
+            },
+        };
+    },
+};
+
+window.AmazonCognitoIdentity = {
+    CognitoUserPool: function() {
+        return {
+            getCurrentUser: () => {
+                return { user: true };
+            },
+        };
+    },
+};
+
 // MOCK
 mockWatchMedia();
+setUserLoggedIn();
+
+// Instantiate router context
+const router = {
+    history: new HashRouter().history,
+    route: {
+        location: {},
+        match: {},
+    },
+};
+
+const createContext = () => ({
+    context: { router },
+    childContextTypes: { router: {} },
+});
+
+export function mountWrap(node) {
+    return mount(node, createContext());
+}
 
 describe('App', () => {
     it('Should render without crashing', () => {
@@ -43,19 +86,19 @@ describe('App', () => {
 
 describe('MainScreen', () => {
     it('Should always render music player', () => {
-        const app = mount(<MainScreen/>);
+        const app = mountWrap(<MainScreen/>);
         expect(app.find(ReactJkMusicPlayer).length).toEqual(1);
         app.unmount();
     });
 
     it('Should always contain a navigation element', () => {
-        const app = mount(<MainScreen/>);
+        const app = mountWrap(<MainScreen/>);
         expect(app.containsMatchingElement(<Nav/>)).toEqual(true);
         app.unmount();
     });
 
     it('Should always contain a footer element', () => {
-        const app = mount(<MainScreen/>);
+        const app = mountWrap(<MainScreen/>);
         expect(app.containsMatchingElement(<Footer/>)).toEqual(true);
         app.unmount();
     });

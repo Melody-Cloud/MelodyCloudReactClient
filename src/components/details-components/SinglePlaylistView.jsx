@@ -4,12 +4,12 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import { Button, Container, Dimmer, Header, Icon, Image, List, Loader } from 'semantic-ui-react';
-import { Columns, Models, getModelObjectsFromApi, getRelatedModelBySongId } from '../api-fetching/api-fetching';
-import { DEFAULT_DIMMABLE, PLAY_ALBUM_BUTTON_PROPS } from '../config/components-defaults-config';
-import { getCoverUrl, getSongMiniature } from '../utils/mocks';
-import { notyf } from '../config/application-config';
-import GenericBreadcrumbs from './pure-functional-components/GenericBreadcrumbs';
-import HugeCelledList from './pure-functional-components/HugeCelledList';
+import { Columns, Models, getModelObjectsFromApi, getRelatedModelBySongId } from '../../api-fetching/api-fetching';
+import { DEFAULT_DIMMABLE, PLAY_ALBUM_BUTTON_PROPS } from '../../config/components-defaults-config';
+import { getCoverUrl, getSongMiniature } from '../../utils/mocks';
+import { notyf } from '../../config/application-config';
+import GenericBreadcrumbs from '../pure-functional-components/GenericBreadcrumbs';
+import HugeCelledList from '../pure-functional-components/HugeCelledList';
 import Sortable from 'react-sortablejs';
 import _ from 'lodash';
 
